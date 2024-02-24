@@ -220,7 +220,7 @@ public class ISPL extends Scene{
 	public void populatePlayerProfile(boolean is_this_updating,PrintWriter print_writer,String viz_scene, int playerId,List<Statistics> stats, Auction auction,AuctionService auctionService, String session_selected_broadcaster) throws InterruptedException 
 	{
 		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + 
-				"PLAYER\nAUCTION 2024" + ";");
+				"ISPL PLAYER\nAUCTION" + ";");
 		
 		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBaePointsHead " + 
 				"BASE PRIZE" + ";");
@@ -434,7 +434,7 @@ public class ISPL extends Scene{
 //			}
 			
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + 
-					"PLAYER\nAUCTION 2024" + ";");
+					"ISPL PLAYER\nAUCTION" + ";");
 			
 			for(int i=1; i<= 10; i++) {
 				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayername0" + i + " " + 
@@ -753,7 +753,7 @@ public class ISPL extends Scene{
 		
 		if(is_this_updating == false) {
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + 
-					"PLAYER\nAUCTION 2024" + ";");
+					"ISPL PLAYER\nAUCTION" + ";");
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tUnsold " + 
 					"PURSE REMAINING" + ";");
 			
@@ -827,7 +827,7 @@ public class ISPL extends Scene{
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerLastName " + 
 					"REMAINING PURSE" + ";");
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + 
-					"PLAYER\nAUCTION 2024" + ";");
+					"ISPL PLAYER\nAUCTION" + ";");
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tUnsold " + 
 					"PURSE REMAINING" + ";");
 			
@@ -868,7 +868,7 @@ public class ISPL extends Scene{
 			}
 			
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + 
-					"PLAYER\nAUCTION 2024" + ";");
+					"ISPL PLAYER\nAUCTION" + ";");
 			
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$All$8_to_14*CONTAINER SET ACTIVE 0;");
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vAbove14 0;");

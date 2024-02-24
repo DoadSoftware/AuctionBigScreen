@@ -16,7 +16,13 @@ function processWaitingButtonSpinner(whatToProcess)
 function processUserSelectionData(whatToProcess,dataToProcess){
 	switch (whatToProcess) {
 	case 'LOGGER_FORM_KEYPRESS':
-		
+		switch(dataToProcess){
+		case 32:
+			processAuctionProcedures('CLEAR-ALL');
+			break;
+		case 'RE_READ':
+			processAuctionProcedures('RE_READ_DATA');
+		}
 		break;
 	}
 }
@@ -219,7 +225,7 @@ function processAuctionProcedures(whatToProcess)
 			//match_data = data;
 			
         	switch(whatToProcess) {
-			case 'READ-MATCH-AND-POPULATE':
+			case 'READ-MATCH-AND-POPULATE': case 'RE_READ_DATA':
 				if(data){
 					//alert("match = " + $('#matchFileTimeStamp').val() + "Data = "+ data.matchFileTimeStamp)
 					if($('#matchFileTimeStamp').val() != data.matchFileTimeStamp) {
@@ -227,6 +233,9 @@ function processAuctionProcedures(whatToProcess)
 						initialiseForm("UPDATE-MATCH-ON-OUTPUT-FORM",data);
 						//match_data = data;
 					}
+				}
+				if(whatToProcess == 'RE_READ_DATA'){
+					alert('Data is Loaded');
 				}
 				break;
 			case 'NAMESUPER_GRAPHICS-OPTIONS':
