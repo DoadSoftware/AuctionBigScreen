@@ -52,7 +52,7 @@ public class IndexController
 	public static Doad this_doad;
 	public static ISPL this_ispl;
 	public static PrintWriter print_writer;
-	public static String expiry_date = "2024-04-30";
+	public static String expiry_date = "2024-12-31";
 	public static String error_message = "";
 	public static String current_date = "";
 	public static String Current_File_Name = "";
