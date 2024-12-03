@@ -66,6 +66,8 @@
 			  		name="top_sold_graphic_btn" id="top_sold_graphic_btn" onclick="processUserSelection(this)"> Top Sold </button>
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="squad_graphic_btn" id="squad_graphic_btn" onclick="processUserSelection(this)"> Squad </button>
+			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+			  		name="squad_with_role_count_graphic_btn" id="squad_with_role_count_graphic_btn" onclick="processUserSelection(this)"> Squad with role count </button>
 			  	
 			  	</div>	
 			  	<div class="left">

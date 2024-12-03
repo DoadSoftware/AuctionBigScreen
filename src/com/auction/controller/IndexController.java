@@ -224,20 +224,20 @@ public class IndexController
 ////				namesuper = cricketService.getNameSupers();
 ////				return JSONArray.fromObject(namesuper).toString();
 //			}
-		case "READ-MATCH-AND-POPULATE":
-			
-			session_auction = new ObjectMapper().readValue(new File(AuctionUtil.AUCTION_DIRECTORY + "AUCTION.JSON"), Auction.class);
-			
-			switch (session_selected_broadcaster) {
-			case "HANDBALL":
-				this_doad.updateData(session_selected_scenes.get(0), session_auction,auctionService,print_writer);
-				break;
-			case "ISPL":
-				this_ispl.updateData(session_selected_scenes.get(0), session_auction,auctionService,print_writer);
-				break;	
-			}
-			
-			return JSONObject.fromObject(session_auction).toString();
+//		case "READ-MATCH-AND-POPULATE":
+//			
+//			session_auction = new ObjectMapper().readValue(new File(AuctionUtil.AUCTION_DIRECTORY + "AUCTION.JSON"), Auction.class);
+//			
+//			switch (session_selected_broadcaster) {
+//			case "HANDBALL":
+//				this_doad.updateData(session_selected_scenes.get(0), session_auction,auctionService,print_writer);
+//				break;
+//			case "ISPL":
+//				this_ispl.updateData(session_selected_scenes.get(0), session_auction,auctionService,print_writer);
+//				break;	
+//			}
+//			
+//			return JSONObject.fromObject(session_auction).toString();
 		
 		default:
 			if(whatToProcess.contains("_GRAPHICS-OPTIONS")) {
@@ -261,7 +261,8 @@ public class IndexController
 //		    return (List<T>) session_nameSupers;
 		case "PLAYERPROFILE_GRAPHICS-OPTIONS": 
 		    return (List<T>) session_player;  
-		case "SQUAD_GRAPHICS-OPTIONS": case "SINGLE_PURSE_GRAPHICS-OPTIONS": case "TOP-SOLD_TEAM_GRAPHICS-OPTIONS": 
+		case "SQUAD_GRAPHICS-OPTIONS": case "SINGLE_PURSE_GRAPHICS-OPTIONS": case "TOP-SOLD_TEAM_GRAPHICS-OPTIONS":
+		case "SQUAD-ROLE-COUNT_GRAPHICS-OPTIONS":
 		    return (List<T>) session_team;
 		}
 	    return null;

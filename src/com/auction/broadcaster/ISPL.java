@@ -66,7 +66,7 @@ public class ISPL extends Scene{
 			PrintWriter print_writer, List<Scene> scenes, String valueToProcess) throws InterruptedException, NumberFormatException, IllegalAccessException {
 		switch (whatToProcess.toUpperCase()) {
 		case "POPULATE-FF-PLAYERPROFILE": case "POPULATE-SQUAD": case "POPULATE-REMAINING_PURSE_ALL": case "POPULATE-SINGLE_PURSE": 
-		case "POPULATE-TOP_SOLD": case "POPULATE-CRAWL":
+		case "POPULATE-TOP_SOLD": case "POPULATE-CRAWL": case "POPULATE-SQUAD_ROLE":
 			switch (session_selected_broadcaster.toUpperCase()) {
 			case "HANDBALL": case "ISPL":
 				switch(whatToProcess.toUpperCase()) {
@@ -83,6 +83,9 @@ public class ISPL extends Scene{
 					break;
 				}
 				switch (whatToProcess.toUpperCase()) {
+				case "POPULATE-SQUAD_ROLE":
+					populateSquadRole(print_writer, valueToProcess.split(",")[0],Integer.valueOf(valueToProcess.split(",")[1]), auction,auctionService,session_selected_broadcaster);
+					break;
 				case "POPULATE-SQUAD":
 					value1 = Integer.valueOf(valueToProcess.split(",")[1]);
 					populateSquad(false,print_writer, valueToProcess.split(",")[0],Integer.valueOf(valueToProcess.split(",")[1]), auction,auctionService,session_selected_broadcaster);
@@ -367,6 +370,29 @@ public class ISPL extends Scene{
 			
 		}
 		return "";
+	}
+	
+	public void populateSquadRole(PrintWriter print_writer,String viz_scene, int teamId, Auction auction,AuctionService auctionService, String session_selected_broadcaster) throws InterruptedException 
+	{
+		int batter=0,bowler=0,all_rounder=0,wicket_keeper = 0;
+		if(auction.getPlayers() != null) {
+			for(Player plyr : auction.getPlayers()) {
+				if(plyr.getTeamId() == teamId) {	
+					if(auctionService.getAllPlayer().get(plyr.getPlayerId()-1).getRole().toUpperCase().equalsIgnoreCase("BATSMAN")) {
+						batter++;
+					}else if(auctionService.getAllPlayer().get(plyr.getPlayerId()-1).getRole().toUpperCase().equalsIgnoreCase("WICKET-KEEPER")) {
+						wicket_keeper++;
+					}else if(auctionService.getAllPlayer().get(plyr.getPlayerId()-1).getRole().toUpperCase().equalsIgnoreCase("BOWLER")) {
+						bowler++;
+					}else if(auctionService.getAllPlayer().get(plyr.getPlayerId()-1).getRole().toUpperCase().equalsIgnoreCase("ALL-ROUNDER")) {
+						all_rounder++;
+					}
+				}
+			}
+		}
+		
+		System.out.println("BATSMAN "+batter+"\nBowler "+bowler+"\nWicket Keeper "+wicket_keeper+"\nall rounder "+all_rounder);
+		
 	}
 	
 	public void populateTopSold(boolean is_this_updating,PrintWriter print_writer,String viz_scene, Auction auction,AuctionService auctionService, String session_selected_broadcaster) throws InterruptedException 

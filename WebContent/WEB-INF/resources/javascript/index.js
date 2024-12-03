@@ -59,13 +59,15 @@ function processUserSelection(whichInput)
 		break;
 		
 	case 'playerprofile_graphic_btn': case 'squad_graphic_btn': case 'remaining_purse_single_graphic_btn': case 'crawler_graphic_btn':
-	
+	case 'squad_with_role_count_graphic_btn':
 		$("#captions_div").hide();
 		$("#cancel_match_setup_btn").hide();
 		$("#expiry_message").hide();
 		
 		switch ($(whichInput).attr('name')) {
-		
+		case 'squad_with_role_count_graphic_btn':
+			processAuctionProcedures('SQUAD-ROLE-COUNT_GRAPHICS-OPTIONS');
+			break;
 		case 'playerprofile_graphic_btn':
 			processAuctionProcedures('PLAYERPROFILE_GRAPHICS-OPTIONS');
 			break;
@@ -82,9 +84,12 @@ function processUserSelection(whichInput)
 		break;
 		
 	case 'populate_namesuper_btn': case 'populate_namesuper_player_btn': case 'populate_playerprofile_btn':	case 'populate_squad_btn':
-	case 'populate_single_purse_btn': case 'populate_crawl_btn':
+	case 'populate_single_purse_btn': case 'populate_crawl_btn': case 'populate_squad_role_btn':
 		processWaitingButtonSpinner('START_WAIT_TIMER');
 		switch ($(whichInput).attr('name')) {
+		case 'populate_squad_role_btn':
+			processAuctionProcedures('POPULATE-SQUAD_ROLE');
+			break;
 		case 'populate_namesuper_btn':
 			processAuctionProcedures('POPULATE-L3-NAMESUPER');
 			break;
@@ -165,7 +170,7 @@ function processAuctionProcedures(whatToProcess)
 			break;
 		}
 		break;
-	case 'POPULATE-SQUAD':
+	case 'POPULATE-SQUAD': case 'POPULATE-SQUAD_ROLE':
 		switch ($('#selected_broadcaster').val().toUpperCase()) {
 		case 'HANDBALL':
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_Handball_Auction_2023/Scenes/Squad.sum' + ',' + $('#selectTeamName option:selected').val();
@@ -252,8 +257,13 @@ function processAuctionProcedures(whatToProcess)
 				addItemsToList('POPULATE-PROFILE',data);
 				match_data = data;
 				break;
-			case 'SQUAD_GRAPHICS-OPTIONS':
+			case 'SQUAD_GRAPHICS-OPTIONS': 
 				addItemsToList('SQUAD-OPTIONS',data);
+				addItemsToList('POPULATE-TEAM',data);
+				match_data = data;
+				break;
+			case 'SQUAD-ROLE-COUNT_GRAPHICS-OPTIONS':
+				addItemsToList('SQUAD-ROLE-COUNT-OPTIONS',data);
 				addItemsToList('POPULATE-TEAM',data);
 				match_data = data;
 				break;
@@ -264,13 +274,16 @@ function processAuctionProcedures(whatToProcess)
 				break;
 			
 			case 'POPULATE-FF-PLAYERPROFILE': case 'POPULATE-SQUAD': case 'POPULATE-REMAINING_PURSE_ALL': case 'POPULATE-SINGLE_PURSE': case 'POPULATE-TOP_SOLD':
-			case 'POPULATE-CRAWL':
+			case 'POPULATE-CRAWL': case 'POPULATE-SQUAD_ROLE':
 				if(confirm('Animate In?') == true){
 					$('#select_graphic_options_div').empty();
 					document.getElementById('select_graphic_options_div').style.display = 'none';
 					$("#captions_div").show();
 					
 		        	switch(whatToProcess) {
+					case 'POPULATE-SQUAD_ROLE':
+						processAuctionProcedures('ANIMATE-IN-SQUAD_ROLE');	
+						break;
 					case 'POPULATE-CRAWL':
 						processAuctionProcedures('ANIMATE-IN-CRAWL');				
 						break;
@@ -443,7 +456,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 		}
 		break;	
 	case'NAMESUPER-OPTIONS': case 'NAMESUPER_PLAYER-OPTIONS':  case'PLAYERPROFILE-OPTIONS': case 'SQUAD-OPTIONS': case 'SINGLE_PURSE-OPTIONS':
-	
+	case 'SQUAD-ROLE-COUNT-OPTIONS':
 		switch ($('#selected_broadcaster').val().toUpperCase()) {
 		case 'HANDBALL': case 'ISPL':
 
@@ -478,7 +491,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 						break;
 					}
 					break;
-				case 'SQUAD-OPTIONS':
+				case 'SQUAD-OPTIONS': 	case 'SQUAD-ROLE-COUNT-OPTIONS':
 					switch ($('#selected_broadcaster').val().toUpperCase()) {
 						case 'HANDBALL': case 'ISPL':
 							select = document.createElement('select');
@@ -622,6 +635,10 @@ function addItemsToList(whatToProcess, dataToProcess)
 			case'SQUAD-OPTIONS':
 			    option.name = 'populate_squad_btn';
 			    option.value = 'Populate Squad';
+				break;
+			case 'SQUAD-ROLE-COUNT-OPTIONS':
+				option.name = 'populate_squad_role_btn';
+			    option.value = 'Populate Squad role';
 				break;
 			case 'SINGLE_PURSE-OPTIONS':
 				option.name = 'populate_single_purse_btn';
