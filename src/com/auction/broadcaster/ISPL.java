@@ -65,8 +65,8 @@ public class ISPL extends Scene{
 	public Object ProcessGraphicOption(String whatToProcess, Auction auction, AuctionService auctionService,
 			PrintWriter print_writer, List<Scene> scenes, String valueToProcess) throws InterruptedException, NumberFormatException, IllegalAccessException {
 		switch (whatToProcess.toUpperCase()) {
-		case "POPULATE-FF-PLAYERPROFILE": case "POPULATE-SQUAD": case "POPULATE-REMAINING_PURSE_ALL": case "POPULATE-SINGLE_PURSE": 
-		case "POPULATE-TOP_SOLD": case "POPULATE-CRAWL": case "POPULATE-SQUAD_ROLE":
+		case "POPULATE-FF-PLAYERPROFILE": case "POPULATE-SQUAD": case "POPULATE-REMAINING_PURSE_ALL": case "POPULATE-SINGLE_PURSE":
+		case "POPULATE-TOP_SOLD": case "POPULATE-CRAWL": case "POPULATE-SQUAD_ROLE": case "POPULATE-FF_IDENT":
 			switch (session_selected_broadcaster.toUpperCase()) {
 			case "HANDBALL": case "ISPL":
 				switch(whatToProcess.toUpperCase()) {
@@ -109,32 +109,42 @@ public class ISPL extends Scene{
 				case "POPULATE-CRAWL":
 					populateCrawl(false,print_writer, valueToProcess.split(",")[1],valueToProcess.split(",")[2], auction,auctionService,auctionService.getTeams(), session_selected_broadcaster);
 					break;
+				case "POPULATE-FF_IDENT":
+					populateIdent(print_writer, valueToProcess.split(",")[0], session_selected_broadcaster);
+					break;
 				
 				}
 				//return JSONObject.fromObject(this_doad).toString();
 			}
 			
 		case "ANIMATE-OUT": case "CLEAR-ALL": case "ANIMATE-IN-PLAYERPROFILE": case "ANIMATE-IN-SQUAD": case "ANIMATE-IN-REMAINING_PURSE_ALL": case "ANIMATE-IN-SINGLE_PURSE":
-		case "ANIMATE-IN-TOP_SOLD": case "ANIMATE-IN-CRAWL":
+		case "ANIMATE-IN-TOP_SOLD": case "ANIMATE-IN-CRAWL": case "ANIMATE-IN-FF_IDENT":
 		
 			switch (session_selected_broadcaster.toUpperCase()) {
 			case "HANDBALL": case "ISPL":
 				switch (whatToProcess.toUpperCase()) {
 				case "ANIMATE-IN-PLAYERPROFILE": case "ANIMATE-IN-SQUAD": case "ANIMATE-IN-REMAINING_PURSE_ALL": 
-				case "ANIMATE-IN-SINGLE_PURSE": case "ANIMATE-IN-TOP_SOLD": case "ANIMATE-IN-CRAWL":
+				case "ANIMATE-IN-SINGLE_PURSE": case "ANIMATE-IN-TOP_SOLD": case "ANIMATE-IN-CRAWL": case "ANIMATE-IN-FF_IDENT":
 					
 					if(which_graphics_onscreen != "" && which_graphics_onscreen != "BG") {
 						switch(which_graphics_onscreen) {
-						case "PLAYERPROFILE": case "SQUAD": case "REMAINING_PURSE_ALL": case "SINGLE_PURSE": case "TOP_SOLD":	
+						case "PLAYERPROFILE":
+							processAnimation(print_writer, "Out", "START", session_selected_broadcaster,(3-current_layer));
+							processAnimation(print_writer, "Result", "START", session_selected_broadcaster,(3-current_layer));
+							break;
+						
+						case "SQUAD": case "REMAINING_PURSE_ALL": case "SINGLE_PURSE": case "TOP_SOLD":
+						case "FF_IDENT":	
 							processAnimation(print_writer, "Out", "START", session_selected_broadcaster,(3-current_layer));
 							TimeUnit.SECONDS.sleep(1);
-							print_writer.println("LAYER" + (3-current_layer) + "*EVEREST*SINGLE_SCENE CLEAR;");
+//							print_writer.println("LAYER" + (3-current_layer) + "*EVEREST*SINGLE_SCENE CLEAR;");
+//							TimeUnit.SECONDS.sleep(1);
 							break;
 						case "CRAWL":	
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Scroller-MAIN*GEOMETRY*SCROLLER SET CRAWL 0;");
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Scroller-MAIN*GEOMETRY*SCROLLER SET ACTIVE 0;");
-							TimeUnit.SECONDS.sleep(1);
-							print_writer.println("LAYER1*EVEREST*SINGLE_SCENE CLEAR;");
+//							TimeUnit.SECONDS.sleep(1);
+//							print_writer.println("LAYER1*EVEREST*SINGLE_SCENE CLEAR;");
 							which_graphics_onscreen = "";
 							break;	
 						}
@@ -179,6 +189,11 @@ public class ISPL extends Scene{
 					print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*LOOP START;");
 					which_graphics_onscreen = "TOP_SOLD";
 					break;
+				case "ANIMATE-IN-FF_IDENT":
+					print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*In START;");
+					print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*LOOP START;");
+					which_graphics_onscreen = "FF_IDENT";
+					break;
 				
 				case "CLEAR-ALL":
 					print_writer.println("LAYER1*EVEREST*SINGLE_SCENE CLEAR;");
@@ -193,11 +208,13 @@ public class ISPL extends Scene{
 						which_graphics_onscreen = "";
 						break;
 					
+					case "PLAYERPROFILE":
+						processAnimation(print_writer, "Out", "START", session_selected_broadcaster,(3-current_layer));
+						processAnimation(print_writer, "Result", "START", session_selected_broadcaster,(3-current_layer));
+						break;
 					
-					case "PLAYERPROFILE": case "SQUAD": case "REMAINING_PURSE_ALL": case "SINGLE_PURSE": case "TOP_SOLD":
+					case "SQUAD": case "REMAINING_PURSE_ALL": case "SINGLE_PURSE": case "TOP_SOLD": case "FF_IDENT":
 						processAnimation(print_writer, "Out", "START", session_selected_broadcaster,current_layer);
-						TimeUnit.SECONDS.sleep(2);
-						print_writer.println("LAYER" + current_layer + "*EVEREST*SINGLE_SCENE CLEAR;");
 //						TimeUnit.SECONDS.sleep(1);
 //						print_writer.println("LAYER3*EVEREST*STAGE*DIRECTOR*In START;");
 //						print_writer.println("LAYER3*EVEREST*STAGE*DIRECTOR*Loop START;");
@@ -206,8 +223,6 @@ public class ISPL extends Scene{
 					case "CRAWL":
 						print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Scroller-MAIN*GEOMETRY*SCROLLER SET CRAWL 0;");
 						print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Scroller-MAIN*GEOMETRY*SCROLLER SET ACTIVE 0;");
-						TimeUnit.SECONDS.sleep(2);
-						print_writer.println("LAYER" + current_layer + "*EVEREST*SINGLE_SCENE CLEAR;");
 						which_graphics_onscreen = "";
 						break;
 					}
@@ -223,7 +238,7 @@ public class ISPL extends Scene{
 	public void populatePlayerProfile(boolean is_this_updating,PrintWriter print_writer,String viz_scene, int playerId,List<Statistics> stats, Auction auction,AuctionService auctionService, String session_selected_broadcaster) throws InterruptedException 
 	{
 		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + 
-				"ISPL PLAYER\nAUCTION" + ";");
+				"AUCTION 2025" + ";");
 		
 		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBaePointsHead " + 
 				"BASE PRICE" + ";");
@@ -237,10 +252,11 @@ public class ISPL extends Scene{
 					if(playerId == auction.getPlayers().get(i).getPlayerId()) {
 						if(auction.getPlayers().get(i).getSoldOrUnsold().equalsIgnoreCase(AuctionUtil.SOLD)) {
 							print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSoldUnsold 1 ;");
-							print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSoldPrice " + ConvertToLakh(auction.getPlayers().get(i).getSoldForPoints()) + ";");
-							print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgSoldToTeam " + logo_path + 
+							print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBidPrice " + 
+									ConvertToLakh(auction.getPlayers().get(i).getSoldForPoints()) + ";");
+							print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgTeamLogo " + logo_path + 
 									auctionService.getTeams().get(auction.getPlayers().get(i).getTeamId() - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
-							print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSoldHead SOLD TO;");
+							print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tUnsold SOLD;");
 							
 							TimeUnit.MILLISECONDS.sleep(200);
 							print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*Result START;");
@@ -280,15 +296,29 @@ public class ISPL extends Scene{
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vPlayerPic 0;");
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerFirstName " + 
 					auctionService.getAllPlayer().get(playerId - 1).getFirstname() + ";");
+			if(auctionService.getAllPlayer().get(playerId - 1).getSurname() != null) {
+				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerLastName " + 
+						auctionService.getAllPlayer().get(playerId - 1).getSurname() + ";");
+			}else {
+				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerLastName " + "" + ";");
+			}
 			
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgPlayerImage " + photo_path + 
 					auctionService.getAllPlayer().get(playerId - 1).getPhotoName() + AuctionUtil.PNG_EXTENSION + ";");
 			
-			if(auctionService.getAllPlayer().get(playerId - 1).getSurname() != null) {
-				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerLastName " + auctionService.getAllPlayer().get(playerId - 1).getSurname() + ";");
+			if(auctionService.getAllPlayer().get(playerId-1).getIconic().equalsIgnoreCase(AuctionUtil.YES)) {
+				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelectIcon 1;");
+			}else if(auctionService.getAllPlayer().get(playerId-1).getU19().equalsIgnoreCase(AuctionUtil.YES)) {
+				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelectIcon 0;");
 			}else {
-				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerLastName " + "" + ";");
+				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelectIcon 2;");
 			}
+			
+			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET 1 1;");
+			
+			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tAgeHead " + "AGE" + ";");
+			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyleHead " + "BATSMAN STYLE" + ";");
+			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyleHead " + "BOWLER STYLE" + ";");
 			
 			if(auctionService.getAllPlayer().get(playerId - 1).getAge()!=null && !auctionService.getAllPlayer().get(playerId - 1).getAge().isEmpty()) {
 				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tAge " + auctionService.getAllPlayer().get(playerId - 1).getAge() + " yrs" + ";");
@@ -343,9 +373,9 @@ public class ISPL extends Scene{
 			print_writer.println("LAYER1*EVEREST*GLOBAL PREVIEW ON;");
 			print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*In STOP;");
 			print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*Out STOP;");
-			print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*In SHOW 76.0;");
+			print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*In SHOW 71.0;");
 			print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*Out SHOW 0.0;");
-			print_writer.println("LAYER1*EVEREST*GLOBAL SNAPSHOT_PATH C:/Temp/Preview.png;");
+			print_writer.println("LAYER1*EVEREST*GLOBAL SNAPSHOT_PATH C:/Temp/Preview.tga;");
 			print_writer.println("LAYER1*EVEREST*GLOBAL SNAPSHOT 1920 1080;");
 			TimeUnit.SECONDS.sleep(1);
 			print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*Out SHOW 0.0;");
@@ -971,7 +1001,6 @@ public class ISPL extends Scene{
 		}
 	}
 	
-	
 	public void populateZone(boolean is_this_updating,PrintWriter print_writer,String viz_scene,int team_id , Auction match,AuctionService auctionService, String session_selected_broadcaster) throws InterruptedException 
 	{
 		int row = 0, East = 0,North = 0,West = 0,South = 0, Central = 0, U19 = 0;
@@ -1072,6 +1101,12 @@ public class ISPL extends Scene{
 			print_writer.println("LAYER1*EVEREST*GLOBAL PREVIEW OFF;");
 		}
 	}
+	public void populateIdent(PrintWriter print_writer, String viz_scene, String session_selected_broadcaster)
+	{
+		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgPlayerImage " + logo_path + "ISPL" 
+				+ AuctionUtil.PNG_EXTENSION + ";");
+		
+	}
 	
 	public void AnimateInGraphics(PrintWriter print_writer, String whichGraphic) throws InterruptedException
 	{
@@ -1122,7 +1157,7 @@ public class ISPL extends Scene{
 	}
 	
 	public static String ConvertToLakh(double num) {
-		String str=String.format("%.2f", num/100000);
+		String str=String.format("%.1f", num/100000);
 		if(str.contains(".")) {
 			if(str.endsWith(".00")) {
 				return  str.substring(0, str.length()-3) ;

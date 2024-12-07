@@ -17,15 +17,76 @@
   <link rel="stylesheet" href="<c:url value="/webjars/bootstrap/5.1.3/css/bootstrap.min.css"/>"/>  
   <link href="<c:url value="/webjars/font-awesome/6.0.0/css/all.css"/>" rel="stylesheet">
   <script type="text/javascript">
-  $(document).on("keypress", function(e){
-	  if(e.altKey && e.key === 'r'){
-   		  e.preventDefault()
-   		  processUserSelectionData('LOGGER_FORM_KEYPRESS','RE_READ');
-   	  }else{
-   		processUserSelectionData('LOGGER_FORM_KEYPRESS',e.which);
-   		
-   	  }
-  });
+	$(document).on("keydown", function(e){
+	  
+	  if($('#waiting_modal').hasClass('show')) {
+		  e.cancelBubble = true;
+		  e.stopImmediatePropagation();
+    	  e.preventDefault();
+		  return false;
+	  }
+	  
+      var evtobj = window.event? event : e;
+      
+      switch(e.target.tagName.toLowerCase())
+      {
+      case "input": case "textarea":
+    	 break;
+      default:
+    	  e.preventDefault();
+	      var whichKey = '';
+		  var validKeyFound = false;
+	    
+	      if(evtobj.ctrlKey) {
+	    	  whichKey = 'Control';
+	      }
+	      if(evtobj.altKey) {
+	    	  if(whichKey) {
+	        	  whichKey = whichKey + '_Alt';
+	    	  } else {
+	        	  whichKey = 'Alt';
+	    	  }
+	      }
+	      if(evtobj.shiftKey) {
+	    	  if(whichKey) {
+	        	  whichKey = whichKey + '_Shift';
+	    	  } else {
+	        	  whichKey = 'Shift';
+	    	  }
+	      }
+	      
+		  if(evtobj.keyCode) {
+	    	  if(whichKey) {
+	    		  if(!whichKey.includes(evtobj.key)) {
+	            	  whichKey = whichKey + '_' + evtobj.key;
+	    		  }
+	    	  } else {
+	        	  whichKey = evtobj.key;
+	    	  }
+		  }
+		  validKeyFound = false;
+		  if (whichKey.includes('_')) {
+			  whichKey.split("_").forEach(function (this_key) {
+				  switch (this_key) {
+				  case 'Control': case 'Shift': case 'Alt':
+					break;
+				  default:
+					validKeyFound = true;
+					break;
+				  }
+			  });
+		   } else {
+			  if(whichKey != 'Control' && whichKey != 'Alt' && whichKey != 'Shift') {
+				  validKeyFound = true;
+			  }
+		   }
+			  
+		   if(validKeyFound == true) {
+			   console.log('whichKey = ' + whichKey);
+			   processUserSelectionData('LOGGER_FORM_KEYPRESS',whichKey);
+		   }
+	      }
+	  });
  	setInterval(() => {
  		processAuctionProcedures('READ-MATCH-AND-POPULATE');		
 	}, 1000);
@@ -54,11 +115,20 @@
 			    <label class="col-sm-4 col-form-label text-left">Port Number: ${session_port} </label>
 			    <label class="col-sm-4 col-form-label text-left">Broadcaster: ${session_selected_broadcaster} </label>
 			    
+			    <div class="left">
+			  	<button style="background-color:#f44336;color:#FEFEFE;" class="btn btn-sm" type="button"
+			  		name="animateout_graphic_btn" id="animateout_graphic_btn" onclick="processUserSelection(this)"> AnimateOut (-) </button>
+			  	<button style="background-color:#f44336;color:#FEFEFE;" class="btn btn-sm" type="button"
+			  		name="clearall_graphic_btn" id="clearall_graphic_btn" onclick="processUserSelection(this)"> Clear All (Space)</button>
+			  	</div>
+			    <label class="col-sm-4 col-form-label text-left"> </label>
 				<div class="left">
-				
 			    <button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-			  		name="playerprofile_graphic_btn" id="playerprofile_graphic_btn" onclick="processUserSelection(this)"> PlayerProfile </button>
+			  		name="playerprofile_graphic_btn" id="playerprofile_graphic_btn" onclick="processUserSelection(this)"> PlayerProfile (F1) </button>
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+			  		name="Ident_graphic_btn" id="Ident_graphic_btn" onclick="processUserSelection(this)"> Ident (F4) </button>
+			  		
+			  	<!--<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="remaining_purse_graphic_btn" id="remaining_purse_graphic_btn" onclick="processUserSelection(this)"> Remaining Purse All </button>
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="remaining_purse_single_graphic_btn" id="remaining_purse_single_graphic_btn" onclick="processUserSelection(this)"> Remaining Purse Single </button>
@@ -68,14 +138,8 @@
 			  		name="squad_graphic_btn" id="squad_graphic_btn" onclick="processUserSelection(this)"> Squad </button>
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="squad_with_role_count_graphic_btn" id="squad_with_role_count_graphic_btn" onclick="processUserSelection(this)"> Squad with role count </button>
-			  	
-			  	</div>	
-			  	<div class="left">
-			  	<button style="background-color:#f44336;color:#FEFEFE;" class="btn btn-sm" type="button"
-			  		name="animateout_graphic_btn" id="animateout_graphic_btn" onclick="processUserSelection(this)"> AnimateOut </button>
-			  	<button style="background-color:#f44336;color:#FEFEFE;" class="btn btn-sm" type="button"
-			  		name="clearall_graphic_btn" id="clearall_graphic_btn" onclick="processUserSelection(this)"> Clear All </button>
-			  </div>
+			  		name="squad_graphic_btn" id="squad_graphic_btn" onclick="processUserSelection(this)"> Squad </button>-->
+			  	</div>			  	
 			  </div>
 	       </div>
 	    </div>

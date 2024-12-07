@@ -17,11 +17,28 @@ function processUserSelectionData(whatToProcess,dataToProcess){
 	switch (whatToProcess) {
 	case 'LOGGER_FORM_KEYPRESS':
 		switch(dataToProcess){
-		case 32:
+		case ' '://Space
 			processAuctionProcedures('CLEAR-ALL');
 			break;
-		case 'RE_READ':
+		case 'Alt_r':
 			processAuctionProcedures('RE_READ_DATA');
+			break;
+			
+		case '-'://189
+			if(confirm('It will Also Delete Your Preview from Directory...\r\n \r\nAre You Sure To Animate Out? ') == true){
+				processAuctionProcedures('ANIMATE-OUT');	
+			}
+			break;
+			
+		case 'F1':
+			$("#captions_div").hide();
+			$("#cancel_match_setup_btn").hide();
+			$("#expiry_message").hide();
+			processAuctionProcedures('PLAYERPROFILE_GRAPHICS-OPTIONS');
+			break;
+		case 'F4':
+			processAuctionProcedures('POPULATE-FF_IDENT');
+			break;
 		}
 		break;
 	}
@@ -56,6 +73,9 @@ function processUserSelection(whichInput)
 		break;
 	case 'remaining_purse_graphic_btn':
 		processAuctionProcedures('POPULATE-REMAINING_PURSE_ALL');
+		break;
+	case 'Ident_graphic_btn':
+		processAuctionProcedures('POPULATE-FF_IDENT');
 		break;
 		
 	case 'playerprofile_graphic_btn': case 'squad_graphic_btn': case 'remaining_purse_single_graphic_btn': case 'crawler_graphic_btn':
@@ -218,6 +238,13 @@ function processAuctionProcedures(whatToProcess)
 			break;	
 		}
 		break;
+	case 'POPULATE-FF_IDENT':
+		switch ($('#selected_broadcaster').val().toUpperCase()) {
+		case 'ISPL':
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/Auction_Ident.sum' ;
+			break;	
+		}
+		break;
 	
 	}
 
@@ -274,7 +301,7 @@ function processAuctionProcedures(whatToProcess)
 				break;
 			
 			case 'POPULATE-FF-PLAYERPROFILE': case 'POPULATE-SQUAD': case 'POPULATE-REMAINING_PURSE_ALL': case 'POPULATE-SINGLE_PURSE': case 'POPULATE-TOP_SOLD':
-			case 'POPULATE-CRAWL': case 'POPULATE-SQUAD_ROLE':
+			case 'POPULATE-CRAWL': case 'POPULATE-SQUAD_ROLE': case 'POPULATE-FF_IDENT':
 				if(confirm('Animate In?') == true){
 					$('#select_graphic_options_div').empty();
 					document.getElementById('select_graphic_options_div').style.display = 'none';
@@ -301,6 +328,9 @@ function processAuctionProcedures(whatToProcess)
 						break;
 					case 'POPULATE-SINGLE_PURSE':
 						processAuctionProcedures('ANIMATE-IN-SINGLE_PURSE');				
+						break;
+					case 'POPULATE-FF_IDENT':
+						processAuctionProcedures('ANIMATE-IN-FF_IDENT');				
 						break;
 					}
 				}
