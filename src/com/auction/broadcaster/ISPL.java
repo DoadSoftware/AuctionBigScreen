@@ -356,7 +356,13 @@ public class ISPL extends Scene{
 				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tRole " + "-" + ";");
 			}
 			
-			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tCategory " + auctionService.getAllPlayer().get(playerId - 1).getCategory().toUpperCase() + ";");
+			if(auctionService.getAllPlayer().get(playerId - 1).getCategory().equalsIgnoreCase("U19")) {
+				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tCategory " + 
+						auctionService.getAllPlayer().get(playerId - 1).getCategory().toUpperCase() + ";");
+			}else {
+				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tCategory " + 
+						auctionService.getAllPlayer().get(playerId - 1).getCategory().toUpperCase() + ";");
+			}
 
 			if(auctionService.getAllPlayer().get(playerId - 1).getBatsmanStyle()!=null && 
 					!auctionService.getAllPlayer().get(playerId - 1).getBatsmanStyle().isEmpty()) {
@@ -966,12 +972,19 @@ public class ISPL extends Scene{
 					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgPlayerImage0" + row + " " + 
 							photo_path + auctionService.getAllPlayer().get(match.getPlayers().get(j).getPlayerId() -1).getPhotoName() + AuctionUtil.PNG_EXTENSION + ";");
 					
-					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerFrom0"+ row + " " + 
-							auctionService.getAllPlayer().get(match.getPlayers().get(j).getPlayerId() -1).getCategory().toUpperCase() + ";");
+					if(auctionService.getAllPlayer().get(match.getPlayers().get(j).getPlayerId() -1).getCategory().equalsIgnoreCase("U19")) {
+						print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerFrom0"+ row + " " + 
+								auctionService.getAllPlayer().get(match.getPlayers().get(j).getPlayerId() -1).getCategory().toUpperCase() + ";");
+					}else {
+						print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerFrom0"+ row + " " + 
+								auctionService.getAllPlayer().get(match.getPlayers().get(j).getPlayerId() -1).getCategory().toUpperCase() + ";");
+					}
 					
-					
-					if(auctionService.getAllPlayer().get(match.getPlayers().get(j).getPlayerId() -1).getU19().equalsIgnoreCase(AuctionUtil.YES)) {
+					if(auctionService.getAllPlayer().get(match.getPlayers().get(j).getPlayerId() -1).getIconic().equalsIgnoreCase(AuctionUtil.YES)) {
 						print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vPlayerInfo0" + row + " 1" + ";");
+						print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgPlayerInfo0" + row + " " + 
+								icon_path + "Icon" + AuctionUtil.PNG_EXTENSION + ";");
+						
 					}else {
 						print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vPlayerInfo0" + row + " 0" + ";");
 					}
