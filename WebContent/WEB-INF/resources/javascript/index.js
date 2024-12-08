@@ -51,7 +51,9 @@ function initialiseForm(whatToProcess,dataToProcess)
 		processUserSelection($('#select_broadcaster'));
 		break;
 	case 'UPDATE-MATCH-ON-OUTPUT-FORM':
-	
+		break;
+	case 'UPDATE-CONFIG':
+		document.getElementById('configuration_file_name').value = $('#select_configuration_file option:selected').val();
 		break;
 	}
 }
@@ -245,6 +247,9 @@ function processAuctionProcedures(whatToProcess)
 			break;	
 		}
 		break;
+	case 'GET-CONFIG-DATA':
+		valueToProcess = $('#select_configuration_file option:selected').val();
+		break;
 	
 	}
 
@@ -269,6 +274,9 @@ function processAuctionProcedures(whatToProcess)
 				if(whatToProcess == 'RE_READ_DATA'){
 					alert('Data is Loaded');
 				}
+				break;
+			case 'GET-CONFIG-DATA':
+				initialiseForm('UPDATE-CONFIG',data);
 				break;
 			case 'NAMESUPER_GRAPHICS-OPTIONS':
 				addItemsToList('NAMESUPER-OPTIONS',data);

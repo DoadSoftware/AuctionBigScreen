@@ -98,16 +98,13 @@ public class IndexController
 			        return name.endsWith(".json") && pathname.isFile();
 			    }
 			}));
-			
-			if(new File(AuctionUtil.AUCTION_DIRECTORY + AuctionUtil.CONFIGURATIONS_DIRECTORY + AuctionUtil.OUTPUT_XML).exists()) {
-				session_Configurations = (Configurations)JAXBContext.newInstance(Configurations.class).createUnmarshaller().unmarshal(
-						new File(AuctionUtil.AUCTION_DIRECTORY + AuctionUtil.CONFIGURATIONS_DIRECTORY + AuctionUtil.OUTPUT_XML));
-			} else {
-				session_Configurations = new Configurations();
-				JAXBContext.newInstance(Configurations.class).createMarshaller().marshal(session_Configurations, 
-						new File(AuctionUtil.AUCTION_DIRECTORY + AuctionUtil.CONFIGURATIONS_DIRECTORY + AuctionUtil.OUTPUT_XML));
-			}
-			
+			model.addAttribute("configuration_files", new File(AuctionUtil.AUCTION_DIRECTORY + AuctionUtil.CONFIGURATIONS_DIRECTORY).listFiles(new FileFilter() {
+				@Override
+			    public boolean accept(File pathname) {
+			        String name = pathname.getName().toLowerCase();
+			        return name.endsWith(".xml") && pathname.isFile();
+			    }
+			}));
 			model.addAttribute("session_Configurations",session_Configurations);
 		
 			return "initialise";
@@ -115,6 +112,7 @@ public class IndexController
 
 	@RequestMapping(value = {"/output"}, method={RequestMethod.GET,RequestMethod.POST}) 
 	public String outputPage(ModelMap model,
+			@RequestParam(value = "configuration_file_name", required = false, defaultValue = "") String configuration_file_name,
 			@RequestParam(value = "select_broadcaster", required = false, defaultValue = "") String select_broadcaster,
 			@RequestParam(value = "which_layer", required = false, defaultValue = "") String which_layer,
 			@RequestParam(value = "which_scene", required = false, defaultValue = "") String which_scene,
@@ -175,8 +173,8 @@ public class IndexController
 			session_Configurations = new Configurations(selectedMatch, select_broadcaster, vizIPAddresss, vizPortNumber);
 			
 			JAXBContext.newInstance(Configurations.class).createMarshaller().marshal(session_Configurations, 
-					new File(AuctionUtil.AUCTION_DIRECTORY + AuctionUtil.CONFIGURATIONS_DIRECTORY + AuctionUtil.OUTPUT_XML));
-	
+					new File(AuctionUtil.AUCTION_DIRECTORY + AuctionUtil.CONFIGURATIONS_DIRECTORY + configuration_file_name));
+			
 			session_auction = new Auction();
 			session_auction = new ObjectMapper().readValue(new File(AuctionUtil.AUCTION_DIRECTORY + "AUCTION.JSON"), Auction.class);
 			
@@ -208,6 +206,12 @@ public class IndexController
 		case "RE_READ_DATA":
 			getDataFromDB();
 			return JSONObject.fromObject(session_auction).toString();
+		case "GET-CONFIG-DATA":
+			session_Configurations = (Configurations)JAXBContext.newInstance(Configurations.class).createUnmarshaller().unmarshal(
+				new File(AuctionUtil.AUCTION_DIRECTORY + AuctionUtil.CONFIGURATIONS_DIRECTORY + valueToProcess));
+			
+			return JSONObject.fromObject(session_Configurations).toString();
+		
 //		case "PLAYERPROFILE_GRAPHICS-OPTIONS": 
 //			switch (session_selected_broadcaster.toUpperCase()) {
 //			case "HANDBALL": case "ISPL":
