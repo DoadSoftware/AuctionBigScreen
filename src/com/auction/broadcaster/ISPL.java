@@ -465,69 +465,19 @@ public class ISPL extends Scene{
 		}
 		
 		Collections.sort(top_sold,new AuctionFunctions.PlayerStatsComparator());
-		if(top_sold.size()<=5) {
-			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$All$6_to_10*CONTAINER SET ACTIVE 0;");
-		}else {
-			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$All$6_to_10*CONTAINER SET ACTIVE 1;");
-		}
-//		for(int i=top_sold.size()+1;i <= 10;i++) {
-//			if(i<=5) {
-//				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$All$1_to_5$" + getNumber(i) + "$Price$Rupee*CONTAINER SET ACTIVE 0;");
-//				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$All$1_to_5$" + getNumber(i) + "$Price$Lakh*CONTAINER SET ACTIVE 0;");
-//				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayername0" + i +  ";");
-//				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tTeam0" + i + ";");
-//	    		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPrice0" + i + ";");
-//			}else {
-//				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$All$6_to_10$" + getNumber(i-5) + "$Price$Rupee*CONTAINER SET ACTIVE 0;");
-//				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$All$6_to_10$" + getNumber(i-5) + "$Price$Lakh*CONTAINER SET ACTIVE 0;");
-//				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayername0" + (i-5) +  ";");
-//				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tTeam0" + (i-5) + ";");
-//	    		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPrice0" + (i-5)+ ";");
-//			}
-//			
-//		}
+		
 		if(is_this_updating == false) {
 			
-			for(int i=top_sold.size()+1;i <= 10;i++) {
-				if(i<=5) {
-					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$All$1_to_5$" + getNumber(i) + "$Price$Rupee*CONTAINER SET ACTIVE 0;");
-					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$All$1_to_5$" + getNumber(i) + "$Price$Lakh*CONTAINER SET ACTIVE 0;");
-					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayername0" + i +  ";");
-					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tTeam0" + i + ";");
-		    		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPrice0" + i + ";");
-				}else {
-					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$All$6_to_10$" + getNumber(i-5) + "$Price$Rupee*CONTAINER SET ACTIVE 0;");
-					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$All$6_to_10$" + getNumber(i-5) + "$Price$Lakh*CONTAINER SET ACTIVE 0;");
-					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayername0" + (i-5) +  ";");
-					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tTeam0" + (i-5) + ";");
-		    		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPrice0" + (i-5)+ ";");
-				}
-				
-			}
+			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tFirstName " + 
+					"TOP" + ";");
+			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tLastName " + 
+					"BUYS" + ";");
 			
-//			for(int i = 1; i <= 10; i++) {
-//				if(i<=5) {
-//					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$All$1_to_5$" + getNumber(i) + "$Price$Rupee*CONTAINER SET ACTIVE 0;");
-//					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$All$1_to_5$" + getNumber(i) + "$Price$Lakh*CONTAINER SET ACTIVE 0;");
-//				}else {
-//					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$All$6_to_10$" + getNumber(i-5) + "$Price$Rupee*CONTAINER SET ACTIVE 0;");
-//					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$All$6_to_10$" + getNumber(i-5) + "$Price$Lakh*CONTAINER SET ACTIVE 0;");
-//				}
-//			}
-			
-			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + 
-					"ISPL PLAYER\nAUCTION" + ";");
+			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader " + 
+					"ISPL PLAYER AUCTION" + ";");
 			
 			for(int i=1; i<= 10; i++) {
-				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayername0" + i + " " + 
-	    				"" + ";");
-	    		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tTeam0" + i + " " + 
-	    				"" + ";");
-	    		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPrice0" + i + " " + 
-	    				"" + ";");
-	    		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vInternational0" + i + " 0 ;");
-	    		
-	    		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$All$"+ i +"*CONTAINER SET ACTIVE 0;");
+				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$All$Player" + i + "*CONTAINER SET ACTIVE 0;");
 			}
 		}
 		
@@ -536,32 +486,95 @@ public class ISPL extends Scene{
 				row = row + 1;
 	        	if(row <= 10) {
 	        		
-	        		if(auctionService.getAllPlayer().get(top_sold.get(m).getPlayerId() -1).getTicker_name() != null) {
-	        			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayername0" + row + " " + 
-	        					auctionService.getAllPlayer().get(top_sold.get(m).getPlayerId() -1).getTicker_name() + ";");
+	        		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$All$Player" + row + "*CONTAINER SET ACTIVE 1;");
+	        		
+	        		if(auctionService.getAllPlayer().get(top_sold.get(m).getPlayerId() -1).getSurname() != null) {
+	        			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tFirstName0" + row + " " + 
+	        					auctionService.getAllPlayer().get(top_sold.get(m).getPlayerId() -1).getFirstname() + ";");
+	        			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tLastName0" + row + " " + 
+	        					auctionService.getAllPlayer().get(top_sold.get(m).getPlayerId() -1).getSurname() + ";");
 					}else {
-						print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayername0" + row + " " + 
+						print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tFirstName0" + row + " " + 
 								auctionService.getAllPlayer().get(top_sold.get(m).getPlayerId() -1).getFirstname() + ";");
+						print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tLastName0" + row + " " + ";");
 					}
+	        		
+	        		if(auctionService.getAllPlayer().get(top_sold.get(m).getPlayerId() -1).getRole() != null &&
+							!auctionService.getAllPlayer().get(top_sold.get(m).getPlayerId() -1).getRole().isEmpty()) {
+						
+						if(auctionService.getAllPlayer().get(top_sold.get(m).getPlayerId() -1).getRole().toUpperCase().equalsIgnoreCase("WICKET-KEEPER")) {
+							print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgIcon0" + row + " " + 
+									icon_path + "Keeper" + AuctionUtil.PNG_EXTENSION + ";");
+						}else {
+							if(auctionService.getAllPlayer().get(top_sold.get(m).getPlayerId() -1).getRole().toUpperCase().equalsIgnoreCase("BATSMAN") || 
+									auctionService.getAllPlayer().get(top_sold.get(m).getPlayerId() -1).getRole().toUpperCase().equalsIgnoreCase("BAT/KEEPER")) {
+								if(auctionService.getAllPlayer().get(top_sold.get(m).getPlayerId() -1).getBatsmanStyle().toUpperCase().equalsIgnoreCase("RHB")) {
+									
+									print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgIcon0" + row + " " + 
+											icon_path + "Batsman" + AuctionUtil.PNG_EXTENSION + ";");
+								}
+								else if(auctionService.getAllPlayer().get(top_sold.get(m).getPlayerId() -1).getBatsmanStyle().toUpperCase().equalsIgnoreCase("LHB")) {
+									
+									print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgIcon0" + row + " " + 
+											icon_path + "Batsman_Lefthand" + AuctionUtil.PNG_EXTENSION + ";");
+								}
+							}else if(auctionService.getAllPlayer().get(top_sold.get(m).getPlayerId() -1).getRole().toUpperCase().equalsIgnoreCase("BOWLER")) {
+								if(auctionService.getAllPlayer().get(top_sold.get(m).getPlayerId() -1).getBowlerStyle() == null) {
+									
+									print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgIcon0" + row + " " + 
+											icon_path + "FastBowler" + AuctionUtil.PNG_EXTENSION + ";");
+								}else {
+									switch(auctionService.getAllPlayer().get(top_sold.get(m).getPlayerId() -1).getBowlerStyle().toUpperCase()) {
+									case "RF": case "RFM": case "RMF": case "RM": case "RSM": case "LF": case "LFM": case "LMF": case "LM":
+										
+										print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgIcon0" + row + " " + 
+												icon_path + "FastBowler" + AuctionUtil.PNG_EXTENSION + ";");
+										break;
+									case "ROB": case "RLB": case "LSL": case "WSL": case "LCH": case "RLG": case "WSR": case "LSO":
+										
+										print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgIcon0" + row + " " + 
+												icon_path + "SpinBowlerIcon" + AuctionUtil.PNG_EXTENSION + ";");
+										break;
+									}
+								}
+							}else if(auctionService.getAllPlayer().get(top_sold.get(m).getPlayerId() -1).getRole().toUpperCase().equalsIgnoreCase("ALL-ROUNDER")) {
+								if(auctionService.getAllPlayer().get(top_sold.get(m).getPlayerId() -1).getBowlerStyle() == null) {
+									
+									print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgIcon0" + row + " " + 
+											icon_path + "FastBowlerAllrounder" + AuctionUtil.PNG_EXTENSION + ";");
+								}else {
+									switch(auctionService.getAllPlayer().get(top_sold.get(m).getPlayerId() -1).getBowlerStyle().toUpperCase()) {
+									case "RF": case "RFM": case "RMF": case "RM": case "RSM": case "LF": case "LFM": case "LMF": case "LM":
+										
+										print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgIcon0" + row + " " + 
+												icon_path + "FastBowlerAllrounder" + AuctionUtil.PNG_EXTENSION + ";");
+										break;
+									case "ROB": case "RLB": case "LSL": case "WSL": case "LCH": case "RLG": case "WSR": case "LSO":
+										
+										print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgIcon0" + row + " " + 
+												icon_path + "SpinBowlerAllrounder" + AuctionUtil.PNG_EXTENSION + ";");
+										break;
+									}
+								}
+							}
+						}
+					}else {
+						print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgIcon0" + row + " " + "-" + ";");
+					}
+	        		
+	        		
 	        		
 	        		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tTeam0" + row + " " + 
 	        				auction.getTeam().get(top_sold.get(m).getTeamId()-1).getTeamName1() + ";");
 	        		
-	        		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPrice0" + row + " " + 
+	        		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPurse0" + row + " " + 
 	    					ConvertToLakh(top_sold.get(m).getSoldForPoints()) + ";");
-	        		if(auctionService.getAllPlayer().get(top_sold.get(m).getPlayerId()-1).getCategory().equalsIgnoreCase("FOREIGN")) {
-	    				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vInternational0" + row + " 1 ;");
-	    			}else {
-	    				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vInternational0" + row + " 0 ;");
-	    			}
 	        		
-	        		if(row<=5) {
-    					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$All$1_to_5$" + getNumber(row) + "$Price$Rupee*CONTAINER SET ACTIVE 1;");
-    					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$All$1_to_5$" + getNumber(row) + "$Price$Lakh*CONTAINER SET ACTIVE 1;");
-    				}else {
-    					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$All$6_to_10$" + getNumber(row-5) + "$Price$Rupee*CONTAINER SET ACTIVE 1;");
-    					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$All$6_to_10$" + getNumber(row-5) + "$Price$Lakh*CONTAINER SET ACTIVE 1;");
-    				}
+//	        		if(auctionService.getAllPlayer().get(top_sold.get(m).getPlayerId()-1).getCategory().equalsIgnoreCase("FOREIGN")) {
+//	    				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vInternational0" + row + " 1 ;");
+//	    			}else {
+//	    				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vInternational0" + row + " 0 ;");
+//	    			}
 	        	}
 			}
 		}
@@ -834,13 +847,15 @@ public class ISPL extends Scene{
 		int row = 0,total = 0;
 		
 		if(is_this_updating == false) {
-			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + 
-					"ISPL PLAYER\nAUCTION" + ";");
-			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tUnsold " + 
-					"PURSE REMAINING" + ";");
+			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader " + 
+					"ISPL PLAYER AUCTION" + ";");
+			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tFirstName " + 
+					"PURSE" + ";");
+			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tLastName " + 
+					"REMAINING" + ";");
 			
-			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tTotal " + 
-					"100" + ";");
+//			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tTotal " + 
+//					"100" + ";");
 		}
 		
 		for(int i=0; i <= match.getTeam().size()-1; i++) {
@@ -865,8 +880,11 @@ public class ISPL extends Scene{
 //			}
 			
 			if(is_this_updating == false) {
-				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tTeamName0" + (i+1) + " " + 
-						auctionService.getTeams().get(match.getTeam().get(i).getTeamId()-1).getTeamName4() + ";");
+				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tFirstName0" + (i+1) + " " + 
+						auctionService.getTeams().get(match.getTeam().get(i).getTeamId()-1).getTeamName2() + ";");
+				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tLastName0" + (i+1) + " " + 
+						auctionService.getTeams().get(match.getTeam().get(i).getTeamId()-1).getTeamName3() + ";");
+				
 				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgLogo0" + (i+1) + " " + logo_path + 
 						auctionService.getTeams().get(match.getTeam().get(i).getTeamId()-1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
 			}
@@ -906,21 +924,19 @@ public class ISPL extends Scene{
 		}
 		
 		if(is_this_updating == false) {
-			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerLastName " + 
-					"REMAINING PURSE" + ";");
-			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + 
-					"ISPL PLAYER\nAUCTION" + ";");
-			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tUnsold " + 
+//			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + 
+//					"ISPL PLAYER\nAUCTION" + ";");
+			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tText01 " + 
 					"PURSE REMAINING" + ";");
 			
-			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tTotal " + 
-					"100" + ";");
+			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tText02 " + 
+					"100 L" + ";");
 			
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgPlayerImage " + logo_path + 
 					match.getTeam().get(team_id-1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
 		}
 		
-		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tRemaining " + 
+		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBidPrice " + 
 				ConvertToLakh((Integer.valueOf(match.getTeam().get(team_id-1).getTeamTotalPurse()) - row)) + ";");
 		row = 0;
 		
