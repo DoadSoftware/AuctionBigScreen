@@ -360,7 +360,7 @@ public class ISPL extends Scene{
 			
 			if(auctionService.getAllPlayer().get(playerId - 1).getCategory().equalsIgnoreCase("U19")) {
 				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tCategory " + 
-						auctionService.getAllPlayer().get(playerId - 1).getCategory().toUpperCase() + ";");
+						"UNDER 19" + ";");
 			}else {
 				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tCategory " + 
 						auctionService.getAllPlayer().get(playerId - 1).getCategory().toUpperCase() + ";");
@@ -976,7 +976,7 @@ public class ISPL extends Scene{
 					
 					if(auctionService.getAllPlayer().get(match.getPlayers().get(j).getPlayerId() -1).getCategory().equalsIgnoreCase("U19")) {
 						print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerFrom0"+ row + " " + 
-								auctionService.getAllPlayer().get(match.getPlayers().get(j).getPlayerId() -1).getCategory().toUpperCase() + ";");
+								"UNDER 19" + ";");
 					}else {
 						print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerFrom0"+ row + " " + 
 								auctionService.getAllPlayer().get(match.getPlayers().get(j).getPlayerId() -1).getCategory().toUpperCase() + ";");
