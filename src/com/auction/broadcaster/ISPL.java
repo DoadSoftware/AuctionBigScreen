@@ -212,11 +212,27 @@ public class ISPL extends Scene{
 					case "PLAYERPROFILE":
 						processAnimation(print_writer, "Out", "START", session_selected_broadcaster,(3-current_layer));
 						processAnimation(print_writer, "Result", "START", session_selected_broadcaster,(3-current_layer));
+						TimeUnit.SECONDS.sleep(4);
+						processAnimation(print_writer, "In", "SHOW 0.0", session_selected_broadcaster,(3-current_layer));
+						processAnimation(print_writer, "Out", "SHOW 0.0", session_selected_broadcaster,(3-current_layer));
+						processAnimation(print_writer, "Result", "SHOW 0.0", session_selected_broadcaster,(3-current_layer));
+						break;
+					case "SQUAD": 
+						processAnimation(print_writer, "Out", "START", session_selected_broadcaster,1);
+						processAnimation(print_writer, "Out", "START", session_selected_broadcaster,2);
+						TimeUnit.SECONDS.sleep(4);
+						processAnimation(print_writer, "In", "SHOW 0.0", session_selected_broadcaster,1);
+						processAnimation(print_writer, "Out", "SHOW 0.0", session_selected_broadcaster,1);
+						
+						processAnimation(print_writer, "In", "SHOW 0.0", session_selected_broadcaster,2);
+						processAnimation(print_writer, "Out", "SHOW 0.0", session_selected_broadcaster,2);
 						break;
 					
-					case "SQUAD": case "REMAINING_PURSE_ALL": case "SINGLE_PURSE": case "TOP_SOLD": case "FF_IDENT":
-						processAnimation(print_writer, "Out", "START", session_selected_broadcaster,current_layer);
-//						TimeUnit.SECONDS.sleep(1);
+					case "REMAINING_PURSE_ALL": case "SINGLE_PURSE": case "TOP_SOLD": case "FF_IDENT":
+						processAnimation(print_writer, "Out", "START", session_selected_broadcaster,(3-current_layer));
+						TimeUnit.SECONDS.sleep(4);
+						processAnimation(print_writer, "In", "SHOW 0.0", session_selected_broadcaster,(3-current_layer));
+						processAnimation(print_writer, "Out", "SHOW 0.0", session_selected_broadcaster,(3-current_layer));
 //						print_writer.println("LAYER3*EVEREST*STAGE*DIRECTOR*In START;");
 //						print_writer.println("LAYER3*EVEREST*STAGE*DIRECTOR*Loop START;");
 						
@@ -290,7 +306,6 @@ public class ISPL extends Scene{
 					auctionService.getTeams().get(auction.getTeam().get(i).getTeamId()-1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
 			
 		}
-		
 		if(is_this_updating == false) {
 			print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*Result SHOW 0.0;");
 			data.setPlayer_sold_or_unsold(false);
@@ -307,10 +322,8 @@ public class ISPL extends Scene{
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgPlayerImage " + photo_path + 
 					auctionService.getAllPlayer().get(playerId - 1).getPhotoName() + AuctionUtil.PNG_EXTENSION + ";");
 			
-			if(auctionService.getAllPlayer().get(playerId-1).getIconic().equalsIgnoreCase(AuctionUtil.YES)) {
+			if(auctionService.getAllPlayer().get(playerId-1).getIconic()!=null && auctionService.getAllPlayer().get(playerId-1).getIconic().equalsIgnoreCase(AuctionUtil.YES)) {
 				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelectIcon 1;");
-			}else if(auctionService.getAllPlayer().get(playerId-1).getU19().equalsIgnoreCase(AuctionUtil.YES)) {
-				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelectIcon 0;");
 			}else {
 				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelectIcon 2;");
 			}
@@ -340,7 +353,8 @@ public class ISPL extends Scene{
 				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tRole " + "-" + ";");
 			}
 			
-			
+			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tCategory " + auctionService.getAllPlayer().get(playerId - 1).getCategory().toUpperCase() + ";");
+
 			if(auctionService.getAllPlayer().get(playerId - 1).getBatsmanStyle()!=null && 
 					!auctionService.getAllPlayer().get(playerId - 1).getBatsmanStyle().isEmpty()) {
 				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyle " + auctionService.getAllPlayer().get(playerId - 1).getBatsmanStyle() + ";");

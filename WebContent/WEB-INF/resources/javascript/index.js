@@ -1,4 +1,30 @@
 var match_data,session_auction;
+let teams = [];  
+var which_GFX = "";
+let currentTeamIndex = 0,id = 0;  
+let teamRotationInterval = null; 
+
+// Function to start rotating teams
+function startTeamRotation() {
+    teamRotationInterval = setInterval(function() {
+        if (teams && teams.length > 0) {
+	        // Get the current team based on the index
+	         let team = teams[(currentTeamIndex + 1) % teams.length];
+	         id = team.teamId;
+	        // Move to the next team, circularly
+	        currentTeamIndex = (currentTeamIndex + 1) % teams.length;
+	        processAuctionProcedures('POPULATE-SQUAD');
+        }
+    }, 10000);  
+}
+
+function stopTeamRotation() {
+    if (teamRotationInterval) {
+        clearInterval(teamRotationInterval);
+        teamRotationInterval = null;
+    }
+}
+
 function processWaitingButtonSpinner(whatToProcess) 
 {
 	switch (whatToProcess) {
@@ -18,6 +44,10 @@ function processUserSelectionData(whatToProcess,dataToProcess){
 	case 'LOGGER_FORM_KEYPRESS':
 		switch(dataToProcess){
 		case ' '://Space
+			if(which_GFX === "POPULATE-SQUAD"){
+				stopTeamRotation();
+				which_GFX = "";
+			 }
 			processAuctionProcedures('CLEAR-ALL');
 			break;
 		case 'Alt_r':
@@ -26,6 +56,10 @@ function processUserSelectionData(whatToProcess,dataToProcess){
 			
 		case '-'://189
 			if(confirm('It will Also Delete Your Preview from Directory...\r\n \r\nAre You Sure To Animate Out? ') == true){
+				if(which_GFX === "POPULATE-SQUAD"){
+					stopTeamRotation();
+					which_GFX = "";
+				 }
 				processAuctionProcedures('ANIMATE-OUT');	
 			}
 			break;
@@ -198,7 +232,13 @@ function processAuctionProcedures(whatToProcess)
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_Handball_Auction_2023/Scenes/Squad.sum' + ',' + $('#selectTeamName option:selected').val();
 			break;
 		case 'ISPL':
-			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/Squad.sum' + ',' + $('#selectTeamName option:selected').val();
+			let team_index;
+			if(which_GFX=== "POPULATE-SQUAD"){
+				team_index = id;
+			}else{
+				team_index =$('#selectTeamName option:selected').val();
+			}
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/Squad.sum' + ',' + team_index;
 			break;	
 		}
 		break;
@@ -294,7 +334,7 @@ function processAuctionProcedures(whatToProcess)
 				break;
 			case 'SQUAD_GRAPHICS-OPTIONS': 
 				addItemsToList('SQUAD-OPTIONS',data);
-				addItemsToList('POPULATE-TEAM',data);
+				addItemsToList('POPULATE-TEAM-SQUAD',data);
 				match_data = data;
 				break;
 			case 'SQUAD-ROLE-COUNT_GRAPHICS-OPTIONS':
@@ -307,8 +347,23 @@ function processAuctionProcedures(whatToProcess)
 				addItemsToList('POPULATE-TEAM',data);
 				match_data = data;
 				break;
-			
-			case 'POPULATE-FF-PLAYERPROFILE': case 'POPULATE-SQUAD': case 'POPULATE-REMAINING_PURSE_ALL': case 'POPULATE-SINGLE_PURSE': case 'POPULATE-TOP_SOLD':
+			case 'POPULATE-SQUAD': 
+					if (which_GFX == 'POPULATE-SQUAD') {
+						processAuctionProcedures('ANIMATE-IN-SQUAD');
+					}else{
+					  if(confirm('Animate In?') == true){
+						$('#select_graphic_options_div').empty();
+						document.getElementById('select_graphic_options_div').style.display = 'none';
+						$("#captions_div").show();
+						processAuctionProcedures('ANIMATE-IN-SQUAD');
+						which_GFX = 'POPULATE-SQUAD';
+						 setTimeout(function() {
+				            startTeamRotation(); 
+				         }, 1000);
+					}
+				}
+				break;
+			case 'POPULATE-FF-PLAYERPROFILE': case 'POPULATE-REMAINING_PURSE_ALL': case 'POPULATE-SINGLE_PURSE': case 'POPULATE-TOP_SOLD':
 			case 'POPULATE-CRAWL': case 'POPULATE-SQUAD_ROLE': case 'POPULATE-FF_IDENT':
 				if(confirm('Animate In?') == true){
 					$('#select_graphic_options_div').empty();
@@ -327,9 +382,6 @@ function processAuctionProcedures(whatToProcess)
 						break;
 					case 'POPULATE-REMAINING_PURSE_ALL':
 						processAuctionProcedures('ANIMATE-IN-REMAINING_PURSE_ALL');				
-						break;
-					case 'POPULATE-SQUAD':
-						processAuctionProcedures('ANIMATE-IN-SQUAD');				
 						break;
 					case 'POPULATE-FF-PLAYERPROFILE':
 						processAuctionProcedures('ANIMATE-IN-PLAYERPROFILE');				
@@ -368,6 +420,28 @@ function addItemsToList(whatToProcess, dataToProcess)
 				}))
 		});
 		
+		break;
+	case 'POPULATE-TEAM-SQUAD':
+		  $('#selectTeamName').empty(); // Clear previous options
+
+            // Store the team data globally
+            teams = dataToProcess.map(function(tm) {
+                return { teamId: tm.teamId, teamName: tm.teamName1 };
+            });
+
+            // Populate the dropdown with teams
+            dataToProcess.forEach(function(tm) {
+                $('#selectTeamName').append(
+                    $(document.createElement('option')).prop({
+                        value: tm.teamId,
+                        text: tm.teamName1
+                    })
+                );
+            });
+			$('#selectTeamName').on('change', function() {
+			    // Find the selected team index based on the dropdown selection
+			    currentTeamIndex = $('#selectTeamName').prop('selectedIndex');
+			});
 		break;
 	case 'POPULATE-PROFILE' :
 
