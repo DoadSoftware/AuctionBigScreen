@@ -433,7 +433,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 		
 		break;
 	case 'POPULATE-TEAM-SQUAD':
-		  $('#selectTeamName').empty(); // Clear previous options
+		  $('#selectTeamName').empty();
 
             // Store the team data globally
             teams = dataToProcess.map(function(tm) {

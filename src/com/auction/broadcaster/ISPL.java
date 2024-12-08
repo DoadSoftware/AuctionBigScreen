@@ -270,13 +270,15 @@ public class ISPL extends Scene{
 			if(data.isPlayer_sold_or_unsold() == false) {
 				for(int i=auction.getPlayers().size()-1; i >= 0; i--) {
 					if(playerId == auction.getPlayers().get(i).getPlayerId()) {
-						if(auction.getPlayers().get(i).getSoldOrUnsold().equalsIgnoreCase(AuctionUtil.SOLD)) {
+						if(auction.getPlayers().get(i).getSoldOrUnsold().equalsIgnoreCase(AuctionUtil.SOLD)||
+								auction.getPlayers().get(i).getSoldOrUnsold().equalsIgnoreCase(AuctionUtil.RTM)) {
 							print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSoldUnsold 1 ;");
 							print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBidPrice " + 
 									ConvertToLakh(auction.getPlayers().get(i).getSoldForPoints()) + ";");
 							print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgTeamLogo " + logo_path + 
 									auctionService.getTeams().get(auction.getPlayers().get(i).getTeamId() - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
-							print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tUnsold SOLD;");
+							print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tUnsold "+
+									(auction.getPlayers().get(i).getSoldOrUnsold().equalsIgnoreCase(AuctionUtil.SOLD)? "SOLD":"SOLD-RTM")+";");
 							
 							TimeUnit.MILLISECONDS.sleep(200);
 							print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*Result START;");
@@ -979,8 +981,7 @@ public class ISPL extends Scene{
 						print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerFrom0"+ row + " " + 
 								auctionService.getAllPlayer().get(match.getPlayers().get(j).getPlayerId() -1).getCategory().toUpperCase() + ";");
 					}
-					
-					if(auctionService.getAllPlayer().get(match.getPlayers().get(j).getPlayerId() -1).getIconic().equalsIgnoreCase(AuctionUtil.YES)) {
+					if(auctionService.getAllPlayer().get(match.getPlayers().get(j).getPlayerId() -1).getIconic()!=null && auctionService.getAllPlayer().get(match.getPlayers().get(j).getPlayerId() -1).getIconic().equalsIgnoreCase(AuctionUtil.YES)) {
 						print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vPlayerInfo0" + row + " 1" + ";");
 						print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgPlayerInfo0" + row + " " + 
 								icon_path + "Icon" + AuctionUtil.PNG_EXTENSION + ";");
