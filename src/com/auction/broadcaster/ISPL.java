@@ -133,8 +133,11 @@ public class ISPL extends Scene{
 							processAnimation(print_writer, "Out", "START", session_selected_broadcaster,(3-current_layer));
 							processAnimation(print_writer, "Result", "START", session_selected_broadcaster,(3-current_layer));
 							break;
-						
-						case "SQUAD": case "REMAINING_PURSE_ALL": case "SINGLE_PURSE": case "TOP_SOLD":
+						case "SQUAD":
+							processAnimation(print_writer, "Out", "START", session_selected_broadcaster,(3-current_layer));
+							TimeUnit.SECONDS.sleep(3);
+							break;
+						case "REMAINING_PURSE_ALL": case "SINGLE_PURSE": case "TOP_SOLD":
 						case "FF_IDENT":	
 							processAnimation(print_writer, "Out", "START", session_selected_broadcaster,(3-current_layer));
 							TimeUnit.SECONDS.sleep(1);

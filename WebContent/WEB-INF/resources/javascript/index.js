@@ -15,7 +15,7 @@ function startTeamRotation() {
 	        currentTeamIndex = (currentTeamIndex + 1) % teams.length;
 	        processAuctionProcedures('POPULATE-SQUAD');
         }
-    }, 10000);  
+    }, 15000);  
 }
 
 function stopTeamRotation() {
@@ -68,9 +68,13 @@ function processUserSelectionData(whatToProcess,dataToProcess){
 			$("#captions_div").hide();
 			$("#cancel_match_setup_btn").hide();
 			$("#expiry_message").hide();
+			stopTeamRotation();
+			which_GFX = "";
 			processAuctionProcedures('PLAYERPROFILE_GRAPHICS-OPTIONS');
 			break;
 		case 'F4':
+			stopTeamRotation();
+			which_GFX = "";
 			processAuctionProcedures('POPULATE-FF_IDENT');
 			break;
 		}
@@ -93,24 +97,31 @@ function initialiseForm(whatToProcess,dataToProcess)
 }
 function processUserSelection(whichInput)
 {	
-	switch ($(whichInput).attr('name')) {
-		
-	
+	switch ($(whichInput).attr('name')) {	
 	case 'animateout_graphic_btn':
+		stopTeamRotation();
+		which_GFX = "";
 		if(confirm('It will Also Delete Your Preview from Directory...\r\n \r\nAre You Sure To Animate Out? ') == true){
 			processAuctionProcedures('ANIMATE-OUT');	
 		}
 		break;
 	case 'clearall_graphic_btn':
+		stopTeamRotation();
+		which_GFX = "";
 		processAuctionProcedures('CLEAR-ALL');
 		break;	
 	case 'top_sold_graphic_btn':
+		stopTeamRotation();
 		processAuctionProcedures('POPULATE-TOP_SOLD');
 		break;
 	case 'remaining_purse_graphic_btn':
+		stopTeamRotation();
+		which_GFX = "";
 		processAuctionProcedures('POPULATE-REMAINING_PURSE_ALL');
 		break;
 	case 'Ident_graphic_btn':
+		stopTeamRotation();
+		which_GFX = "";
 		processAuctionProcedures('POPULATE-FF_IDENT');
 		break;
 		
@@ -125,6 +136,8 @@ function processUserSelection(whichInput)
 			processAuctionProcedures('SQUAD-ROLE-COUNT_GRAPHICS-OPTIONS');
 			break;
 		case 'playerprofile_graphic_btn':
+			stopTeamRotation();
+			which_GFX = "";
 			processAuctionProcedures('PLAYERPROFILE_GRAPHICS-OPTIONS');
 			break;
 		case 'squad_graphic_btn':
@@ -357,9 +370,7 @@ function processAuctionProcedures(whatToProcess)
 						$("#captions_div").show();
 						processAuctionProcedures('ANIMATE-IN-SQUAD');
 						which_GFX = 'POPULATE-SQUAD';
-						 setTimeout(function() {
-				            startTeamRotation(); 
-				         }, 1000);
+						startTeamRotation(); 
 					}
 				}
 				break;
