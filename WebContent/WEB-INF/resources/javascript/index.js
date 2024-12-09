@@ -92,6 +92,8 @@ function initialiseForm(whatToProcess,dataToProcess)
 		break;
 	case 'UPDATE-CONFIG':
 		document.getElementById('configuration_file_name').value = $('#select_configuration_file option:selected').val();
+		document.getElementById('vizIPAddress').value = dataToProcess.ipAddress;
+		document.getElementById('vizPortNumber').value = dataToProcess.portNumber;
 		break;
 	}
 }
@@ -133,6 +135,11 @@ function processUserSelection(whichInput)
 		stopTeamRotation();
 		which_GFX = "";
 		processAuctionProcedures('POPULATE-FF_IDENT');
+		break;
+	case 'iconic_Player_graphic_btn':
+		stopTeamRotation();
+		which_GFX = "";
+		processAuctionProcedures('POPULATE-FF_ICONIC_PLAYERS');
 		break;
 		
 	case 'playerprofile_graphic_btn': case 'squad_graphic_btn': case 'remaining_purse_single_graphic_btn': case 'crawler_graphic_btn':
@@ -346,6 +353,13 @@ function processAuctionProcedures(whatToProcess)
 			break;	
 		}
 		break;
+	case 'POPULATE-FF_ICONIC_PLAYERS':
+		switch ($('#selected_broadcaster').val().toUpperCase()) {
+		case 'ISPL':
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/Iconic_Players.sum' ;
+			break;	
+		}
+		break;
 	case 'GET-CONFIG-DATA':
 		valueToProcess = $('#select_configuration_file option:selected').val();
 		break;
@@ -428,7 +442,7 @@ function processAuctionProcedures(whatToProcess)
 			
 			case 'POPULATE-FF-PLAYERPROFILE': case 'POPULATE-REMAINING_PURSE_ALL': case 'POPULATE-SINGLE_PURSE': case 'POPULATE-TOP_SOLD':
 			case 'POPULATE-CRAWL': case 'POPULATE-SQUAD_ROLE': case 'POPULATE-FF_IDENT': case 'POPULATE-RTM_AVAILABLE': case 'POPULATE-ONLY_SQUAD':
-			case 'POPULATE-SLOTS_REMAINING':
+			case 'POPULATE-SLOTS_REMAINING':case 'POPULATE-FF_ICONIC_PLAYERS':
 				if(confirm('Animate In?') == true){
 					$('#select_graphic_options_div').empty();
 					document.getElementById('select_graphic_options_div').style.display = 'none';
@@ -464,6 +478,9 @@ function processAuctionProcedures(whatToProcess)
 						break;
 					case 'POPULATE-FF_IDENT':
 						processAuctionProcedures('ANIMATE-IN-FF_IDENT');				
+						break;
+					case 'POPULATE-FF_ICONIC_PLAYERS':
+						processAuctionProcedures('ANIMATE-IN-FF_ICONIC_PLAYERS');
 						break;
 					}
 				}
