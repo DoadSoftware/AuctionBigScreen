@@ -277,7 +277,7 @@ function processAuctionProcedures(whatToProcess)
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_Handball_Auction_2023/Scenes/Squad.sum' + ',' + $('#selectTeamName option:selected').val();
 			break;
 		case 'ISPL':
-			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/Squad.sum' + ',' + team_index;
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/Squad.sum' + ',' + $('#selectTeamName option:selected').val();
 			break;	
 		}
 		break;
@@ -393,6 +393,7 @@ function processAuctionProcedures(whatToProcess)
 				break;
 			case 'ONLY_SQUAD_GRAPHICS-OPTIONS':
 				addItemsToList('ONLY_SQUAD-OPTIONS',data);
+				addItemsToList('POPULATE-TEAM-ONLY_SQUAD',data);
 				match_data = data;
 				break;
 			case 'SQUAD_GRAPHICS-OPTIONS': 
@@ -493,6 +494,24 @@ function addItemsToList(whatToProcess, dataToProcess)
 		});
 		
 		break;
+	case 'POPULATE-TEAM-ONLY_SQUAD':
+		  $('#selectTeamName').empty();
+
+            // Store the team data globally
+            teams = dataToProcess.map(function(tm) {
+                return { teamId: tm.teamId, teamName: tm.teamName1 };
+            });
+
+            // Populate the dropdown with teams
+            dataToProcess.forEach(function(tm) {
+                $('#selectTeamName').append(
+                    $(document.createElement('option')).prop({
+                        value: tm.teamId,
+                        text: tm.teamName1
+                    })
+                );
+            });
+		break;	
 	case 'POPULATE-TEAM-SQUAD':
 		  $('#selectTeamName').empty();
 
