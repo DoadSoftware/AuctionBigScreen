@@ -368,7 +368,7 @@ public class ISPL extends Scene{
 					}
 				}
 			}
-			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgPlayerRole0" +row+" "+ icon_path +Icon + ";");
+			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgPlayerRole0" +row+" "+ icon_path +Icon+ AuctionUtil.PNG_EXTENSION + ";");
 			
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerFirstname0" +row+" "+player.getFirstname()+ ";");
 			if(player.getSurname() != null) {
