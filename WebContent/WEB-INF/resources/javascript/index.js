@@ -121,6 +121,11 @@ function processUserSelection(whichInput)
 		which_GFX = "";
 		processAuctionProcedures('POPULATE-REMAINING_PURSE_ALL');
 		break;
+	case 'rtm_squad_graphic_btn':	
+		stopTeamRotation();
+		which_GFX = "";
+		processAuctionProcedures('POPULATE-RTM_SQUAD');
+		break;
 	case 'rtm_available_graphic_btn':	
 		stopTeamRotation();
 		which_GFX = "";
@@ -326,6 +331,16 @@ function processAuctionProcedures(whatToProcess)
 			break;	
 		}
 		break;
+	case 'POPULATE-RTM_SQUAD':
+		switch ($('#selected_broadcaster').val().toUpperCase()) {
+		case 'HANDBALL':
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_Handball_Auction_2023/Scenes/RemainingPurse_All.sum' ;
+			break;
+		case 'ISPL':
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/RemainingPurse_All02.sum' ;
+			break;	
+		}
+		break;
 	case 'POPULATE-RTM_AVAILABLE':
 		switch ($('#selected_broadcaster').val().toUpperCase()) {
 		case 'HANDBALL':
@@ -442,13 +457,16 @@ function processAuctionProcedures(whatToProcess)
 			
 			case 'POPULATE-FF-PLAYERPROFILE': case 'POPULATE-REMAINING_PURSE_ALL': case 'POPULATE-SINGLE_PURSE': case 'POPULATE-TOP_SOLD':
 			case 'POPULATE-CRAWL': case 'POPULATE-SQUAD_ROLE': case 'POPULATE-FF_IDENT': case 'POPULATE-RTM_AVAILABLE': case 'POPULATE-ONLY_SQUAD':
-			case 'POPULATE-SLOTS_REMAINING':case 'POPULATE-FF_ICONIC_PLAYERS':
+			case 'POPULATE-SLOTS_REMAINING':case 'POPULATE-FF_ICONIC_PLAYERS': case 'POPULATE-RTM_SQUAD':
 				if(confirm('Animate In?') == true){
 					$('#select_graphic_options_div').empty();
 					document.getElementById('select_graphic_options_div').style.display = 'none';
 					$("#captions_div").show();
 					
 		        	switch(whatToProcess) {
+					case 'POPULATE-RTM_SQUAD':
+						processAuctionProcedures('ANIMATE-IN-RTM_SQUAD');	
+						break;
 					case 'POPULATE-ONLY_SQUAD':
 						processAuctionProcedures('ANIMATE-IN-ONLY_SQUAD');	
 						break;
