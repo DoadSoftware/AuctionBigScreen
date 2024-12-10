@@ -155,6 +155,8 @@ function processUserSelection(whichInput)
 		
 		switch ($(whichInput).attr('name')) {
 		case 'squad_with_role_count_graphic_btn':
+			stopTeamRotation();
+			which_GFX = "";
 			processAuctionProcedures('SQUAD-ROLE-COUNT_GRAPHICS-OPTIONS');
 			break;
 		case 'playerprofile_graphic_btn':
@@ -166,9 +168,13 @@ function processUserSelection(whichInput)
 			processAuctionProcedures('SQUAD_GRAPHICS-OPTIONS');
 			break;
 		case 'Only_squad_graphic_btn':
+			stopTeamRotation();
+			which_GFX = "";
 			processAuctionProcedures('ONLY_SQUAD_GRAPHICS-OPTIONS');
 			break;
 		case 'remaining_purse_single_graphic_btn':
+			stopTeamRotation();
+			which_GFX = "";
 			processAuctionProcedures('SINGLE_PURSE_GRAPHICS-OPTIONS');
 			break;
 		case 'crawler_graphic_btn':
