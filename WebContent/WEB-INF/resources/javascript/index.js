@@ -450,12 +450,13 @@ function processAuctionProcedures(whatToProcess)
         	switch(whatToProcess) {
 			case 'READ-MATCH-AND-POPULATE': case 'RE_READ_DATA':
 				if(data){
+					initialiseForm("UPDATE-MATCH-ON-OUTPUT-FORM",data);
 					//alert("match = " + $('#matchFileTimeStamp').val() + "Data = "+ data.matchFileTimeStamp)
-					if($('#matchFileTimeStamp').val() != data.matchFileTimeStamp) {
+					/*if($('#matchFileTimeStamp').val() != data.matchFileTimeStamp) {
 						document.getElementById('matchFileTimeStamp').value = data.matchFileTimeStamp;
 						initialiseForm("UPDATE-MATCH-ON-OUTPUT-FORM",data);
 						//match_data = data;
-					}
+					}*/
 				}
 				if(whatToProcess == 'RE_READ_DATA'){
 					alert('Data is Loaded');
@@ -650,7 +651,6 @@ function addItemsToList(whatToProcess, dataToProcess)
 	case 'POPULATE-PROFILE' :
 
 		$('#selectPlayerName').empty();
-		
 		dataToProcess.forEach(function(plyr,index,arr1){
 			$('#selectPlayerName').append(
 					$(document.createElement('option')).prop({

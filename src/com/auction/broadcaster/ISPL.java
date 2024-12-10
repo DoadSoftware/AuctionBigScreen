@@ -325,12 +325,19 @@ public class ISPL extends Scene{
 						break;
 					
 					case "PLAYERPROFILE":
-						processAnimation(print_writer, "Out", "START", session_selected_broadcaster,(3-current_layer));
-						processAnimation(print_writer, "Result", "START", session_selected_broadcaster,(3-current_layer));
+//						processAnimation(print_writer, "Out", "START", session_selected_broadcaster,(3-current_layer));
+//						processAnimation(print_writer, "Result", "START", session_selected_broadcaster,(3-current_layer));
+						processAnimation(print_writer, "Out", "START", session_selected_broadcaster,(1));
+						processAnimation(print_writer, "Result", "START", session_selected_broadcaster,(1));
+						processAnimation(print_writer, "Out", "START", session_selected_broadcaster,(2));
+						processAnimation(print_writer, "Result", "START", session_selected_broadcaster,(2));
 						TimeUnit.SECONDS.sleep(4);
-						processAnimation(print_writer, "In", "SHOW 0.0", session_selected_broadcaster,(3-current_layer));
-						processAnimation(print_writer, "Out", "SHOW 0.0", session_selected_broadcaster,(3-current_layer));
-						processAnimation(print_writer, "Result", "SHOW 0.0", session_selected_broadcaster,(3-current_layer));
+						processAnimation(print_writer, "In", "SHOW 0.0", session_selected_broadcaster,(1));
+						processAnimation(print_writer, "Out", "SHOW 0.0", session_selected_broadcaster,(1));
+						processAnimation(print_writer, "Result", "SHOW 0.0", session_selected_broadcaster,(1));
+						processAnimation(print_writer, "In", "SHOW 0.0", session_selected_broadcaster,(2));
+						processAnimation(print_writer, "Out", "SHOW 0.0", session_selected_broadcaster,(2));
+						processAnimation(print_writer, "Result", "SHOW 0.0", session_selected_broadcaster,(2));
 						break;
 					case "SQUAD": 
 						processAnimation(print_writer, "Out", "START", session_selected_broadcaster,1);
@@ -374,7 +381,7 @@ public class ISPL extends Scene{
 		
 		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tFirstName " +"ICON PLAYERS"+ ";");
 		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tLastName " +" "+ ";");
-		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader AUCTION 2025;");	
+		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader PLAYER AUCTION 2025;");	
 		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgPlayerImage " + logo_path + "ISPL" 
 				+ AuctionUtil.PNG_EXTENSION + ";");
 		int row = 0;
@@ -488,7 +495,7 @@ public class ISPL extends Scene{
 	{
 		String Runs = "",Wickets = "",Economy = "",SR = "",Matches = "";
 		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + 
-				"AUCTION 2025" + ";");
+				"PLAYER AUCTION 2025" + ";");
 		
 		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBaePointsHead " + 
 				"BASE PRICE" + ";");
@@ -628,33 +635,41 @@ public class ISPL extends Scene{
 				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET 1 0;");
 
 			}else {
-				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tAgeHead " + "AGE" + ";");
+				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyleHead AGE;");
 				
 				if(auctionService.getAllPlayer().get(playerId - 1).getAge() != null) {
-					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tAge " + 
-							auctionService.getAllPlayer().get(playerId - 1).getAge() + " yrs" + ";");
-				}else {
-					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tAge -;");
-				}
-				
-				
-				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyleHead " + "BATTING STYLE" + ";");
-				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyleHead " + "BOWLING STYLE" + ";");
-				
-				if(auctionService.getAllPlayer().get(playerId - 1).getBatsmanStyle() != null) {
-					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyle " + 
-							auctionService.getAllPlayer().get(playerId - 1).getBatsmanStyle() + ";");
+					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyle "+auctionService.getAllPlayer().get(playerId - 1).getAge()+";");
 				}else {
 					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyle -;");
 				}
+				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyleHead ;");
 				
-				if(auctionService.getAllPlayer().get(playerId - 1).getBowlerStyle() != null) {
-					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyle " + 
-							auctionService.getAllPlayer().get(playerId - 1).getBowlerStyle() + ";");
-				}else {
-					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyle -;");
-				}
+				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tAgeHead ;");
+				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tAge ;");
+				
+				
+				
+				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyle ;");
 				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET 1 0;");
+				
+				
+//				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyleHead " + "BATTING STYLE" + ";");
+//				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyleHead " + "BOWLING STYLE" + ";");
+//				
+//				if(auctionService.getAllPlayer().get(playerId - 1).getBatsmanStyle() != null) {
+//					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyle " + 
+//							auctionService.getAllPlayer().get(playerId - 1).getBatsmanStyle() + ";");
+//				}else {
+//					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyle -;");
+//				}
+//				
+//				if(auctionService.getAllPlayer().get(playerId - 1).getBowlerStyle() != null) {
+//					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyle " + 
+//							auctionService.getAllPlayer().get(playerId - 1).getBowlerStyle() + ";");
+//				}else {
+//					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyle -;");
+//				}
+//				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET 1 0;");
 			}
 			
 			if(auctionService.getAllPlayer().get(playerId - 1).getU19() != null) {
@@ -693,23 +708,31 @@ public class ISPL extends Scene{
 				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tRole " + "-" + ";");
 			}
 			
-			if(auctionService.getAllPlayer().get(playerId - 1).getLastYearTeam() != null) {
-				if(auctionService.getAllPlayer().get(playerId - 1).getCategory().equalsIgnoreCase("U19")) {
-					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tCategory " + 
-							"UNDER 19" + ";");
-				}else {
-					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tCategory " + 
-							auctionService.getAllPlayer().get(playerId - 1).getCategory().toUpperCase() + ";");
-				}
+			if(auctionService.getAllPlayer().get(playerId - 1).getCategory().equalsIgnoreCase("U19")) {
+				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tCategory " + 
+						"UNDER 19" + ";");
 			}else {
-				if(auctionService.getAllPlayer().get(playerId - 1).getCategory().equalsIgnoreCase("U19")) {
-					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tCategory " + 
-							"UNDER 19 - UNCAPPED" + ";");
-				}else {
-					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tCategory " + 
-							auctionService.getAllPlayer().get(playerId - 1).getCategory().toUpperCase() + " - UNCAPPED" + ";");
-				}
+				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tCategory " + 
+						auctionService.getAllPlayer().get(playerId - 1).getCategory().toUpperCase() + ";");
 			}
+			
+//			if(auctionService.getAllPlayer().get(playerId - 1).getLastYearTeam() != null) {
+//				if(auctionService.getAllPlayer().get(playerId - 1).getCategory().equalsIgnoreCase("U19")) {
+//					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tCategory " + 
+//							"UNDER 19" + ";");
+//				}else {
+//					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tCategory " + 
+//							auctionService.getAllPlayer().get(playerId - 1).getCategory().toUpperCase() + ";");
+//				}
+//			}else {
+//				if(auctionService.getAllPlayer().get(playerId - 1).getCategory().equalsIgnoreCase("U19")) {
+//					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tCategory " + 
+//							"UNDER 19 - UNCAPPED" + ";");
+//				}else {
+//					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tCategory " + 
+//							auctionService.getAllPlayer().get(playerId - 1).getCategory().toUpperCase() + " - UNCAPPED" + ";");
+//				}
+//			}
 			
 			
 
@@ -1168,12 +1191,12 @@ public class ISPL extends Scene{
 			}
 			
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tFirstName " + 
-					"INDIAN STREET PREMIER LEAGUE" + ";");
+					"TOP BUYS" + ";");
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tLastName " + 
 					"" + ";");
 			
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader " + 
-					"PLAYER AUCTION 2025" + ";");
+					"ISPL PLAYER AUCTION 2025" + ";");
 			
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatHead01 " + 
 					"" + ";");
@@ -1332,12 +1355,12 @@ public class ISPL extends Scene{
 			}
 			
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tFirstName " + 
-					"INDIAN STREET PREMIER LEAGUE" + ";");
+					"TOP BUYS" + ";");
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tLastName " + 
 					"" + ";");
 			
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader " + 
-					"TOP 5 BUYS" + ";");
+					"ISPL PLAYER AUCTION 2025" + ";");
 			
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgLogoBase " + 
 					logo_base_path + "ISPL" + AuctionUtil.PNG_EXTENSION + ";");
@@ -2024,9 +2047,9 @@ public class ISPL extends Scene{
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader " + 
 					"PLAYER AUCTION 2025" + ";");
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tFirstName " + 
-					"PURSE" + ";");
+					"INDIAN STREET PREMIER LEAGUE" + ";");
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tLastName " + 
-					"REMAINING" + ";");
+					"" + ";");
 			
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatHead01 " + 
 					"" + ";");
@@ -2861,7 +2884,7 @@ public class ISPL extends Scene{
 			}
 			break;
 		}
-		
+		which_graphics_onscreen = "BG";
 	}
 	
 	public String toString() {
