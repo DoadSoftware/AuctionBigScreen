@@ -265,8 +265,8 @@ public class IndexController
 //		    return (List<T>) session_nameSupers;
 		case "PLAYERPROFILE_GRAPHICS-OPTIONS": 
 		    return (List<T>) session_player;  
-		case "SQUAD_GRAPHICS-OPTIONS": case "SINGLE_PURSE_GRAPHICS-OPTIONS": case "TOP-SOLD_TEAM_GRAPHICS-OPTIONS":
-		case "SQUAD-ROLE-COUNT_GRAPHICS-OPTIONS": case "ONLY_SQUAD_GRAPHICS-OPTIONS":
+		case "SQUAD_GRAPHICS-OPTIONS": case "SINGLE_PURSE_GRAPHICS-OPTIONS": case "TOP-SOLD_TEAM_GRAPHICS-OPTIONS": case "TOP_FIVE_SOLD_TEAMS_GRAPHICS-OPTIONS":
+		case "SQUAD-ROLE-COUNT_GRAPHICS-OPTIONS": case "ONLY_SQUAD_GRAPHICS-OPTIONS": case "TOP_SOLD_TEAMS_GRAPHICS-OPTIONS":
 		    return (List<T>) session_team;
 		}
 	    return null;

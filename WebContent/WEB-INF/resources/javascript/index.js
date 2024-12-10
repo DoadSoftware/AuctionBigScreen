@@ -111,7 +111,11 @@ function processUserSelection(whichInput)
 		stopTeamRotation();
 		which_GFX = "";
 		processAuctionProcedures('CLEAR-ALL');
-		break;	
+		break;
+	case 'top_five_sold_graphic_btn':
+		stopTeamRotation();
+		processAuctionProcedures('POPULATE-TOP_FIVE_SOLD');
+		break;
 	case 'top_sold_graphic_btn':
 		stopTeamRotation();
 		processAuctionProcedures('POPULATE-TOP_SOLD');
@@ -148,7 +152,7 @@ function processUserSelection(whichInput)
 		break;
 		
 	case 'playerprofile_graphic_btn': case 'squad_graphic_btn': case 'remaining_purse_single_graphic_btn': case 'crawler_graphic_btn':
-	case 'squad_with_role_count_graphic_btn': case 'Only_squad_graphic_btn':
+	case 'squad_with_role_count_graphic_btn': case 'Only_squad_graphic_btn': case 'top_sold_teams_graphic_btn': case 'top_five_sold_teams_graphic_btn':
 		$("#captions_div").hide();
 		$("#cancel_match_setup_btn").hide();
 		$("#expiry_message").hide();
@@ -177,6 +181,16 @@ function processUserSelection(whichInput)
 			which_GFX = "";
 			processAuctionProcedures('SINGLE_PURSE_GRAPHICS-OPTIONS');
 			break;
+		case 'top_sold_teams_graphic_btn':
+			stopTeamRotation();
+			which_GFX = "";
+			processAuctionProcedures('TOP_SOLD_TEAMS_GRAPHICS-OPTIONS');
+			break;
+		case 'top_five_sold_teams_graphic_btn':
+			stopTeamRotation();
+			which_GFX = "";
+			processAuctionProcedures('TOP_FIVE_SOLD_TEAMS_GRAPHICS-OPTIONS');
+			break;
 		case 'crawler_graphic_btn':
 			addItemsToList('CRAWLER-OPTIONS',null);
 			break;	
@@ -185,6 +199,7 @@ function processUserSelection(whichInput)
 		
 	case 'populate_namesuper_btn': case 'populate_namesuper_player_btn': case 'populate_playerprofile_btn':	case 'populate_squad_btn':
 	case 'populate_single_purse_btn': case 'populate_crawl_btn': case 'populate_squad_role_btn': case 'populate_only_squad_btn':
+	case 'populate_top_sold_teams_btn': case 'populate_top_five_sold_teams_btn':
 		processWaitingButtonSpinner('START_WAIT_TIMER');
 		switch ($(whichInput).attr('name')) {
 		case 'populate_squad_role_btn':
@@ -208,6 +223,12 @@ function processUserSelection(whichInput)
 		case 'populate_single_purse_btn':
 			processAuctionProcedures('POPULATE-SINGLE_PURSE');
 			break;
+		case 'populate_top_sold_teams_btn':
+			processAuctionProcedures('POPULATE-TOP_SOLD_TEAMS');
+			break;
+		case 'populate_top_five_sold_teams_btn':
+			processAuctionProcedures('POPULATE-TOP_FIVE_SOLD_TEAMS');
+			break;
 		case 'populate_crawl_btn':
 			processAuctionProcedures('POPULATE-CRAWL');
 			break;
@@ -223,6 +244,7 @@ function processUserSelection(whichInput)
 		document.getElementById('select_graphic_options_div').style.display = 'none';
 		$("#captions_div").show();
 		$("#cancel_match_setup_btn").show();
+		processAuctionProcedures('POPULATE-CANCEL');
 		break;
 	case 'select_broadcaster':
 		switch ($('#select_broadcaster :selected').val().toUpperCase()) {
@@ -309,11 +331,41 @@ function processAuctionProcedures(whatToProcess)
 			break;	
 		}
 		break;
+	case 'POPULATE-TOP_FIVE_SOLD_TEAMS':
+		switch ($('#selected_broadcaster').val().toUpperCase()) {
+		case 'HANDBALL':
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_Handball_Auction_2023/Scenes/Top_Buys.sum' ;
+			break;
+		case 'ISPL':
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/TOP_5_Buys.sum' + ',' + $('#selectTeamName option:selected').val();
+			break;	
+		}
+		break;
+	case 'POPULATE-TOP_SOLD_TEAMS':
+		switch ($('#selected_broadcaster').val().toUpperCase()) {
+		case 'HANDBALL':
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_Handball_Auction_2023/Scenes/Top_Buys.sum' ;
+			break;
+		case 'ISPL':
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/Top_Buys.sum' + ',' + $('#selectTeamName option:selected').val();
+			break;	
+		}
+		break;	
 	case 'POPULATE-CRAWL':
 		switch ($('#selected_broadcaster').val().toUpperCase()) {
 		case 'ISPL':
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/Ticker.sum' + ',' + 
 			$('#selectCrawl1 option:selected').val() + ',' + $('#selectCrawl2 option:selected').val();
+			break;	
+		}
+		break;
+	case 'POPULATE-TOP_FIVE_SOLD':
+		switch ($('#selected_broadcaster').val().toUpperCase()) {
+		case 'HANDBALL':
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_Handball_Auction_2023/Scenes/Top_Buys.sum' ;
+			break;
+		case 'ISPL':
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/TOP_5_Buys.sum' ;
 			break;	
 		}
 		break;
@@ -446,6 +498,16 @@ function processAuctionProcedures(whatToProcess)
 				addItemsToList('POPULATE-TEAM',data);
 				match_data = data;
 				break;
+			case 'TOP_SOLD_TEAMS_GRAPHICS-OPTIONS':
+				addItemsToList('TOP_SOLD-OPTIONS',data);
+				addItemsToList('POPULATE-TEAM',data);
+				match_data = data;
+				break;
+			case 'TOP_FIVE_SOLD_TEAMS_GRAPHICS-OPTIONS':
+				addItemsToList('TOP_FIVE_SOLD-OPTIONS',data);
+				addItemsToList('POPULATE-TEAM',data);
+				match_data = data;
+				break;
 			case 'POPULATE-SQUAD': 
 					if (which_GFX == 'POPULATE-SQUAD') {
 						processAuctionProcedures('ANIMATE-IN-SQUAD');
@@ -463,7 +525,8 @@ function processAuctionProcedures(whatToProcess)
 			
 			case 'POPULATE-FF-PLAYERPROFILE': case 'POPULATE-REMAINING_PURSE_ALL': case 'POPULATE-SINGLE_PURSE': case 'POPULATE-TOP_SOLD':
 			case 'POPULATE-CRAWL': case 'POPULATE-SQUAD_ROLE': case 'POPULATE-FF_IDENT': case 'POPULATE-RTM_AVAILABLE': case 'POPULATE-ONLY_SQUAD':
-			case 'POPULATE-SLOTS_REMAINING':case 'POPULATE-FF_ICONIC_PLAYERS': case 'POPULATE-RTM_SQUAD':
+			case 'POPULATE-SLOTS_REMAINING':case 'POPULATE-FF_ICONIC_PLAYERS': case 'POPULATE-RTM_SQUAD': case 'POPULATE-TOP_SOLD_TEAMS':
+			case 'POPULATE-TOP_FIVE_SOLD': case 'POPULATE-TOP_FIVE_SOLD_TEAMS':
 				if(confirm('Animate In?') == true){
 					$('#select_graphic_options_div').empty();
 					document.getElementById('select_graphic_options_div').style.display = 'none';
@@ -482,8 +545,17 @@ function processAuctionProcedures(whatToProcess)
 					case 'POPULATE-CRAWL':
 						processAuctionProcedures('ANIMATE-IN-CRAWL');				
 						break;
+					case 'POPULATE-TOP_SOLD_TEAMS':
+						processAuctionProcedures('ANIMATE-IN-TOP_SOLD_TEAMS');				
+						break;
+					case 'POPULATE-TOP_FIVE_SOLD_TEAMS':
+						processAuctionProcedures('ANIMATE-IN-TOP_FIVE_SOLD_TEAMS');				
+						break;
 					case 'POPULATE-TOP_SOLD':
 						processAuctionProcedures('ANIMATE-IN-TOP_SOLD');				
+						break;
+					case 'POPULATE-TOP_FIVE_SOLD':
+						processAuctionProcedures('ANIMATE-IN-TOP_FIVE_SOLD');				
 						break;
 					case 'POPULATE-REMAINING_PURSE_ALL':
 						processAuctionProcedures('ANIMATE-IN-REMAINING_PURSE_ALL');				
@@ -700,7 +772,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 		}
 		break;	
 	case'NAMESUPER-OPTIONS': case 'NAMESUPER_PLAYER-OPTIONS':  case'PLAYERPROFILE-OPTIONS': case 'SQUAD-OPTIONS': case 'SINGLE_PURSE-OPTIONS':
-	case 'SQUAD-ROLE-COUNT-OPTIONS': case 'ONLY_SQUAD-OPTIONS':
+	case 'SQUAD-ROLE-COUNT-OPTIONS': case 'ONLY_SQUAD-OPTIONS': case 'TOP_SOLD-OPTIONS': case 'TOP_FIVE_SOLD-OPTIONS':
 		switch ($('#selected_broadcaster').val().toUpperCase()) {
 		case 'HANDBALL': case 'ISPL':
 
@@ -721,7 +793,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 			row = tbody.insertRow(tbody.rows.length);
 			
 			switch(whatToProcess){
-				case 'SINGLE_PURSE-OPTIONS':
+				case 'SINGLE_PURSE-OPTIONS': case 'TOP_SOLD-OPTIONS': case 'TOP_FIVE_SOLD-OPTIONS':
 				switch ($('#selected_broadcaster').val().toUpperCase()) {
 					case 'HANDBALL': case 'ISPL':
 						select = document.createElement('select');
@@ -891,7 +963,15 @@ function addItemsToList(whatToProcess, dataToProcess)
 			case 'SINGLE_PURSE-OPTIONS':
 				option.name = 'populate_single_purse_btn';
 			    option.value = 'Populate Single Purse';
-				break;	
+				break;
+			case 'TOP_SOLD-OPTIONS':
+				option.name = 'populate_top_sold_teams_btn';
+			    option.value = 'Populate Top Sold';
+				break;
+			case 'TOP_FIVE_SOLD-OPTIONS':
+				option.name = 'populate_top_five_sold_teams_btn';
+			    option.value = 'Populate Top 5 Sold';
+				break;
 			
 			}
 		    option.id = option.name;
