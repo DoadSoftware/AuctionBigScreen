@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 import com.auction.containers.Data;
 import com.auction.containers.Scene;
 import com.auction.model.Player;
+import com.auction.model.PlayerCount;
 import com.auction.model.Statistics;
 import com.auction.model.Team;
 import com.auction.service.AuctionService;
@@ -385,9 +386,7 @@ public class ISPL extends Scene{
 			}else {
 				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerLastname0" +row+" "+ ";");
 			}
-			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelectDataType0" +row+" 0;");
-
-			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vPlayerInfo0" +row+" "+"1;");
+			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vPlayerInfo0" +row+" "+"0;");
 
 			if(player.getCategory().equalsIgnoreCase("U19")) {
 				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerFrom0"+ row + " " + 
@@ -1461,12 +1460,41 @@ public class ISPL extends Scene{
 			
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgPlayerImage " + logo_path + 
 					match.getTeam().get(team_id-1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
+			
+			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgLogoBase " + logo_base_path + 
+					match.getTeam().get(team_id-1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
 		}
 		
 		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBidPrice " + 
 				ConvertToLakh((Integer.valueOf(match.getTeam().get(team_id-1).getTeamTotalPurse()) - row)) + ";");
 		row = 0;
-		
+		PlayerCount teamZone = match.getTeamZoneList().get(team_id-1);
+		for(int j=1;j<=6;j++) {
+			
+			String zoneName = (j == 1 ? "EAST ZONE" :
+                j == 2 ? "WEST ZONE" :
+                j == 3 ? "NORTH ZONE" :
+                j == 4 ? "SOUTH ZONE" :
+                j == 5 ? "CENTRAL ZONE" : "UNDER 19");
+			
+			// Zone values
+            String zoneValue = (j == 1 ? String.valueOf(teamZone.getEastZone()) :
+                    j == 2 ? String.valueOf(teamZone.getWestZone()) :
+                    j == 3 ? String.valueOf(teamZone.getNorthZone()) :
+                    j == 4 ? String.valueOf(teamZone.getSouthZone()) :
+                    j == 5 ? String.valueOf(teamZone.getCentralZone()) : String.valueOf(teamZone.getU19()));
+            
+			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatHead0" + j+" " +
+					zoneName + ";");
+			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatValue0" + j+" " +
+					zoneValue + ";");
+			
+		}
+		//TOTAL TEAM SIZE
+		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatHead07 TOTAL ;");
+		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatValue07 " +
+				(teamZone.getEastZone() + teamZone.getWestZone() + teamZone.getNorthZone() + teamZone.getSouthZone() +
+				 teamZone.getCentralZone() + teamZone.getU19()) + ";");
 		
 		if(is_this_updating == false) {
 			TimeUnit.SECONDS.sleep(1);
