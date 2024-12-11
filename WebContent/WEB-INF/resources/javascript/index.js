@@ -66,6 +66,9 @@ function processUserSelectionData(whatToProcess,dataToProcess){
 		case '9':
 			processAuctionProcedures('TOP_15_AUCTION_CHANGEON');
 			break;	
+		case 'b':
+			processAuctionProcedures('BASE_LOAD');
+			break;	
 		case 'F1':
 			$("#captions_div").hide();
 			$("#cancel_match_setup_btn").hide();
@@ -566,7 +569,11 @@ function processAuctionProcedures(whatToProcess)
 					}
 				}
 				break;
-			
+			case 'TOP_15_AUCTION_CHANGEON':
+				if(data.message){
+						alert(data.message);
+				}
+				break;
 			case 'POPULATE-FF-PLAYERPROFILE': case 'POPULATE-REMAINING_PURSE_ALL': case 'POPULATE-SINGLE_PURSE': case 'POPULATE-TOP_SOLD':
 			case 'POPULATE-CRAWL': case 'POPULATE-SQUAD_ROLE': case 'POPULATE-FF_IDENT': case 'POPULATE-RTM_AVAILABLE': case 'POPULATE-ONLY_SQUAD':
 			case 'POPULATE-SLOTS_REMAINING':case 'POPULATE-FF_ICONIC_PLAYERS': case 'POPULATE-RTM_SQUAD': case 'POPULATE-TOP_SOLD_TEAMS':

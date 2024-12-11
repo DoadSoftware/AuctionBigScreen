@@ -12,6 +12,7 @@ import java.net.UnknownHostException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.xml.bind.JAXBContext;
@@ -54,7 +55,7 @@ public class IndexController
 	public static PrintWriter print_writer;
 	public static String expiry_date = "2024-12-31";
 	public static String error_message = "";
-	public static String current_date = "";
+	public static String current_date = "", gfx="";
 	public static String Current_File_Name = "";
 	public int current_layer = 1;
 	
@@ -253,9 +254,20 @@ public class IndexController
 				this_doad.ProcessGraphicOption(whatToProcess, session_auction, auctionService, print_writer, session_selected_scenes, valueToProcess);
 				break;
 			case "ISPL":
-				this_ispl.ProcessGraphicOption(whatToProcess, session_auction, auctionService, print_writer, session_selected_scenes, valueToProcess);	
+				Object gfxResult = this_ispl.ProcessGraphicOption(whatToProcess, session_auction, auctionService, print_writer, session_selected_scenes, valueToProcess);	
+				 gfx = "";
+				if (gfxResult != null) {
+				    gfx = gfxResult.toString();
+				}
+				break;
 			}
-			return JSONObject.fromObject(session_auction).toString();
+			if(!gfx.isEmpty()) {
+				return JSONObject.fromObject(Collections.singletonMap("message",gfx)).toString();
+
+			}else {
+				return JSONObject.fromObject(session_auction).toString();
+
+			}
 		}
 	}
 	

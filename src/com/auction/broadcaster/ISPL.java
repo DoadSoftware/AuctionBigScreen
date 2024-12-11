@@ -37,6 +37,7 @@ public class ISPL extends Scene{
 	private String photo_path  = "C:\\Images\\AUCTION\\Photos\\";
 	private String icon_path = "C:\\Images\\AUCTION\\Icons\\";
 	private int value1 = 0;
+	private int size=0,count=0;
 	private boolean update_gfx = false;
 	List<String> data_str = new ArrayList<String>();
 	
@@ -96,7 +97,7 @@ public class ISPL extends Scene{
 		case "POPULATE-TOP_SOLD": case "POPULATE-CRAWL": case "POPULATE-SQUAD_ROLE": case "POPULATE-FF_IDENT": case "POPULATE-ONLY_SQUAD":
 		case "POPULATE-RTM_AVAILABLE": case "POPULATE-SLOTS_REMAINING":	case "POPULATE-FF_ICONIC_PLAYERS": case "POPULATE-RTM_SQUAD":
 		case "POPULATE-TOP_SOLD_TEAMS":	case "POPULATE-TOP_FIVE_SOLD": case "POPULATE-TOP_FIVE_SOLD_TEAMS": case "POPULATE-CANCEL":
-		case "POPULATE-TOP_15_SOLD": case "POPULATE-TOP_15_SOLD_TEAMS":
+		case "POPULATE-TOP_15_SOLD": case "POPULATE-TOP_15_SOLD_TEAMS":case "BASE_LOAD":
 			switch (session_selected_broadcaster.toUpperCase()) {
 			case "HANDBALL": case "ISPL":
 				switch(whatToProcess.toUpperCase()) {
@@ -112,6 +113,7 @@ public class ISPL extends Scene{
 					scenes.get(1).scene_load(print_writer,session_selected_broadcaster);
 					break;
 				}
+			
 				if(new File(AuctionUtil.AUCTION_DIRECTORY + AuctionUtil.AUCTION_JSON).exists()) {
 					auction = new ObjectMapper().readValue(new File(AuctionUtil.AUCTION_DIRECTORY + 
 							AuctionUtil.AUCTION_JSON), Auction.class);
@@ -121,6 +123,14 @@ public class ISPL extends Scene{
 
 				}
 				switch (whatToProcess.toUpperCase()) {
+				case "BASE_LOAD":
+					print_writer.println("LAYER3*EVEREST*STAGE*DIRECTOR*In SHOW 71.0;");
+					current_layer = 3 - current_layer;
+					scenes.get(1).setWhich_layer(String.valueOf(current_layer));
+					scenes.get(1).setScene_path("D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/BG.sum");
+					scenes.get(1).scene_load(print_writer,session_selected_broadcaster);
+					which_graphics_onscreen = "BASE_LOAD";
+					break;
 				case "POPULATE-CANCEL":
 					current_layer = 3 - current_layer;
 					previous_Scene = which_graphics_onscreen;
@@ -174,6 +184,7 @@ public class ISPL extends Scene{
 					populateTopSold(false,print_writer, valueToProcess.split(",")[0], auction,auctionService, session_selected_broadcaster);
 					break;
 				case "POPULATE-TOP_15_SOLD":
+					count = 5;
 					populateTop15Sold(false,print_writer, valueToProcess.split(",")[0], auction,auctionService, session_selected_broadcaster);
 					break;
 				case "POPULATE-TOP_FIVE_SOLD":
@@ -201,7 +212,12 @@ public class ISPL extends Scene{
 			case "HANDBALL": case "ISPL":
 				switch (whatToProcess.toUpperCase()) {
 				case "TOP_15_AUCTION_CHANGEON":
-					print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*In CONTINUE;");
+					if(size <=count) {
+						return "Can't proceed Further";
+					}else {
+						print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*In CONTINUE;");
+						count= count + 5;	
+					}
 					break;
 				case "ANIMATE-IN-PLAYERPROFILE": case "ANIMATE-IN-SQUAD": case "ANIMATE-IN-REMAINING_PURSE_ALL": case "ANIMATE-IN-FF_ICONIC_PLAYERS":
 				case "ANIMATE-IN-SINGLE_PURSE": case "ANIMATE-IN-TOP_SOLD": case "ANIMATE-IN-CRAWL": case "ANIMATE-IN-FF_IDENT":
@@ -340,7 +356,6 @@ public class ISPL extends Scene{
 						processAnimation(print_writer, "Out", "START", session_selected_broadcaster,current_layer);
 						which_graphics_onscreen = "";
 						break;
-					
 					case "PLAYERPROFILE":
 //						processAnimation(print_writer, "Out", "START", session_selected_broadcaster,(3-current_layer));
 //						processAnimation(print_writer, "Result", "START", session_selected_broadcaster,(3-current_layer));
@@ -369,7 +384,7 @@ public class ISPL extends Scene{
 					
 					case "REMAINING_PURSE_ALL": case "SINGLE_PURSE": case "TOP_SOLD": case "FF_IDENT": case "RTM": case "SLOTS":
 					case "ONLY_SQUAD": case "RTM_SQUAD": case "TOP_SOLD_TEAMS": case "TOP_FIVE_SOLD": case "TOP_FIVE_SOLD_TEAMS":
-					case "TOP_15_SOLD":	
+					case "TOP_15_SOLD":case "BASE_LOAD":	
 						processAnimation(print_writer, "Out", "START", session_selected_broadcaster,(3-current_layer));
 						TimeUnit.SECONDS.sleep(4);
 						processAnimation(print_writer, "In", "SHOW 0.0", session_selected_broadcaster,(3-current_layer));
@@ -722,15 +737,9 @@ public class ISPL extends Scene{
 			
 			if(auctionService.getAllPlayer().get(playerId - 1).getU19() != null) {
 				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatHead " + 
-						"FRANCHISE PICK - " + ";");
-				
-				for(Team tm : auctionService.getTeams()) {
-					if(tm.getTeamId() == Integer.valueOf(auctionService.getAllPlayer().get(playerId - 1).getU19())) {
-						print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatValue " + 
-								tm.getTeamName1() + ";");
-						break;
-					}
-				}
+						"" + ";");
+				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatValue " + 
+						"FRANCHISE PICK" + ";");
 			}else {
 				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatHead " + 
 						"" + ";");
@@ -1586,7 +1595,7 @@ public class ISPL extends Scene{
 			if(!top_sold.get(m).getSoldOrUnsold().equalsIgnoreCase("BID")) {
 				row = row + 1;
 	        	if(row <= 15) {
-	        		
+	        		size = row;
 //	        		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$All$Player$" + getNumber(row) + "*CONTAINER SET ACTIVE 1;");
 	        		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelectLogo0" + row + " 1;");
 	        		
