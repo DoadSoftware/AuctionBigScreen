@@ -66,6 +66,7 @@
 			    <div class="col-sm-6 col-md-6">
 			      <select id="select_broadcaster" name="select_broadcaster" class="browser-default custom-select custom-select-sm"
 			      		onchange="processUserSelection(this)">
+			      		<option value="UTT">UTT</option>
 			      	   <option value="ISPL">ISPL</option>	
 			          <option value="HANDBALL">HANDBALL</option>
 			      </select>

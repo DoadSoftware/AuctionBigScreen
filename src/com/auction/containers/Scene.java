@@ -46,7 +46,7 @@ public class Scene {
 	public void scene_load(PrintWriter print_writer, String broadcaster) throws InterruptedException
 	{
 		switch (broadcaster.toUpperCase()) {
-		case "HANDBALL": case "ISPL":
+		case "HANDBALL": case "ISPL": case "UTT":
 			switch(this.which_layer.toUpperCase()) {
 			case "1":
 				print_writer.println("LAYER1*EVEREST*SINGLE_SCENE LOAD " + this.scene_path + ";");

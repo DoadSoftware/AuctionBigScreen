@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.auction.broadcaster.Doad;
 import com.auction.broadcaster.ISPL;
+import com.auction.broadcaster.UTT;
 import com.auction.containers.Configurations;
 import com.auction.containers.Data;
 import com.auction.containers.Scene;
@@ -52,8 +53,9 @@ public class IndexController
 	public static Socket session_socket;
 	public static Doad this_doad;
 	public static ISPL this_ispl;
+	public static UTT this_utt;
 	public static PrintWriter print_writer;
-	public static String expiry_date = "2024-12-31";
+	public static String expiry_date = "2025-12-31";
 	public static String error_message = "";
 	public static String current_date = "", gfx="";
 	public static String Current_File_Name = "";
@@ -140,6 +142,7 @@ public class IndexController
 			infobar = new Data();
 			this_doad = new Doad();
 			this_ispl = new ISPL();
+			this_utt = new UTT();
 			session_selected_broadcaster = select_broadcaster;
 			selected_layer = which_layer;
 			selected_scene = which_scene;
@@ -159,6 +162,16 @@ public class IndexController
 				break;
 			case "ISPL":
 				session_selected_scenes.add(new Scene("D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/BG.sum"
+						,"3")); // Front layer
+				session_selected_scenes.add(new Scene("","1"));
+				session_selected_scenes.get(0).scene_load(print_writer, session_selected_broadcaster);
+				print_writer.println("LAYER3*EVEREST*STAGE*DIRECTOR*In SHOW 0.0;");
+				//print_writer.println("LAYER3*EVEREST*STAGE*DIRECTOR*In START;");
+				print_writer.println("LAYER3*EVEREST*STAGE*DIRECTOR*LOOP START;");
+				this_doad.which_graphics_onscreen = "BG";
+				break;	
+			case "UTT":
+				session_selected_scenes.add(new Scene("D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/BG.sum"
 						,"3")); // Front layer
 				session_selected_scenes.add(new Scene("","1"));
 				session_selected_scenes.get(0).scene_load(print_writer, session_selected_broadcaster);
@@ -240,6 +253,9 @@ public class IndexController
 				break;
 			case "ISPL":
 				this_ispl.updateData(session_selected_scenes.get(0), session_auction,auctionService,print_writer);
+				break;
+			case "UTT":
+				this_utt.updateData(session_selected_scenes.get(0), session_auction,auctionService,print_writer);
 				break;	
 			}
 			
@@ -260,6 +276,13 @@ public class IndexController
 				    gfx = gfxResult.toString();
 				}
 				break;
+			case "UTT":
+				Object gfxResult1 = this_utt.ProcessGraphicOption(whatToProcess, session_auction, auctionService, print_writer, session_selected_scenes, valueToProcess);	
+				 gfx = "";
+				if (gfxResult1 != null) {
+				    gfx = gfxResult1.toString();
+				}
+				break;	
 			}
 			if(!gfx.isEmpty()) {
 				return JSONObject.fromObject(Collections.singletonMap("message",gfx)).toString();
