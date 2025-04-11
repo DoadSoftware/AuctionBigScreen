@@ -134,6 +134,11 @@ function processUserSelection(whichInput)
 		which_GFX = "";
 		processAuctionProcedures('POPULATE-REMAINING_PURSE_ALL');
 		break;
+	case 'cur_squad_graphic_btn':
+		stopTeamRotation();
+		which_GFX = "";
+		processAuctionProcedures('POPULATE-CURR_SQUAD');
+		break;
 	case 'rtm_squad_graphic_btn':	
 		stopTeamRotation();
 		which_GFX = "";
@@ -159,10 +164,13 @@ function processUserSelection(whichInput)
 		which_GFX = "";
 		processAuctionProcedures('POPULATE-FF_ICONIC_PLAYERS');
 		break;
+	case 'changeOn_btn':
+		processAuctionProcedures('CHANGE-INFO');
+		break;	
 		
 	case 'playerprofile_graphic_btn': case 'squad_graphic_btn': case 'remaining_purse_single_graphic_btn': case 'crawler_graphic_btn':
 	case 'squad_with_role_count_graphic_btn': case 'Only_squad_graphic_btn': case 'top_sold_teams_graphic_btn': case 'top_five_sold_teams_graphic_btn':
-	case 'top_15_sold_teams_graphic_btn':
+	case 'top_15_sold_teams_graphic_btn': case 'player_category_graphic_btn':
 		$("#captions_div").hide();
 		$("#cancel_match_setup_btn").hide();
 		$("#expiry_message").hide();
@@ -209,12 +217,15 @@ function processUserSelection(whichInput)
 		case 'crawler_graphic_btn':
 			addItemsToList('CRAWLER-OPTIONS',null);
 			break;	
+		case 'player_category_graphic_btn':	
+			addItemsToList('PLAYER_CATEGORY-OPTIONS',null);
+			break;	
 		}
 		break;
 		
 	case 'populate_namesuper_btn': case 'populate_namesuper_player_btn': case 'populate_playerprofile_btn':	case 'populate_squad_btn':
 	case 'populate_single_purse_btn': case 'populate_crawl_btn': case 'populate_squad_role_btn': case 'populate_only_squad_btn':
-	case 'populate_top_sold_teams_btn': case 'populate_top_five_sold_teams_btn': case 'populate_top_15_sold_teams_btn':
+	case 'populate_top_sold_teams_btn': case 'populate_top_five_sold_teams_btn': case 'populate_top_15_sold_teams_btn': case 'populate_category_btn':
 		processWaitingButtonSpinner('START_WAIT_TIMER');
 		switch ($(whichInput).attr('name')) {
 		case 'populate_squad_role_btn':
@@ -229,6 +240,9 @@ function processUserSelection(whichInput)
 		case 'populate_playerprofile_btn':
 			processAuctionProcedures('POPULATE-FF-PLAYERPROFILE');
 			break;
+		case 'populate_category_btn':
+			processAuctionProcedures('POPULATE-FF-CATEGORY');
+			break;	
 		case 'populate_squad_btn':
 			processAuctionProcedures('POPULATE-SQUAD');
 			break;
@@ -312,10 +326,23 @@ function processAuctionProcedures(whatToProcess)
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/PlayerProfile_Pic.sum' + ',' + $('#selectPlayerName option:selected').val();
 			break;
 		case 'UTT': 
-			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/PlayerProfile_Pic.sum' + ',' + $('#selectPlayerName option:selected').val();
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/Profile.sum' + ',' + $('#selectPlayerName option:selected').val();
 			break;	
 		}
 		break;
+	case 'POPULATE-FF-CATEGORY':
+		switch ($('#selected_broadcaster').val().toUpperCase()) {
+		case 'HANDBALL':
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_Handball_Auction_2023/Scenes/PlayerProfile_Pic.sum' + ',' + $('#selectPlayerName option:selected').val();
+			break;
+		case 'ISPL': 
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/PlayerProfile_Pic.sum' + ',' + $('#selectPlayerName option:selected').val();
+			break;
+		case 'UTT': 
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/Top_Buys.sum' + ',' + $('#selectPlayerName option:selected').val();
+			break;	
+		}
+		break;	
 	case 'POPULATE-SQUAD': case 'POPULATE-SQUAD_ROLE':
 		switch ($('#selected_broadcaster').val().toUpperCase()) {
 		case 'HANDBALL':
@@ -333,11 +360,11 @@ function processAuctionProcedures(whatToProcess)
 		case 'UTT':
 			let team_index1;
 			if(which_GFX=== "POPULATE-SQUAD"){
-				team_index = id;
+				team_index1 = id;
 			}else{
-				team_index =$('#selectTeamName option:selected').val();
+				team_index1 =$('#selectTeamName option:selected').val();
 			}
-			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/Squad.sum' + ',' + team_index;
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/Squad.sum' + ',' + team_index1;
 			break;	
 		}
 		break;
@@ -363,7 +390,7 @@ function processAuctionProcedures(whatToProcess)
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/RemainingPurse_Individual.sum' + ',' + $('#selectTeamName option:selected').val();
 			break;
 		case 'UTT':
-			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/RemainingPurse_Individual.sum' + ',' + $('#selectTeamName option:selected').val();
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/Purse_Remaining_Individual.sum' + ',' + $('#selectTeamName option:selected').val();
 			break;		
 		}
 		break;
@@ -376,7 +403,7 @@ function processAuctionProcedures(whatToProcess)
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/TOP_5_Buys.sum' + ',' + $('#selectTeamName option:selected').val();
 			break;
 		case 'UTT':
-			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/TOP_5_Buys.sum' + ',' + $('#selectTeamName option:selected').val();
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/Top_Buys.sum' + ',' + $('#selectTeamName option:selected').val();
 			break;		
 		}
 		break;
@@ -429,7 +456,7 @@ function processAuctionProcedures(whatToProcess)
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/TOP_5_Buys.sum' ;
 			break;
 		case 'UTT':
-			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/TOP_5_Buys.sum' ;
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/Top_Buys.sum' ;
 			break;			
 		}
 		break;
@@ -459,13 +486,13 @@ function processAuctionProcedures(whatToProcess)
 			break;		
 		}
 		break;
-	case 'POPULATE-REMAINING_PURSE_ALL':
+	case 'POPULATE-REMAINING_PURSE_ALL': case 'POPULATE-CURR_SQUAD':
 		switch ($('#selected_broadcaster').val().toUpperCase()) {
 		case 'HANDBALL':
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_Handball_Auction_2023/Scenes/RemainingPurse_All.sum' ;
 			break;
 		case 'UTT':
-			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/RemainingPurse_All.sum' ;
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/Purse_Remaining.sum' ;
 			break;	
 		}
 		break;
@@ -478,7 +505,7 @@ function processAuctionProcedures(whatToProcess)
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/RemainingPurse_All02.sum' ;
 			break;
 		case 'UTT':
-			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/RemainingPurse_All02.sum' ;
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/Purse_RemainingALL_02.sum' ;
 			break;		
 		}
 		break;
@@ -491,7 +518,7 @@ function processAuctionProcedures(whatToProcess)
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/RemainingPurse_All.sum' ;
 			break;	
 		case 'UTT':
-			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/RemainingPurse_All.sum' ;
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/Purse_Remaining.sum' ;
 			break;	
 		}
 		break;
@@ -504,7 +531,7 @@ function processAuctionProcedures(whatToProcess)
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/RemainingPurse_All.sum' ;
 			break;	
 		case 'UTT':
-			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/RemainingPurse_All.sum' ;
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/Purse_Remaining.sum' ;
 			break;	
 		}
 		break;	
@@ -634,12 +661,16 @@ function processAuctionProcedures(whatToProcess)
 			case 'POPULATE-CRAWL': case 'POPULATE-SQUAD_ROLE': case 'POPULATE-FF_IDENT': case 'POPULATE-RTM_AVAILABLE': case 'POPULATE-ONLY_SQUAD':
 			case 'POPULATE-SLOTS_REMAINING':case 'POPULATE-FF_ICONIC_PLAYERS': case 'POPULATE-RTM_SQUAD': case 'POPULATE-TOP_SOLD_TEAMS':
 			case 'POPULATE-TOP_FIVE_SOLD': case 'POPULATE-TOP_FIVE_SOLD_TEAMS': case 'POPULATE-TOP_15_SOLD': case 'POPULATE-TOP_15_SOLD_TEAMS':
+			case 'POPULATE-CURR_SQUAD':	case 'POPULATE-FF-CATEGORY':
 				if(confirm('Animate In?') == true){
 					$('#select_graphic_options_div').empty();
 					document.getElementById('select_graphic_options_div').style.display = 'none';
 					$("#captions_div").show();
 					
 		        	switch(whatToProcess) {
+					case 'POPULATE-FF-CATEGORY':
+						processAuctionProcedures('ANIMATE-IN-CATEGORY');
+						break;	
 					case 'POPULATE-RTM_SQUAD':
 						processAuctionProcedures('ANIMATE-IN-RTM_SQUAD');	
 						break;
@@ -672,6 +703,9 @@ function processAuctionProcedures(whatToProcess)
 						break;
 					case 'POPULATE-REMAINING_PURSE_ALL':
 						processAuctionProcedures('ANIMATE-IN-REMAINING_PURSE_ALL');				
+						break;
+					case 'POPULATE-CURR_SQUAD':	
+						processAuctionProcedures('ANIMATE-IN-CURR_SQUAD');				
 						break;
 					case 'POPULATE-RTM_AVAILABLE':
 						processAuctionProcedures('ANIMATE-IN-RTM');				
@@ -899,7 +933,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 		break;	
 	case'NAMESUPER-OPTIONS': case 'NAMESUPER_PLAYER-OPTIONS':  case'PLAYERPROFILE-OPTIONS': case 'SQUAD-OPTIONS': case 'SINGLE_PURSE-OPTIONS':
 	case 'SQUAD-ROLE-COUNT-OPTIONS': case 'ONLY_SQUAD-OPTIONS': case 'TOP_SOLD-OPTIONS': case 'TOP_FIVE_SOLD-OPTIONS':
-	case 'TOP_15_SOLD-OPTIONS':
+	case 'TOP_15_SOLD-OPTIONS': case 'PLAYER_CATEGORY-OPTIONS':
 		switch ($('#selected_broadcaster').val().toUpperCase()) {
 		case 'HANDBALL': case 'ISPL': case 'UTT':
 
@@ -920,6 +954,35 @@ function addItemsToList(whatToProcess, dataToProcess)
 			row = tbody.insertRow(tbody.rows.length);
 			
 			switch(whatToProcess){
+				case 'PLAYER_CATEGORY-OPTIONS':
+					select = document.createElement('select');
+					select.style = 'width:130px';
+					select.id = 'selectCat';
+					select.name = select.id;
+					
+					option = document.createElement('option');
+					option.value = 'IND.M';
+					option.text = 'INDIAN MALE' ;
+					select.appendChild(option);
+					
+					option = document.createElement('option');
+					option.value = 'IND.F';
+					option.text = 'INDIAN FEMALE' ;
+					select.appendChild(option);
+					
+					option = document.createElement('option');
+					option.value = 'INT.M';
+					option.text = 'FOREIGN MALE' ;
+					select.appendChild(option);
+					
+					option = document.createElement('option');
+					option.value = 'INT.F';
+					option.text = 'FOREIGN FEMALE' ;
+					select.appendChild(option);
+					
+					row.insertCell(cellCount).appendChild(select);
+					cellCount = cellCount + 1;
+					break;
 				case 'SINGLE_PURSE-OPTIONS': case 'TOP_SOLD-OPTIONS': case 'TOP_FIVE_SOLD-OPTIONS': case 'TOP_15_SOLD-OPTIONS':
 				switch ($('#selected_broadcaster').val().toUpperCase()) {
 					case 'HANDBALL': case 'ISPL': case 'UTT':
@@ -1053,6 +1116,18 @@ function addItemsToList(whatToProcess, dataToProcess)
 						$(select).select2();
 						cellCount = cellCount + 1;
 						
+						option = document.createElement('input');
+						option.type = 'button';
+						option.name = 'changeOn_btn';
+						option.value = 'Change On';
+						option.id = option.name;
+					    option.setAttribute('onclick',"processUserSelection(this)");
+					    
+					    div = document.createElement('div');
+					    div.append(option);
+						
+						row.insertCell(cellCount).appendChild(div);
+					    cellCount = cellCount + 1;
 						break;
 				} 
 				break;
@@ -1062,6 +1137,11 @@ function addItemsToList(whatToProcess, dataToProcess)
 		    option.type = 'button';
 			switch (whatToProcess) {
 			
+			case 'PLAYER_CATEGORY-OPTIONS':
+				option.name = 'populate_category_btn';
+			    option.value = 'Populate Category';
+				break;	
+				
 			case'NAMESUPER-OPTIONS':
 			    option.name = 'populate_namesuper_btn';
 			    option.value = 'Populate Namesuper';
