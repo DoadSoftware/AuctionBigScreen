@@ -126,17 +126,17 @@
 			    <button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="playerprofile_graphic_btn" id="playerprofile_graphic_btn" onclick="processUserSelection(this)"> PlayerProfile (F1) </button>
 			  	
-			  	<!-- <button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="Ident_graphic_btn" id="Ident_graphic_btn" onclick="processUserSelection(this)"> Ident (F4) </button>
-			  	 -->
+			  	 
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="squad_graphic_btn" id="squad_graphic_btn" onclick="processUserSelection(this)"> Squad Animation</button>	
 			  		
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="Only_squad_graphic_btn" id="Only_squad_graphic_btn" onclick="processUserSelection(this)"> Squad</button>
 			  			
-			  	<!-- <button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-			  		name="player_category_graphic_btn" id="player_category_graphic_btn" onclick="processUserSelection(this)"> Player List Category </button> -->
+			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+			  		name="player_category_graphic_btn" id="player_category_graphic_btn" onclick="processUserSelection(this)"> Player List Category </button>
 			  			
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="remaining_purse_graphic_btn" id="remaining_purse_graphic_btn" onclick="processUserSelection(this)"> Remaining Purse All + Spots Rem </button>

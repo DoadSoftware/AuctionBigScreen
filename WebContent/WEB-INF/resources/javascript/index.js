@@ -541,7 +541,7 @@ function processAuctionProcedures(whatToProcess)
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/Auction_Ident.sum' ;
 			break;
 		case 'UTT':
-			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/Auction_Ident.sum' ;
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/BG.sum' ;
 			break;		
 		}
 		break;
@@ -803,7 +803,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 				$('#selectPlayerName').append(
 					$(document.createElement('option')).prop({
 					value: plyr.playerId,
-					text: plyr.playerNumber + ' - ' + plyr.full_name + ' - ' + plyr.category + ' - ' + plyr.role
+					text: plyr.full_name + ' - ' + plyr.category
 				}))
 			}
 		});
@@ -814,7 +814,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 				$('#selectPlayerName').append(
 					$(document.createElement('option')).prop({
 					value: plyr.playerId,
-					text: plyr.playerNumber + ' - ' + plyr.full_name + ' - ' + plyr.category + ' - ' + plyr.role
+					text: plyr.full_name + ' - ' + plyr.category
 				}))
 			}
 		});
