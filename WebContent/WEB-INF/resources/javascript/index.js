@@ -159,6 +159,11 @@ function processUserSelection(whichInput)
 		which_GFX = "";
 		processAuctionProcedures('POPULATE-FF_IDENT');
 		break;
+	case 'BG_Ident_graphic_btn':
+		stopTeamRotation();
+		which_GFX = "";
+		processAuctionProcedures('POPULATE-FF_BG_IDENT');
+		break;	
 	case 'iconic_Player_graphic_btn':
 		stopTeamRotation();
 		which_GFX = "";
@@ -170,7 +175,7 @@ function processUserSelection(whichInput)
 		
 	case 'playerprofile_graphic_btn': case 'squad_graphic_btn': case 'remaining_purse_single_graphic_btn': case 'crawler_graphic_btn':
 	case 'squad_with_role_count_graphic_btn': case 'Only_squad_graphic_btn': case 'top_sold_teams_graphic_btn': case 'top_five_sold_teams_graphic_btn':
-	case 'top_15_sold_teams_graphic_btn': case 'player_category_graphic_btn':
+	case 'top_15_sold_teams_graphic_btn': case 'player_category_graphic_btn': case 'player_category_int_graphic_btn': case 'four_teams_graphic_btn':
 		$("#captions_div").hide();
 		$("#cancel_match_setup_btn").hide();
 		$("#expiry_message").hide();
@@ -219,16 +224,25 @@ function processUserSelection(whichInput)
 			break;	
 		case 'player_category_graphic_btn':	
 			addItemsToList('PLAYER_CATEGORY-OPTIONS',null);
-			break;	
+			break;
+		case 'player_category_int_graphic_btn':	
+			addItemsToList('PLAYER_CATEGORY_INT-OPTIONS',null);
+			break;
+		case 'four_teams_graphic_btn':
+			addItemsToList('FOUR_TEAM-OPTIONS',null);
+			break;		
 		}
 		break;
 		
 	case 'populate_namesuper_btn': case 'populate_namesuper_player_btn': case 'populate_playerprofile_btn':	case 'populate_squad_btn':
 	case 'populate_single_purse_btn': case 'populate_crawl_btn': case 'populate_squad_role_btn': case 'populate_only_squad_btn':
 	case 'populate_top_sold_teams_btn': case 'populate_top_five_sold_teams_btn': case 'populate_top_15_sold_teams_btn': case 'populate_category_btn': 
-	case 'changeOn_Cat_btn':
+	case 'changeOn_Cat_btn': case 'populate_category_int_btn': case 'populate_four_team_btn':
 		processWaitingButtonSpinner('START_WAIT_TIMER');
 		switch ($(whichInput).attr('name')) {
+		case 'populate_four_team_btn':
+			processAuctionProcedures('POPULATE-FOUR_TEAM');
+			break;	
 		case 'populate_squad_role_btn':
 			processAuctionProcedures('POPULATE-SQUAD_ROLE');
 			break;
@@ -244,6 +258,9 @@ function processUserSelection(whichInput)
 		case 'populate_category_btn': 
 			processAuctionProcedures('POPULATE-FF-CATEGORY');
 			break;
+		case 'populate_category_int_btn':
+			processAuctionProcedures('POPULATE-FF-CATEGORY_INT');
+			break;	
 		case 'changeOn_Cat_btn':
 			processAuctionProcedures('POPULATE-FF-CATEGORY_CHANGE');
 			break;		
@@ -334,6 +351,20 @@ function processAuctionProcedures(whatToProcess)
 			break;	
 		}
 		break;
+	case 'POPULATE-FOUR_TEAM':
+		switch ($('#selected_broadcaster').val().toUpperCase()) {
+			case 'UTT': 
+				valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/4Team_Details.sum' + ',' + $('#selectfourTeam option:selected').val();
+				break;	
+			}
+			break;	
+	case 'POPULATE-FF-CATEGORY_INT':
+		switch ($('#selected_broadcaster').val().toUpperCase()) {
+			case 'UTT': 
+				valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/Players_BidON_8.sum' + ',' + $('#selectCatInt option:selected').val();
+				break;	
+			}
+			break;	
 	case 'POPULATE-FF-CATEGORY': case 'POPULATE-FF-CATEGORY_CHANGE':
 		switch ($('#selected_broadcaster').val().toUpperCase()) {
 		case 'HANDBALL':
@@ -549,6 +580,16 @@ function processAuctionProcedures(whatToProcess)
 			break;		
 		}
 		break;
+	case 'POPULATE-FF_BG_IDENT':
+		switch ($('#selected_broadcaster').val().toUpperCase()) {
+			case 'ISPL':
+				valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/Auction_Ident.sum' ;
+				break;
+			case 'UTT':
+				valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/BG_Start.sum' ;
+				break;		
+			}
+			break;	
 	case 'POPULATE-FF_ICONIC_PLAYERS':
 		switch ($('#selected_broadcaster').val().toUpperCase()) {
 		case 'ISPL':
@@ -661,6 +702,7 @@ function processAuctionProcedures(whatToProcess)
 						alert(data.message);
 				}
 				break;
+				
 			case 'POPULATE-FF-CATEGORY': 
 				if(confirm('Animate In?') == true){
 					processAuctionProcedures('ANIMATE-IN-CATEGORY');
@@ -681,13 +723,19 @@ function processAuctionProcedures(whatToProcess)
 			case 'POPULATE-CRAWL': case 'POPULATE-SQUAD_ROLE': case 'POPULATE-FF_IDENT': case 'POPULATE-RTM_AVAILABLE': case 'POPULATE-ONLY_SQUAD':
 			case 'POPULATE-SLOTS_REMAINING':case 'POPULATE-FF_ICONIC_PLAYERS': case 'POPULATE-RTM_SQUAD': case 'POPULATE-TOP_SOLD_TEAMS':
 			case 'POPULATE-TOP_FIVE_SOLD': case 'POPULATE-TOP_FIVE_SOLD_TEAMS': case 'POPULATE-TOP_15_SOLD': case 'POPULATE-TOP_15_SOLD_TEAMS':
-			case 'POPULATE-CURR_SQUAD':
+			case 'POPULATE-CURR_SQUAD': case 'POPULATE-FF-CATEGORY_INT': case 'POPULATE-FF_BG_IDENT': case 'POPULATE-FOUR_TEAM':
 				if(confirm('Animate In?') == true){
 					$('#select_graphic_options_div').empty();
 					document.getElementById('select_graphic_options_div').style.display = 'none';
 					$("#captions_div").show();
 					
 		        	switch(whatToProcess) {
+					case 'POPULATE-FOUR_TEAM':
+						processAuctionProcedures('ANIMATE-IN-FOUR_TEAM');	
+						break;	
+					case 'POPULATE-FF-CATEGORY_INT':
+						processAuctionProcedures('ANIMATE-IN-CATEGORY_INT');	
+						break;	
 					case 'POPULATE-RTM_SQUAD':
 						processAuctionProcedures('ANIMATE-IN-RTM_SQUAD');	
 						break;
@@ -736,6 +784,9 @@ function processAuctionProcedures(whatToProcess)
 					case 'POPULATE-FF_IDENT':
 						processAuctionProcedures('ANIMATE-IN-FF_IDENT');				
 						break;
+					case 'POPULATE-FF_BG_IDENT':
+						processAuctionProcedures('ANIMATE-IN-FF_BG_IDENT');				
+						break;	
 					case 'POPULATE-FF_ICONIC_PLAYERS':
 						processAuctionProcedures('ANIMATE-IN-FF_ICONIC_PLAYERS');
 						break;
@@ -947,7 +998,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 		break;	
 	case'NAMESUPER-OPTIONS': case 'NAMESUPER_PLAYER-OPTIONS':  case'PLAYERPROFILE-OPTIONS': case 'SQUAD-OPTIONS': case 'SINGLE_PURSE-OPTIONS':
 	case 'SQUAD-ROLE-COUNT-OPTIONS': case 'ONLY_SQUAD-OPTIONS': case 'TOP_SOLD-OPTIONS': case 'TOP_FIVE_SOLD-OPTIONS':
-	case 'TOP_15_SOLD-OPTIONS': case 'PLAYER_CATEGORY-OPTIONS':
+	case 'TOP_15_SOLD-OPTIONS': case 'PLAYER_CATEGORY-OPTIONS': case 'PLAYER_CATEGORY_INT-OPTIONS': case 'FOUR_TEAM-OPTIONS':
 		switch ($('#selected_broadcaster').val().toUpperCase()) {
 		case 'HANDBALL': case 'ISPL': case 'UTT':
 
@@ -968,6 +1019,44 @@ function addItemsToList(whatToProcess, dataToProcess)
 			row = tbody.insertRow(tbody.rows.length);
 			
 			switch(whatToProcess){
+				case 'FOUR_TEAM-OPTIONS':
+					select = document.createElement('select');
+					select.style = 'width:130px';
+					select.id = 'selectfourTeam';
+					select.name = select.id;
+					
+					option = document.createElement('option');
+					option.value = '1_4';
+					option.text = '1 TO 4' ;
+					select.appendChild(option);
+					
+					option = document.createElement('option');
+					option.value = '5_8';
+					option.text = '5 TO 8' ;
+					select.appendChild(option);
+					
+					row.insertCell(cellCount).appendChild(select);
+					cellCount = cellCount + 1;
+					break;
+				case 'PLAYER_CATEGORY_INT-OPTIONS':
+					select = document.createElement('select');
+					select.style = 'width:130px';
+					select.id = 'selectCatInt';
+					select.name = select.id;
+					
+					option = document.createElement('option');
+					option.value = 'INT.M';
+					option.text = 'FOREIGN MALE' ;
+					select.appendChild(option);
+					
+					option = document.createElement('option');
+					option.value = 'INT.F';
+					option.text = 'FOREIGN FEMALE' ;
+					select.appendChild(option);
+					
+					row.insertCell(cellCount).appendChild(select);
+					cellCount = cellCount + 1;
+					break;
 				case 'PLAYER_CATEGORY-OPTIONS':
 					select = document.createElement('select');
 					select.style = 'width:130px';
@@ -982,16 +1071,6 @@ function addItemsToList(whatToProcess, dataToProcess)
 					option = document.createElement('option');
 					option.value = 'IND.F';
 					option.text = 'INDIAN FEMALE' ;
-					select.appendChild(option);
-					
-					option = document.createElement('option');
-					option.value = 'INT.M';
-					option.text = 'FOREIGN MALE' ;
-					select.appendChild(option);
-					
-					option = document.createElement('option');
-					option.value = 'INT.F';
-					option.text = 'FOREIGN FEMALE' ;
 					select.appendChild(option);
 					
 					row.insertCell(cellCount).appendChild(select);
@@ -1164,11 +1243,18 @@ function addItemsToList(whatToProcess, dataToProcess)
 		    option.type = 'button';
 			switch (whatToProcess) {
 			
+			case 'FOUR_TEAM-OPTIONS':
+				option.name = 'populate_four_team_btn';
+			    option.value = 'Populate Team';
+				break;	
+			case 'PLAYER_CATEGORY_INT-OPTIONS':
+				option.name = 'populate_category_int_btn';
+			    option.value = 'Populate Category';
+				break;
 			case 'PLAYER_CATEGORY-OPTIONS':
 				option.name = 'populate_category_btn';
 			    option.value = 'Populate Category';
-				break;	
-				
+				break;
 			case'NAMESUPER-OPTIONS':
 			    option.name = 'populate_namesuper_btn';
 			    option.value = 'Populate Namesuper';

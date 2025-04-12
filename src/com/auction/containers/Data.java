@@ -4,6 +4,7 @@ public class Data {
 	
 	private boolean data_on_screen;
 	private boolean player_sold_or_unsold;
+	private boolean player_Profile;
 	private int player_id;
 
 	public boolean isData_on_screen() {
@@ -28,6 +29,14 @@ public class Data {
 
 	public void setPlayer_sold_or_unsold(boolean player_sold_or_unsold) {
 		this.player_sold_or_unsold = player_sold_or_unsold;
+	}
+
+	public boolean isPlayer_Profile() {
+		return player_Profile;
+	}
+
+	public void setPlayer_Profile(boolean player_Profile) {
+		this.player_Profile = player_Profile;
 	}
 
 }
