@@ -604,7 +604,7 @@ public class UTT extends Scene{
 		String Rank = "",Style = "",Economy = "",SR = "",Matches = "";
 		
 		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + 
-				"AUCTION 2025" + ";");
+				"PLAYER AUCTION 2025" + ";");
 		
 		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBaePointsHead " + 
 				"BASE\nPRICE" + ";");
@@ -835,12 +835,10 @@ public class UTT extends Scene{
 		for(int i = 0; i < cnt; i++) {
 			
 			row = row + 1;
-			System.out.println("i = " + i);
 			if(row > 11) {
-				System.out.println("size2  = " + size);
 				break;
 			}
-			System.out.println("size1  = " + size);
+			
 			if(size < cnt) {
 				size = row;
 			}else if(size >= cnt) {
@@ -850,6 +848,12 @@ public class UTT extends Scene{
     		
     		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tName0" + row + " " + 
     				player.get(size - 1).getFull_name() + ";");
+    		
+    		if(category.equalsIgnoreCase("IND.M") || category.equalsIgnoreCase("IND.F")) {
+    			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$All$PlayersDetails$ALL$" + row + "$Flag_Grp*CONTAINER SET ACTIVE 0;");
+			}else {
+				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$All$PlayersDetails$ALL$" + row + "$Flag_Grp*CONTAINER SET ACTIVE 1;");
+			}
     		
     		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgFlag0" + row + " " + 
     				flag_path + player.get(size - 1).getNationality() + AuctionUtil.PNG_EXTENSION + ";");
@@ -1353,7 +1357,7 @@ public class UTT extends Scene{
 				}
 				
 				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + 
-						"TOP 10\nBUYS" + ";");
+						"TOP\nBUYS" + ";");
 				
 				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgLogo " + 
 						logo_path + "EVENT" + AuctionUtil.PNG_EXTENSION + ";");

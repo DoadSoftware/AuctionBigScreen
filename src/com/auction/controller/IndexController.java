@@ -255,7 +255,7 @@ public class IndexController
 				this_ispl.updateData(session_selected_scenes.get(0), session_auction,auctionService,print_writer);
 				break;
 			case "UTT":
-				//this_utt.updateData(session_selected_scenes.get(0), session_auction,auctionService,print_writer);
+				this_utt.updateData(session_selected_scenes.get(0), session_auction,auctionService,print_writer);
 				break;	
 			}
 			
