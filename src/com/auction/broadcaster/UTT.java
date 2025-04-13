@@ -1064,7 +1064,6 @@ public class UTT extends Scene{
 			cnt = 4;
 		}
 		
-		
 		if(is_this_updating == false) {
 			for(int i = 1; i < 7; i++) {
 				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPurseRemaining0" + i + "A ;");
@@ -1114,21 +1113,43 @@ public class UTT extends Scene{
 						data = "F";
 					}
 					
+					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelectType0" + value + data + " 1;");
+					
 					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPurseRemaining0" + value + data + " " + 
 							ply.getFull_name() + ";");
+					
+					if(ply.getCategory().equalsIgnoreCase("INT.M") || ply.getCategory().equalsIgnoreCase("INT.F")) {
+						print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelectInternational0" + value + data + " 1;");
+					}else {
+						print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelectInternational0" + value + data + " 0;");
+					}
 							
 				}
 				
-//				for(String Str:data_str) {
-//					if(Str.matches("IND_M|IND_F|INT_M|INT_F")) {
-//						row++;
-//						
-//						print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelectType0" + row + " 1 ;");
-//						print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgIcon0" + row + " "
-//								+ icon_path + Str + AuctionUtil.PNG_EXTENSION + " ;");
-//						print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$All$PlayersDetails$" + row + "$WithIcon$Icon*TEXTURE2 SET TEXTURE_PATH ;");
-//					}
-//				}
+				for(String Str:data_str) {
+					if(Str.matches("IND_M|IND_F|INT_M|INT_F")) {
+						row++;
+						
+						if(row == 1) {
+							data = "A";
+						}else if(row == 2) {
+							data = "B";
+						}else if(row == 3) {
+							data = "C";
+						}else if(row == 4) {
+							data = "D";
+						}else if(row == 5) {
+							data = "E";
+						}else if(row == 6) {
+							data = "F";
+						}
+						
+						print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelectType0" + value + data + " 0;");
+						print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgIcon0" + value + data + " "
+								+ icon_path + Str + AuctionUtil.PNG_EXTENSION + " ;");
+						print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$All$PlayersDetails$" + row + "$WithIcon$Icon*TEXTURE2 SET TEXTURE_PATH ;");
+					}
+				}
 			}
 		}
 		
