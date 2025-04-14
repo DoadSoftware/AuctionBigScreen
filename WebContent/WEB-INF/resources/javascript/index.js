@@ -15,7 +15,7 @@ function startTeamRotation() {
 	        currentTeamIndex = (currentTeamIndex + 1) % teams.length;
 	        processAuctionProcedures('POPULATE-SQUAD');
         }
-    }, 15000);  
+    }, 10000);
 }
 
 function stopTeamRotation() {
@@ -116,6 +116,10 @@ function processUserSelection(whichInput)
 		stopTeamRotation();
 		which_GFX = "";
 		processAuctionProcedures('CLEAR-ALL');
+		break;
+	case 'pool_graphic_btn':
+		stopTeamRotation();
+		processAuctionProcedures('POPULATE-POOL');
 		break;
 	case 'top_five_sold_graphic_btn':
 		stopTeamRotation();
@@ -442,6 +446,14 @@ function processAuctionProcedures(whatToProcess)
 			break;		
 		}
 		break;
+	case 'POPULATE-POOL':
+		switch ($('#selected_broadcaster').val().toUpperCase()) {
+		
+		case 'UTT':
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/Pools.sum';
+			break;		
+		}
+		break;	
 	case 'POPULATE-TOP_SOLD_TEAMS':
 		switch ($('#selected_broadcaster').val().toUpperCase()) {
 		case 'HANDBALL':
@@ -723,13 +735,16 @@ function processAuctionProcedures(whatToProcess)
 			case 'POPULATE-CRAWL': case 'POPULATE-SQUAD_ROLE': case 'POPULATE-FF_IDENT': case 'POPULATE-RTM_AVAILABLE': case 'POPULATE-ONLY_SQUAD':
 			case 'POPULATE-SLOTS_REMAINING':case 'POPULATE-FF_ICONIC_PLAYERS': case 'POPULATE-RTM_SQUAD': case 'POPULATE-TOP_SOLD_TEAMS':
 			case 'POPULATE-TOP_FIVE_SOLD': case 'POPULATE-TOP_FIVE_SOLD_TEAMS': case 'POPULATE-TOP_15_SOLD': case 'POPULATE-TOP_15_SOLD_TEAMS':
-			case 'POPULATE-CURR_SQUAD': case 'POPULATE-FF-CATEGORY_INT': case 'POPULATE-FF_BG_IDENT': case 'POPULATE-FOUR_TEAM':
+			case 'POPULATE-CURR_SQUAD': case 'POPULATE-FF-CATEGORY_INT': case 'POPULATE-FF_BG_IDENT': case 'POPULATE-FOUR_TEAM': case 'POPULATE-POOL':
 				if(confirm('Animate In?') == true){
 					$('#select_graphic_options_div').empty();
 					document.getElementById('select_graphic_options_div').style.display = 'none';
 					$("#captions_div").show();
 					
 		        	switch(whatToProcess) {
+					case 'POPULATE-POOL':
+						processAuctionProcedures('ANIMATE-IN-POOL');	
+						break;		
 					case 'POPULATE-FOUR_TEAM':
 						processAuctionProcedures('ANIMATE-IN-FOUR_TEAM');	
 						break;	
