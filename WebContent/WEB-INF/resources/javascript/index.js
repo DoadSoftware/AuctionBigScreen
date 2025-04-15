@@ -121,6 +121,10 @@ function processUserSelection(whichInput)
 		stopTeamRotation();
 		processAuctionProcedures('POPULATE-POOL');
 		break;
+	case 'pool_number_graphic_btn':
+		stopTeamRotation();
+		processAuctionProcedures('POPULATE-POOL_NUMBER');
+		break;	
 	case 'top_five_sold_graphic_btn':
 		stopTeamRotation();
 		processAuctionProcedures('POPULATE-TOP_FIVE_SOLD');
@@ -453,7 +457,15 @@ function processAuctionProcedures(whatToProcess)
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/Pools.sum';
 			break;		
 		}
-		break;	
+		break;
+	case 'POPULATE-POOL_NUMBER':
+		switch ($('#selected_broadcaster').val().toUpperCase()) {
+				
+		case 'UTT':
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/Pools_Numbers.sum';
+			break;		
+		}
+		break;		
 	case 'POPULATE-TOP_SOLD_TEAMS':
 		switch ($('#selected_broadcaster').val().toUpperCase()) {
 		case 'HANDBALL':
@@ -736,12 +748,16 @@ function processAuctionProcedures(whatToProcess)
 			case 'POPULATE-SLOTS_REMAINING':case 'POPULATE-FF_ICONIC_PLAYERS': case 'POPULATE-RTM_SQUAD': case 'POPULATE-TOP_SOLD_TEAMS':
 			case 'POPULATE-TOP_FIVE_SOLD': case 'POPULATE-TOP_FIVE_SOLD_TEAMS': case 'POPULATE-TOP_15_SOLD': case 'POPULATE-TOP_15_SOLD_TEAMS':
 			case 'POPULATE-CURR_SQUAD': case 'POPULATE-FF-CATEGORY_INT': case 'POPULATE-FF_BG_IDENT': case 'POPULATE-FOUR_TEAM': case 'POPULATE-POOL':
+			case 'POPULATE-POOL_NUMBER':	
 				if(confirm('Animate In?') == true){
 					$('#select_graphic_options_div').empty();
 					document.getElementById('select_graphic_options_div').style.display = 'none';
 					$("#captions_div").show();
 					
 		        	switch(whatToProcess) {
+					case 'POPULATE-POOL_NUMBER':
+						processAuctionProcedures('ANIMATE-IN-POOL_NUMBER');	
+						break;	
 					case 'POPULATE-POOL':
 						processAuctionProcedures('ANIMATE-IN-POOL');	
 						break;		

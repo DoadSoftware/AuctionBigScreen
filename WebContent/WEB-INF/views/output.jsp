@@ -179,7 +179,10 @@
 			  		name="four_teams_graphic_btn" id="four_teams_graphic_btn" onclick="processUserSelection(this)"> 4 Teams</button>
 			  		
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-			  		name="pool_graphic_btn" id="pool_graphic_btn" onclick="processUserSelection(this)"> Pool</button>		
+			  		name="pool_graphic_btn" id="pool_graphic_btn" onclick="processUserSelection(this)"> Pool</button>	
+			  		
+			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+			  		name="pool_number_graphic_btn" id="pool_number_graphic_btn" onclick="processUserSelection(this)"> Pool Number</button>		
 		  			
 		  		<!-- <button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="top_15_sold_graphic_btn" id="top_15_sold_graphic_btn" onclick="processUserSelection(this)"> Top 15 Sold Auction</button> -->
