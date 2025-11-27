@@ -62,7 +62,7 @@ public class UTT extends Scene{
 		this.status = status;
 	}
 	
-	public Data updateData(Scene scene, Auction auction,AuctionService auctionService, PrintWriter print_writer) throws InterruptedException
+	public Data updateData(Scene scene, Auction auction,AuctionService auctionService, PrintWriter print_writer) throws Exception
 	{
 		if(update_gfx == true) {
 			if(which_graphics_onscreen.equalsIgnoreCase("PLAYERPROFILE")) {
@@ -129,7 +129,7 @@ public class UTT extends Scene{
 	}
 	
 	public Object ProcessGraphicOption(String whatToProcess, Auction auction, AuctionService auctionService,
-			PrintWriter print_writer, List<Scene> scenes, String valueToProcess) throws InterruptedException, NumberFormatException, IllegalAccessException, StreamReadException, DatabindException, IOException {
+			PrintWriter print_writer, List<Scene> scenes, String valueToProcess) throws Exception {
 		
 		switch (whatToProcess.toUpperCase()) {
 		case "POPULATE-FF-PLAYERPROFILE": case "POPULATE-SQUAD": case "POPULATE-REMAINING_PURSE_ALL": case "POPULATE-SINGLE_PURSE":
@@ -1097,7 +1097,7 @@ public class UTT extends Scene{
 			print_writer.println("LAYER1*EVEREST*GLOBAL PREVIEW OFF;");
 		}
 	}
-	public void populateFourTeam(boolean is_this_updating,PrintWriter print_writer,String viz_scene,String tm, Auction match,AuctionService auctionService, String session_selected_broadcaster) throws InterruptedException 
+	public void populateFourTeam(boolean is_this_updating,PrintWriter print_writer,String viz_scene,String tm, Auction match,AuctionService auctionService, String session_selected_broadcaster) throws Exception 
 	{
 		int row = 0,cnt = 0,value = 0;	
 		String data = "";
@@ -2807,7 +2807,7 @@ public class UTT extends Scene{
 		}
 	}
 	
-	public void populateOnlySquad(boolean is_this_updating,PrintWriter print_writer,String viz_scene,int team_id , Auction match,AuctionService auctionService, String session_selected_broadcaster) throws InterruptedException 
+	public void populateOnlySquad(boolean is_this_updating,PrintWriter print_writer,String viz_scene,int team_id , Auction match,AuctionService auctionService, String session_selected_broadcaster) throws Exception 
 	{
 		int row = 0;
 		data_str.clear();
@@ -2892,7 +2892,7 @@ public class UTT extends Scene{
 		}
 	}
 	
-	public void populateSquad(boolean is_this_updating,PrintWriter print_writer,String viz_scene,int team_id , Auction match,AuctionService auctionService, String session_selected_broadcaster) throws InterruptedException 
+	public void populateSquad(boolean is_this_updating,PrintWriter print_writer,String viz_scene,int team_id , Auction match,AuctionService auctionService, String session_selected_broadcaster) throws Exception 
 	{
 		int row = 0;
 		data_str.clear();

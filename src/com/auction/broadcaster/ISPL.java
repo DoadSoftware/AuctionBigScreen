@@ -90,7 +90,7 @@ public class ISPL extends Scene{
 	}
 	
 	public Object ProcessGraphicOption(String whatToProcess, Auction auction, AuctionService auctionService,
-			PrintWriter print_writer, List<Scene> scenes, String valueToProcess) throws InterruptedException, NumberFormatException, IllegalAccessException, StreamReadException, DatabindException, IOException {
+			PrintWriter print_writer, List<Scene> scenes, String valueToProcess) throws Exception {
 		
 		switch (whatToProcess.toUpperCase()) {
 		case "POPULATE-FF-PLAYERPROFILE": case "POPULATE-SQUAD": case "POPULATE-REMAINING_PURSE_ALL": case "POPULATE-SINGLE_PURSE":

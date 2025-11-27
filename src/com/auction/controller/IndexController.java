@@ -213,7 +213,7 @@ public class IndexController
 	public @ResponseBody String processAuctionProcedures(
 			@RequestParam(value = "whatToProcess", required = false, defaultValue = "") String whatToProcess,
 			@RequestParam(value = "valueToProcess", required = false, defaultValue = "") String valueToProcess) 
-					throws IOException, IllegalAccessException, InvocationTargetException, JAXBException, InterruptedException 
+					throws Exception 
 	{
 		
 		switch (whatToProcess.toUpperCase()) {
