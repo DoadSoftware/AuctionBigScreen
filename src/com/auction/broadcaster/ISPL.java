@@ -93,6 +93,17 @@ public class ISPL extends Scene{
 			PrintWriter print_writer, List<Scene> scenes, String valueToProcess) throws Exception {
 		
 		switch (whatToProcess.toUpperCase()) {
+		case "POPULATE-TIMER":
+			processAnimation(print_writer, "Timer_In", "START", session_selected_broadcaster, current_layer);
+			TimeUnit.MILLISECONDS.sleep(500);
+			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main$TimeRemaining$Timer_GRP$StatHead*FUNCTION*TIMER SET START INVOKE;");
+			break;
+		case "POPULATE-TIMER_OUT":
+			processAnimation(print_writer, "Timer_Out", "START", session_selected_broadcaster, current_layer);
+			TimeUnit.MILLISECONDS.sleep(500);
+			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main$TimeRemaining$Timer_GRP$StatHead*FUNCTION*TIMER SET STOP INVOKE;");
+			break;
+		
 		case "POPULATE-FF-PLAYERPROFILE": case "POPULATE-SQUAD": case "POPULATE-REMAINING_PURSE_ALL": case "POPULATE-SINGLE_PURSE":
 		case "POPULATE-TOP_SOLD": case "POPULATE-CRAWL": case "POPULATE-SQUAD_ROLE": case "POPULATE-FF_IDENT": case "POPULATE-ONLY_SQUAD":
 		case "POPULATE-RTM_AVAILABLE": case "POPULATE-SLOTS_REMAINING":	case "POPULATE-FF_ICONIC_PLAYERS": case "POPULATE-RTM_SQUAD":
@@ -606,7 +617,10 @@ public class ISPL extends Scene{
 				update_gfx = false;
 			}
 			
+			print_writer.println("LAYER3*EVEREST*TREEVIEW*Main*CONTAINER SET ACTIVE 0;");
+			
 			print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*Result SHOW 0.0;");
+			print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*Timer_In SHOW 0.0;");
 			
 			data.setPlayer_sold_or_unsold(false);
 			

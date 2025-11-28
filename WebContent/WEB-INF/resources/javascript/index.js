@@ -82,6 +82,12 @@ function processUserSelectionData(whatToProcess,dataToProcess){
 			which_GFX = "";
 			processAuctionProcedures('POPULATE-FF_IDENT');
 			break;
+		case 't':
+			processAuctionProcedures('POPULATE-TIMER');
+			break;
+		case 'y':
+			processAuctionProcedures('POPULATE-TIMER_OUT');
+			break;
 		}
 		break;
 	}
