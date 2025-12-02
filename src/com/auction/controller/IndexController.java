@@ -166,7 +166,6 @@ public class IndexController
 				session_selected_scenes.add(new Scene("","1"));
 				session_selected_scenes.get(0).scene_load(print_writer, session_selected_broadcaster);
 				print_writer.println("LAYER3*EVEREST*STAGE*DIRECTOR*In SHOW 0.0;");
-				//print_writer.println("LAYER3*EVEREST*STAGE*DIRECTOR*In START;");
 				print_writer.println("LAYER3*EVEREST*STAGE*DIRECTOR*LOOP START;");
 				this_doad.which_graphics_onscreen = "BG";
 				break;	

@@ -1259,7 +1259,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 						$(select).select2();
 						cellCount = cellCount + 1;
 						
-						option = document.createElement('input');
+						/*option = document.createElement('input');
 						option.type = 'button';
 						option.name = 'changeOn_btn';
 						option.value = 'Change On';
@@ -1270,7 +1270,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 					    div.append(option);
 						
 						row.insertCell(cellCount).appendChild(div);
-					    cellCount = cellCount + 1;
+					    cellCount = cellCount + 1;*/
 						break;
 				} 
 				break;
