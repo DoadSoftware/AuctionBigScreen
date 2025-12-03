@@ -358,7 +358,8 @@ function processAuctionProcedures(whatToProcess)
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_Handball_Auction_2023/Scenes/PlayerProfile_Pic.sum' + ',' + $('#selectPlayerName option:selected').val();
 			break;
 		case 'ISPL': 
-			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/PlayerProfile_Pic.sum' + ',' + $('#selectPlayerName option:selected').val();
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/PlayerProfile_Pic.sum' + ',' 
+				+ $('#selectPlayerName option:selected').val() + ',' + $('#selectDataType option:selected').val();  
 			break;
 		case 'UTT': 
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/Profile.sum' + ',' + $('#selectPlayerName option:selected').val();
@@ -1246,7 +1247,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 						break;
 				}
 				break;
-			case'PLAYERPROFILE-OPTIONS':
+			case 'PLAYERPROFILE-OPTIONS':
 				switch ($('#selected_broadcaster').val().toUpperCase()) {
 					case 'HANDBALL': case 'ISPL': case 'UTT':
 						select = document.createElement('select');
@@ -1257,6 +1258,29 @@ function addItemsToList(whatToProcess, dataToProcess)
 						row.insertCell(cellCount).appendChild(select);
 						//document.getElementById('extra_log_event_row_1').insertCell(0).appendChild(header_text).appendChild(select);	
 						$(select).select2();
+						cellCount = cellCount + 1;
+						
+						select = document.createElement('select');
+						select.style = 'width:130px';
+						select.id = 'selectDataType';
+						select.name = select.id;
+						
+						option = document.createElement('option');
+						option.value = 'age_style';
+						option.text = 'Age & Style';
+						select.appendChild(option);
+						
+						option = document.createElement('option');
+						option.value = 'ISPL S-1';
+						option.text = 'ISPL S-1' ;
+						select.appendChild(option);
+						
+						option = document.createElement('option');
+						option.value = 'ISPL S-2';
+						option.text = 'ISPL S-2' ;
+						select.appendChild(option);
+						
+						row.insertCell(cellCount).appendChild(select);
 						cellCount = cellCount + 1;
 						
 						/*option = document.createElement('input');

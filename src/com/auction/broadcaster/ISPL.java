@@ -14,6 +14,7 @@ import com.auction.containers.Scene;
 import com.auction.model.Player;
 import com.auction.model.PlayerCount;
 import com.auction.model.Statistics;
+import com.auction.model.StatsType;
 import com.auction.model.Team;
 import com.auction.service.AuctionService;
 import com.auction.model.Auction;
@@ -37,6 +38,7 @@ public class ISPL extends Scene{
 	private int size=0,count=0;
 	private boolean update_gfx = false;
 	List<String> data_str = new ArrayList<String>();
+	public String whichDataType;
 	
 	public ISPL() {
 		super();
@@ -96,6 +98,7 @@ public class ISPL extends Scene{
 			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main$TimeRemaining$Timer_GRP$StatHead*FUNCTION*TIMER SET START INVOKE;");
 			break;
 		case "POPULATE-TIMER_OUT":
+			processAnimation(print_writer, "Timer_End", "START", session_selected_broadcaster, current_layer);
 			processAnimation(print_writer, "Timer_Out", "START", session_selected_broadcaster, current_layer);
 			TimeUnit.MILLISECONDS.sleep(500);
 			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main$TimeRemaining$Timer_GRP$StatHead*FUNCTION*TIMER SET STOP INVOKE;");
@@ -173,6 +176,7 @@ public class ISPL extends Scene{
 					break;
 				case "POPULATE-FF-PLAYERPROFILE":
 					data.setPlayer_id(Integer.valueOf(valueToProcess.split(",")[1]));
+					whichDataType = valueToProcess.split(",")[2];
 					populatePlayerProfile(false,print_writer,valueToProcess.split(",")[0],Integer.valueOf(valueToProcess.split(",")[1]),
 							auctionService.getAllStats(),auction,auctionService,auctionService.getAllPlayer(), session_selected_broadcaster);
 					break;
@@ -540,8 +544,7 @@ public class ISPL extends Scene{
 	public void populatePlayerProfile(boolean is_this_updating,PrintWriter print_writer,String viz_scene, int playerId,List<Statistics> stats, Auction auction,
 			AuctionService auctionService,List<Player> plr, String session_selected_broadcaster) throws InterruptedException 
 	{
-		String Runs = "",Wickets = "",Economy = "",SR = "",Matches = "";
-		
+
 		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + 
 				"INDIAN STREET PREMIER LEAGUE" + ";");
 		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader " + 
@@ -619,6 +622,8 @@ public class ISPL extends Scene{
 				update_gfx = false;
 			}
 			
+			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$All$PlayerGrp$Pic$Rectangle*CONTAINER SET ACTIVE 0;");
+			
 			print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*Result SHOW 0.0;");
 			print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*Timer_In SHOW 0.0;");
 			
@@ -643,9 +648,10 @@ public class ISPL extends Scene{
 				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelectIcon 2;");
 			}
 			
-			Statistics stat = auctionService.getAllStats().stream().filter(ply->ply.getPlayer_id() == Integer.valueOf(playerId)).findAny().orElse(null);
-			
-			if(stat != null && player.getLastYearTeam() != null) {
+			switch (whichDataType) {
+			case "ISPL S-1": case "ISPL S-2":
+				StatsType statsType = auctionService.getStatsTypes().stream().filter(stype -> stype.getStats_short_name().equalsIgnoreCase(whichDataType)).findAny().orElse(null);
+				Statistics stat = auctionService.getAllStats().stream().filter(st-> st.getPlayer_id() == playerId && statsType.getStats_id() == st.getStats_type_id()).findAny().orElse(null);
 				
 				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tAgeHead " + "MATCHES" + ";");
 				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tAge " + 
@@ -682,11 +688,11 @@ public class ISPL extends Scene{
 				}
 				
 				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET 1 0;");
+				break;
 
-			}else {
+			default:
 				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tAgeHead AGE;");
-				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyle " 
-						+ (player.getAge() != null ? player.getAge() : "-") + ";");
+				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tAge " + (player.getAge() != null ? player.getAge() : "-") + ";");
 				
 				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyleHead " + "BATTING STYLE" + ";");
 				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyleHead " + "BOWLING STYLE" + ";");
@@ -697,9 +703,9 @@ public class ISPL extends Scene{
 						? player.getBowlerStyle() : "-") + ";");
 
 				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET 1 0;");
+				break;
 			}
 			
-
 			print_writer.println("LAYER1*EVEREST*GLOBAL PREVIEW ON;");
 			print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*In STOP;");
 			print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*Out STOP;");
