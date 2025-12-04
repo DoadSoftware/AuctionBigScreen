@@ -62,7 +62,7 @@ public class ISPL extends Scene{
 		this.status = status;
 	}
 	
-	public Data updateData(Scene scene, Auction auction,AuctionService auctionService, PrintWriter print_writer) throws InterruptedException
+	public Data updateData(Scene scene, Auction auction, AuctionService auctionService, PrintWriter print_writer) throws InterruptedException
 	{
 		if(update_gfx == true) {
 			if(which_graphics_onscreen.equalsIgnoreCase("PLAYERPROFILE")) {
@@ -94,20 +94,19 @@ public class ISPL extends Scene{
 		return data;
 	}
 	
-	public Object ProcessGraphicOption(String whatToProcess, Auction auction, AuctionService auctionService,
+	public Object ProcessGraphicOption(String whatToProcess, Auction auction, Auction current_bid, AuctionService auctionService,
 			PrintWriter print_writer, List<Scene> scenes, String valueToProcess) throws Exception {
 		
 		switch (whatToProcess.toUpperCase()) {
 		case "POPULATE-TIMER":
 			processAnimation(print_writer, "Timer_In", "START", session_selected_broadcaster, current_layer);
 			TimeUnit.MILLISECONDS.sleep(500);
-			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main$TimeRemaining$Timer_GRP$StatHead*FUNCTION*TIMER SET START INVOKE;");
+			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$TimeRemaining$Timer_GRP$StatHead*FUNCTION*TIMER SET START INVOKE;");
 			break;
 		case "POPULATE-TIMER_OUT":
 			processAnimation(print_writer, "Timer_End", "START", session_selected_broadcaster, current_layer);
-			processAnimation(print_writer, "Timer_Out", "START", session_selected_broadcaster, current_layer);
 			TimeUnit.MILLISECONDS.sleep(500);
-			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main$TimeRemaining$Timer_GRP$StatHead*FUNCTION*TIMER SET STOP INVOKE;");
+			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$TimeRemaining$Timer_GRP$StatHead*FUNCTION*TIMER SET STOP INVOKE;");
 			break;
 		
 		case "POPULATE-FF-PLAYERPROFILE": case "POPULATE-SQUAD": case "POPULATE-REMAINING_PURSE_ALL": case "POPULATE-SINGLE_PURSE":
@@ -294,6 +293,11 @@ public class ISPL extends Scene{
 					print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*In START;");
 					TimeUnit.SECONDS.sleep(2);
 					print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*LOOP START;");
+					
+					if(current_bid.getClock().getMatchTimeStatus().equalsIgnoreCase("START")) {
+						processAnimation(print_writer, "Timer_In", "START", session_selected_broadcaster, current_layer);
+					}
+					
 					which_graphics_onscreen = "PLAYERPROFILE";
 					break;
 				case "ANIMATE-IN-ONLY_SQUAD":
@@ -548,19 +552,15 @@ public class ISPL extends Scene{
 	}
 
 	public void populatePlayerProfile(boolean is_this_updating,PrintWriter print_writer,String viz_scene, int playerId,List<Statistics> stats, Auction auction,
-			AuctionService auctionService,List<Player> plr, String session_selected_broadcaster) throws InterruptedException 
+			AuctionService auctionService, List<Player> plr, String session_selected_broadcaster) throws InterruptedException 
 	{
 
-		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + 
-				"INDIAN STREET PREMIER LEAGUE" + ";");
-		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader " + 
-				"PLAYER AUCTION 2025" + ";");
+		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + "INDIAN STREET PREMIER LEAGUE" + ";");
+		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader " + "PLAYER AUCTION 2025" + ";");
 		
-		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBaePointsHead " + 
-				"BASE PRICE" + ";");
-		
-		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBasePrice " + 
-				"3" + ";");
+		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBaePointsHead " + "BASE PRICE" + ";");
+		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBasePrice " + "3" + ";");
+		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelectLogo 0 ;");
 		
 		if(auction.getPlayers() != null && auction.getPlayers().size() > 0) {
 			if(data.isPlayer_sold_or_unsold() == false) {
@@ -568,33 +568,32 @@ public class ISPL extends Scene{
 					if(playerId == auction.getPlayers().get(i).getPlayerId()) {
 						if(auction.getPlayers().get(i).getSoldOrUnsold().equalsIgnoreCase(AuctionUtil.SOLD)||
 								auction.getPlayers().get(i).getSoldOrUnsold().equalsIgnoreCase(AuctionUtil.RTM)) {
+							print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelectLogo 1 ;");
 							print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSoldUnsold 1 ;");
 							print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBidPrice " + 
 									AuctionFunctions.ConvertToLakh(auction.getPlayers().get(i).getSoldForPoints()) + ";");
 							
-							print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgLogoBase " + logo_base_path + 
+							print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgBase02_01 " + base_path2 + 
+									auctionService.getTeams().get(auction.getPlayers().get(i).getTeamId() - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
+							print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgBase01_01 " + base_path1 + 
 									auctionService.getTeams().get(auction.getPlayers().get(i).getTeamId() - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
 							
-							print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgTeamLogo " + logo_path + 
+							print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgLogo_01 " + logobw_path + 
 									auctionService.getTeams().get(auction.getPlayers().get(i).getTeamId() - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
 							
 							if((auction.getPlayers().get(i).getSoldOrUnsold().equalsIgnoreCase(AuctionUtil.RTM))){
-								print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$All$PricesGRp$"
-										+ "Sold_Undold$Sold$RTM*CONTAINER SET ACTIVE 1;");
+								print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$All$PricesGRp$Sold_Undold$Sold$RTM*CONTAINER SET ACTIVE 1;");
 							}else {
-								print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$All$PricesGRp$"
-										+ "Sold_Undold$Sold$RTM*CONTAINER SET ACTIVE 0;");
+								print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$All$PricesGRp$Sold_Undold$Sold$RTM*CONTAINER SET ACTIVE 0;");
 							}
 							
-							print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tUnsold "+
-									"SOLD;");
+							print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tUnsold "+ "SOLD;");
 							
 							TimeUnit.MILLISECONDS.sleep(200);
 							print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*Result START;");
 							data.setPlayer_sold_or_unsold(true);
 						}else if(auction.getPlayers().get(i).getSoldOrUnsold().equalsIgnoreCase(AuctionUtil.UNSOLD)) {
-							print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tUnsold " + 
-									"UNSOLD" + ";");
+							print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tUnsold " + "UNSOLD" + ";");
 							print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSoldUnsold 0 ;");
 							print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*Result START;");
 							data.setPlayer_sold_or_unsold(true);
@@ -628,7 +627,8 @@ public class ISPL extends Scene{
 				update_gfx = false;
 			}
 			
-			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$All$PlayerGrp$Pic$Rectangle*CONTAINER SET ACTIVE 0;");
+			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$All$PricesGRp$Sold_Undold$Sold$logoBase*CONTAINER SET ACTIVE 0;");
+			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$All$PricesGRp$Sold_Undold$Sold$logo*CONTAINER SET ACTIVE 0;");
 			
 			print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*Result SHOW 0.0;");
 			print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*Timer_In SHOW 0.0;");

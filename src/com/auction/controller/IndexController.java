@@ -50,6 +50,7 @@ public class IndexController
 	AuctionService auctionService;
 	public static Configurations session_Configurations;
 	public static Auction session_auction;
+	public static Auction session_current_bid;
 	public static Socket session_socket;
 	public static Doad this_doad;
 	public static ISPL this_ispl;
@@ -194,6 +195,10 @@ public class IndexController
 			session_auction = new Auction();
 			session_auction = new ObjectMapper().readValue(new File(AuctionUtil.AUCTION_DIRECTORY + "AUCTION.JSON"), Auction.class);
 			
+			session_current_bid = new Auction();
+			session_current_bid = new ObjectMapper().readValue(new File(AuctionUtil.AUCTION_DIRECTORY + "CURRENT_BID.JSON"), Auction.class);
+			
+			
 			session_auction = AuctionFunctions.populateMatchVariables(auctionService, session_auction);
 			
 			Current_File_Name = selectedMatch;
@@ -246,6 +251,7 @@ public class IndexController
 //			}
 		case "READ-MATCH-AND-POPULATE":
 			
+			session_current_bid = new ObjectMapper().readValue(new File(AuctionUtil.AUCTION_DIRECTORY + "CURRENT_BID.JSON"), Auction.class);
 			session_auction = new ObjectMapper().readValue(new File(AuctionUtil.AUCTION_DIRECTORY + AuctionUtil.AUCTION_JSON), Auction.class);
 			session_auction = AuctionFunctions.populateMatchVariables(auctionService, session_auction);
 			
@@ -254,7 +260,7 @@ public class IndexController
 				this_doad.updateData(session_selected_scenes.get(0), session_auction,auctionService,print_writer);
 				break;
 			case "ISPL":
-				this_ispl.updateData(session_selected_scenes.get(0), session_auction,auctionService,print_writer);
+				this_ispl.updateData(session_selected_scenes.get(0), session_auction, auctionService,print_writer);
 				break;
 			case "UTT":
 				this_utt.updateData(session_selected_scenes.get(0), session_auction,auctionService,print_writer);
@@ -272,7 +278,8 @@ public class IndexController
 				this_doad.ProcessGraphicOption(whatToProcess, session_auction, auctionService, print_writer, session_selected_scenes, valueToProcess);
 				break;
 			case "ISPL":
-				Object gfxResult = this_ispl.ProcessGraphicOption(whatToProcess, session_auction, auctionService, print_writer, session_selected_scenes, valueToProcess);	
+				Object gfxResult = this_ispl.ProcessGraphicOption(whatToProcess, session_auction, session_current_bid, auctionService, print_writer, 
+						session_selected_scenes, valueToProcess);	
 				 gfx = "";
 				if (gfxResult != null) {
 				    gfx = gfxResult.toString();
