@@ -64,11 +64,10 @@
 			  <div class="form-group row row-bottom-margin ml-2" style="margin-bottom:5px;">
 			    <label for="select_broadcaster" class="col-sm-4 col-form-label text-left">Select Broadcaster </label>
 			    <div class="col-sm-6 col-md-6">
-			      <select id="select_broadcaster" name="select_broadcaster" class="browser-default custom-select custom-select-sm"
-			      		onchange="processUserSelection(this)">
+			      <select id="select_broadcaster" name="select_broadcaster" class="browser-default custom-select custom-select-sm">
+			      		<option value="ISPL">ISPL</option>
 			      		<option value="UTT">UTT</option>
-			      	   <option value="ISPL">ISPL</option>	
-			          <option value="HANDBALL">HANDBALL</option>
+			      	   	<option value="HANDBALL">HANDBALL</option>
 			      </select>
 			    </div>
 			  </div>

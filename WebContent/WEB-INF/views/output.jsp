@@ -127,7 +127,13 @@
 			  		name="playerprofile_graphic_btn" id="playerprofile_graphic_btn" onclick="processUserSelection(this)"> PlayerProfile (F1) </button>
 			  	
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-			  		name="Ident_graphic_btn" id="Ident_graphic_btn" onclick="processUserSelection(this)"> Ident (F4) </button>
+			  		name="Ident_graphic_btn" id="Ident_graphic_btn" onclick="processUserSelection(this)"> Ident(F4) </button>
+			  		
+			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+		  			name="rtm_available_graphic_btn" id="rtm_available_graphic_btn" onclick="processUserSelection(this)"> RTM Available </button>	
+		  		
+		  		<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+			  		name="remaining_purse_single_graphic_btn" id="remaining_purse_single_graphic_btn" onclick="processUserSelection(this)"> Remaining Purse Single </button>	
 			  		
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="BG_Ident_graphic_btn" id="BG_Ident_graphic_btn" onclick="processUserSelection(this)"> BG </button>	
@@ -138,51 +144,50 @@
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="Only_squad_graphic_btn" id="Only_squad_graphic_btn" onclick="processUserSelection(this)"> Squad</button>
 			  			
-			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+			  	<!-- <button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="player_category_graphic_btn" id="player_category_graphic_btn" onclick="processUserSelection(this)"> Player List Category India </button>
 			  		
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="player_category_int_graphic_btn" id="player_category_int_graphic_btn" onclick="processUserSelection(this)"> Player List Category International </button>	
-			  			
-			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+			  		 -->	
+			  <!-- 	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="remaining_purse_graphic_btn" id="remaining_purse_graphic_btn" onclick="processUserSelection(this)"> Remaining Purse All + Spots Rem </button>
 			  		
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="cur_squad_graphic_btn" id="cur_squad_graphic_btn" onclick="processUserSelection(this)"> Remaining Purse All + Squad Size </button>	
 			  		
-			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-			  		name="remaining_purse_single_graphic_btn" id="remaining_purse_single_graphic_btn" onclick="processUserSelection(this)"> Remaining Purse Single </button>
+			   -->
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="top_sold_graphic_btn" id="top_sold_graphic_btn" onclick="processUserSelection(this)"> Top 10 Sold Auction</button>
 			  		
-			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-			  		name="top_sold_teams_graphic_btn" id="top_sold_teams_graphic_btn" onclick="processUserSelection(this)"> Top 6 Sold Teams</button>	
-			  		
 			  	<!-- <button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-			  		name="top_five_sold_graphic_btn" id="top_five_sold_graphic_btn" onclick="processUserSelection(this)"> Top 5 Sold Auction</button>
+			  		name="top_sold_teams_graphic_btn" id="top_sold_teams_graphic_btn" onclick="processUserSelection(this)"> Top 6 Sold Teams</button> -->	
+			  	
+			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+			  		name="top_five_sold_graphic_btn" id="top_five_sold_graphic_btn" onclick="processUserSelection(this)"> Top 5 Sold Auction</button>	
+			  	<!-- 
 			  		
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="top_five_sold_teams_graphic_btn" id="top_five_sold_teams_graphic_btn" onclick="processUserSelection(this)"> Top 5 Sold Teams</button>	 -->
 			  			
-			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-		  			name="rtm_available_graphic_btn" id="rtm_available_graphic_btn" onclick="processUserSelection(this)"> RTM Available </button>
+			  	
 		  		<!-- <button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 		  			name="slots_rem_graphic_btn" id="slots_rem_graphic_btn" onclick="processUserSelection(this)"> Slots Remaining </button>	
 			  	 -->
 			  	<!-- <button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 		  			name="iconic_Player_graphic_btn" id="iconic_Player_graphic_btn" onclick="processUserSelection(this)"> ICONIC PLAYERS </button> -->
 		  			
-		  		<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+		  		<!-- <button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 		  			name="rtm_squad_graphic_btn" id="rtm_squad_graphic_btn" onclick="processUserSelection(this)"> RTM & SQUAD </button>	
 		  		
 		  		<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-			  		name="four_teams_graphic_btn" id="four_teams_graphic_btn" onclick="processUserSelection(this)"> 4 Teams</button>
-			  		
+			  		name="four_teams_graphic_btn" id="four_teams_graphic_btn" onclick="processUserSelection(this)"> 4 Teams</button> -->
+			  	<!-- 	
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="pool_graphic_btn" id="pool_graphic_btn" onclick="processUserSelection(this)"> Pool</button>	
 			  		
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-			  		name="pool_number_graphic_btn" id="pool_number_graphic_btn" onclick="processUserSelection(this)"> Pool Number</button>		
+			  		name="pool_number_graphic_btn" id="pool_number_graphic_btn" onclick="processUserSelection(this)"> Pool Number</button> -->		
 		  			
 		  		<!-- <button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="top_15_sold_graphic_btn" id="top_15_sold_graphic_btn" onclick="processUserSelection(this)"> Top 15 Sold Auction</button> -->

@@ -581,7 +581,7 @@ function processAuctionProcedures(whatToProcess)
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_Handball_Auction_2023/Scenes/RemainingPurse_All.sum' ;
 			break;
 		case 'ISPL':
-			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/RemainingPurse_All.sum' ;
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/RemainingPurse_All_New.sum' ;
 			break;	
 		case 'UTT':
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/Purse_Remaining.sum' ;
@@ -614,7 +614,7 @@ function processAuctionProcedures(whatToProcess)
 	case 'POPULATE-FF_BG_IDENT':
 		switch ($('#selected_broadcaster').val().toUpperCase()) {
 			case 'ISPL':
-				valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/Auction_Ident.sum' ;
+				valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/BG.sum' ;
 				break;
 			case 'UTT':
 				valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/BG_Start.sum' ;
