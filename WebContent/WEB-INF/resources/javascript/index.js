@@ -188,7 +188,7 @@ function processUserSelection(whichInput)
 		break;	
 		
 	case 'playerprofile_graphic_btn': case 'squad_graphic_btn': case 'remaining_purse_single_graphic_btn': case 'crawler_graphic_btn':
-	case 'squad_with_role_count_graphic_btn': case 'Only_squad_graphic_btn': case 'top_sold_teams_graphic_btn': case 'top_five_sold_teams_graphic_btn':
+	case 'squad_with_role_count_graphic_btn': case 'Only_squad_graphic_btn': case 'top_sold_teams_graphic_btn': case 'top_five_sold_teams_graphic_btn': case 'slots_remzone_graphic_btn':
 	case 'top_15_sold_teams_graphic_btn': case 'player_category_graphic_btn': case 'player_category_int_graphic_btn': case 'four_teams_graphic_btn':
 		$("#captions_div").hide();
 		$("#cancel_match_setup_btn").hide();
@@ -233,6 +233,11 @@ function processUserSelection(whichInput)
 			which_GFX = "";
 			processAuctionProcedures('TOP_FIVE_SOLD_TEAMS_GRAPHICS-OPTIONS');
 			break;
+		case 'slots_remzone_graphic_btn':
+			stopTeamRotation();
+			which_GFX = "";
+			processAuctionProcedures('ZONE-PLAYER_GRAPHICS-OPTIONS');
+			break;	
 		case 'crawler_graphic_btn':
 			addItemsToList('CRAWLER-OPTIONS',null);
 			break;	
@@ -250,7 +255,7 @@ function processUserSelection(whichInput)
 		
 	case 'populate_namesuper_btn': case 'populate_namesuper_player_btn': case 'populate_playerprofile_btn':	case 'populate_squad_btn':
 	case 'populate_single_purse_btn': case 'populate_crawl_btn': case 'populate_squad_role_btn': case 'populate_only_squad_btn':
-	case 'populate_top_sold_teams_btn': case 'populate_top_five_sold_teams_btn': case 'populate_top_15_sold_teams_btn': case 'populate_category_btn': 
+	case 'populate_top_sold_teams_btn': case 'populate_top_five_sold_teams_btn': case 'populate_zonePlayer_stats_btn':  case 'populate_top_15_sold_teams_btn': case 'populate_category_btn': 
 	case 'changeOn_Cat_btn': case 'populate_category_int_btn': case 'populate_four_team_btn':
 		processWaitingButtonSpinner('START_WAIT_TIMER');
 		switch ($(whichInput).attr('name')) {
@@ -295,7 +300,10 @@ function processUserSelection(whichInput)
 			break;
 		case 'populate_top_five_sold_teams_btn':
 			processAuctionProcedures('POPULATE-TOP_FIVE_SOLD_TEAMS');
-			break;
+			break; 
+		case 'populate_zonePlayer_stats_btn':
+			processAuctionProcedures('POPULATE-ZONE_PLAYERS_STATS');
+			break;	
 		case 'populate_crawl_btn':
 			processAuctionProcedures('POPULATE-CRAWL');
 			break;
@@ -405,7 +413,7 @@ function processAuctionProcedures(whatToProcess)
 			}else{
 				team_index =$('#selectTeamName option:selected').val();
 			}
-			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/Squad.sum' + ',' + team_index;
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/Squad_18.sum' + ',' + team_index;
 			break;	
 		case 'UTT':
 			let team_index1;
@@ -424,7 +432,7 @@ function processAuctionProcedures(whatToProcess)
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_Handball_Auction_2023/Scenes/Squad.sum' + ',' + $('#selectTeamName option:selected').val();
 			break;
 		case 'ISPL':
-			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/Squad.sum' + ',' + $('#selectTeamName option:selected').val();
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/Squad_18.sum' + ',' + $('#selectTeamName option:selected').val();
 			break;
 		case 'UTT':
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/Squad.sum' + ',' + $('#selectTeamName option:selected').val();
@@ -455,6 +463,13 @@ function processAuctionProcedures(whatToProcess)
 		case 'UTT':
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/Top_Buys.sum' + ',' + $('#selectTeamName option:selected').val();
 			break;		
+		}
+		break;
+	case 'POPULATE-ZONE_PLAYERS_STATS':
+		switch ($('#selected_broadcaster').val().toUpperCase()) {
+		case 'ISPL':
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/Squad.sum' + ',' + $('#selectShowData option:selected').val();
+			break;
 		}
 		break;
 	case 'POPULATE-POOL':
@@ -714,6 +729,9 @@ function processAuctionProcedures(whatToProcess)
 				addItemsToList('POPULATE-TEAM',data);
 				match_data = data;
 				break;
+			case 'ZONE-PLAYER_GRAPHICS-OPTIONS':
+			    addItemsToList('ZONE-PLAYER-OPTIONS',data);
+				match_data = data;	
 			case 'POPULATE-SQUAD': 
 					if (which_GFX == 'POPULATE-SQUAD') {
 						processAuctionProcedures('ANIMATE-IN-SQUAD');
@@ -753,7 +771,7 @@ function processAuctionProcedures(whatToProcess)
 			case 'POPULATE-REMAINING_PURSE_ALL': case 'POPULATE-SINGLE_PURSE': case 'POPULATE-TOP_SOLD':
 			case 'POPULATE-CRAWL': case 'POPULATE-SQUAD_ROLE': case 'POPULATE-FF_IDENT': case 'POPULATE-RTM_AVAILABLE': case 'POPULATE-ONLY_SQUAD':
 			case 'POPULATE-SLOTS_REMAINING':case 'POPULATE-FF_ICONIC_PLAYERS': case 'POPULATE-RTM_SQUAD': case 'POPULATE-TOP_SOLD_TEAMS':
-			case 'POPULATE-TOP_FIVE_SOLD': case 'POPULATE-TOP_FIVE_SOLD_TEAMS': case 'POPULATE-TOP_15_SOLD': case 'POPULATE-TOP_15_SOLD_TEAMS':
+			case 'POPULATE-TOP_FIVE_SOLD': case 'POPULATE-TOP_FIVE_SOLD_TEAMS': case 'POPULATE-ZONE_PLAYERS_STATS': case 'POPULATE-TOP_15_SOLD': case 'POPULATE-TOP_15_SOLD_TEAMS':
 			case 'POPULATE-CURR_SQUAD': case 'POPULATE-FF-CATEGORY_INT': case 'POPULATE-FF_BG_IDENT': case 'POPULATE-FOUR_TEAM': case 'POPULATE-POOL':
 			case 'POPULATE-POOL_NUMBER':	
 				if(confirm('Animate In?') == true){
@@ -795,6 +813,9 @@ function processAuctionProcedures(whatToProcess)
 					case 'POPULATE-TOP_FIVE_SOLD_TEAMS':
 						processAuctionProcedures('ANIMATE-IN-TOP_FIVE_SOLD_TEAMS');				
 						break;
+					case 'POPULATE-ZONE_PLAYERS_STATS':
+						processAuctionProcedures('ANIMATE-IN-ZONE-PLAYER_STATS');
+						break;	
 					case 'POPULATE-TOP_SOLD':
 						processAuctionProcedures('ANIMATE-IN-TOP_SOLD');				
 						break;
@@ -1035,7 +1056,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 		}
 		break;	
 	case'NAMESUPER-OPTIONS': case 'NAMESUPER_PLAYER-OPTIONS':  case'PLAYERPROFILE-OPTIONS': case 'SQUAD-OPTIONS': case 'SINGLE_PURSE-OPTIONS':
-	case 'SQUAD-ROLE-COUNT-OPTIONS': case 'ONLY_SQUAD-OPTIONS': case 'TOP_SOLD-OPTIONS': case 'TOP_FIVE_SOLD-OPTIONS':
+	case 'SQUAD-ROLE-COUNT-OPTIONS': case 'ONLY_SQUAD-OPTIONS': case 'TOP_SOLD-OPTIONS': case 'TOP_FIVE_SOLD-OPTIONS': case 'ZONE-PLAYER-OPTIONS':
 	case 'TOP_15_SOLD-OPTIONS': case 'PLAYER_CATEGORY-OPTIONS': case 'PLAYER_CATEGORY_INT-OPTIONS': case 'FOUR_TEAM-OPTIONS':
 		switch ($('#selected_broadcaster').val().toUpperCase()) {
 		case 'HANDBALL': case 'ISPL': case 'UTT':
@@ -1141,6 +1162,58 @@ function addItemsToList(whatToProcess, dataToProcess)
 						break;
 					}
 					break;
+				case 'ZONE-PLAYER-OPTIONS': 
+					select = document.createElement('select');
+					select.style = 'width:100px';
+					select.id = 'selectShowData';
+					select.name = select.id;
+					
+					switch ($('#selected_broadcaster').val().toUpperCase()) {
+						case 'ISPL': case 'ISPL_VIZ': case 'VIZ_ISPL_2024':
+							option = document.createElement('option');
+							option.value = 'EAST ZONE';
+							option.text = 'EAST ZONE';
+							select.appendChild(option);
+							
+							option = document.createElement('option');
+							option.value = 'WEST ZONE';
+							option.text = 'WEST ZONE';
+							select.appendChild(option);
+							
+							option = document.createElement('option');
+							option.value = 'NORTH ZONE';
+							option.text = 'NORTH ZONE';
+							select.appendChild(option);
+							
+							option = document.createElement('option');
+							option.value = 'SOUTH ZONE';
+							option.text = 'SOUTH ZONE';
+							select.appendChild(option);
+							
+							option = document.createElement('option');
+							option.value = 'CENTRAL ZONE';
+							option.text = 'CENTRAL ZONE';
+							select.appendChild(option);
+							
+							option = document.createElement('option');
+							option.value = 'U19';
+							option.text = 'UNDER 19';
+							select.appendChild(option);
+						break;
+						default:
+							dataToProcess.forEach(function(flip){
+								option = document.createElement('option');
+								option.value = flip;
+								option.text = flip;
+								select.appendChild(option);
+							});
+						break;
+						}
+						
+						select.setAttribute('onchange',"processUserSelection(this)");
+						row.insertCell(cellCount).appendChild(select);
+						cellCount = cellCount + 1;
+					break;	
 				case 'SQUAD-OPTIONS': 	case 'SQUAD-ROLE-COUNT-OPTIONS': case 'ONLY_SQUAD-OPTIONS':
 					switch ($('#selected_broadcaster').val().toUpperCase()) {
 						case 'HANDBALL': case 'ISPL': case 'UTT':
@@ -1353,6 +1426,10 @@ function addItemsToList(whatToProcess, dataToProcess)
 				option.name = 'populate_top_15_sold_teams_btn';
 			    option.value = 'Populate Top 15 Sold';
 				break;
+			case "ZONE-PLAYER-OPTIONS":
+				option.name = 'populate_zonePlayer_stats_btn';
+			    option.value = 'Populate zonePlayer Stats';
+				break;	
 			case 'TOP_FIVE_SOLD-OPTIONS':
 				option.name = 'populate_top_five_sold_teams_btn';
 			    option.value = 'Populate Top 5 Sold';

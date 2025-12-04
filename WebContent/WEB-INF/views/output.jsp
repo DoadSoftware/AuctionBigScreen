@@ -158,17 +158,22 @@
 			  		
 			   -->
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-			  		name="top_sold_graphic_btn" id="top_sold_graphic_btn" onclick="processUserSelection(this)"> Top 10 Sold Auction</button>
+			  		name="top_sold_graphic_btn" id="top_sold_graphic_btn" onclick="processUserSelection(this)"> Top 8 Sold Auction</button>
 			  		
 			  	<!-- <button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="top_sold_teams_graphic_btn" id="top_sold_teams_graphic_btn" onclick="processUserSelection(this)"> Top 6 Sold Teams</button> -->	
 			  	
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-			  		name="top_five_sold_graphic_btn" id="top_five_sold_graphic_btn" onclick="processUserSelection(this)"> Top 5 Sold Auction</button>	
-			  	<!-- 
+			  		name="top_five_sold_graphic_btn" id="top_five_sold_graphic_btn" onclick="processUserSelection(this)"> Top 5 Sold Auction</button>
 			  		
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-			  		name="top_five_sold_teams_graphic_btn" id="top_five_sold_teams_graphic_btn" onclick="processUserSelection(this)"> Top 5 Sold Teams</button>	 -->
+			  		name="top_five_sold_teams_graphic_btn" id="top_five_sold_teams_graphic_btn" onclick="processUserSelection(this)"> Top 5 Sold Teams</button>		
+			  	
+			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+		  			name="slots_remzone_graphic_btn" id="slots_remzone_graphic_btn" onclick="processUserSelection(this)"> Zone Remaining </button>
+			  	<!-- 
+			  		
+			  		 -->
 			  			
 			  	
 		  		<!-- <button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
