@@ -588,7 +588,7 @@ function processAuctionProcedures(whatToProcess)
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_Handball_Auction_2023/Scenes/RemainingPurse_All.sum' ;
 			break;
 		case 'ISPL':
-			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/RemainingPurse_All02.sum' ;
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/RemainingPurse_All_W_RTM.sum' ;
 			break;
 		case 'UTT':
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/Purse_RemainingALL_02.sum' ;

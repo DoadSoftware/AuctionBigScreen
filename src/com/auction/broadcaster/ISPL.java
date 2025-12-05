@@ -43,7 +43,7 @@ public class ISPL extends Scene{
 	private String text1_path = "D:\\Everest_ISPL_Auction_2024\\TEXT_COLOUR-1\\";
 	private String text2_path = "D:\\Everest_ISPL_Auction_2024\\TEXT_COLOUR-2\\";
 	
-	private String icon_path = "C:\\Images\\AUCTION\\Icons\\";
+	private String icon_path = "C:\\Images\\Auction\\Icons\\";
 	private int value1 = 0;
 	private int size=0,count=0;
 	public int zoneSize = 0, current_index = 0;
@@ -2331,10 +2331,10 @@ public class ISPL extends Scene{
 				}
 			}
 			
-			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tRTMRem0" + (i+1) + " " + 
+			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tRTM0" + (i+1) + " " + 
 					(Integer.valueOf(auctionService.getTeams().get(match.getTeam().get(i).getTeamId()-1).getTeamTotalRTM()) - rtmUsed)+";");
 			
-			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSquad0" + (i+1) + " " + 
+			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSquadSize0" + (i+1) + " " + 
 					total + ";");
 			
 			if(is_this_updating == false) {
@@ -2343,10 +2343,17 @@ public class ISPL extends Scene{
 				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tTeamLastName0" + (i+1) + " " + 
 						auctionService.getTeams().get(match.getTeam().get(i).getTeamId()-1).getTeamName3() + ";");
 				
-				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgLogoBase0" + (i+1) + " " + logo_base_path + 
-						auctionService.getTeams().get(match.getTeam().get(i).getTeamId()-1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
+//				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgLogoBase0" + (i+1) + " " + logo_base_path + 
+//						auctionService.getTeams().get(match.getTeam().get(i).getTeamId()-1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
 				
-				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgLogo0" + (i+1) + " " + logo_path + 
+//				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgLogo_0" + (i+1) + " " + logobw_path + 
+//						auctionService.getTeams().get(match.getTeam().get(i).getTeamId()-1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
+				
+				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgBase02_0" + (i+1) + " " + base_path2 + 
+						auctionService.getTeams().get(match.getTeam().get(i).getTeamId()-1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
+				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgBase01_0" + (i+1) + " " + base_path1 + 
+						auctionService.getTeams().get(match.getTeam().get(i).getTeamId()-1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
+				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgText01_0" + (i+1) + " " + text1_path + 
 						auctionService.getTeams().get(match.getTeam().get(i).getTeamId()-1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
 			}
 			
@@ -2370,18 +2377,18 @@ public class ISPL extends Scene{
 		}
 		
 		if(is_this_updating == false) {
-			TimeUnit.SECONDS.sleep(1);
-			print_writer.println("LAYER1*EVEREST*GLOBAL PREVIEW ON;");
-			print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*In STOP;");
-			print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*Out STOP;");
-			print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*In SHOW 71.0;");
-			print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*Out SHOW 0.0;");
-			print_writer.println("LAYER1*EVEREST*GLOBAL SNAPSHOT_PATH C:/Temp/Preview.png;");
-			print_writer.println("LAYER1*EVEREST*GLOBAL SNAPSHOT 1920 1080;");
-			TimeUnit.SECONDS.sleep(1);
-			print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*Out SHOW 0.0;");
-			print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*In SHOW 0.0;");
-			print_writer.println("LAYER1*EVEREST*GLOBAL PREVIEW OFF;");
+//			TimeUnit.SECONDS.sleep(1);
+//			print_writer.println("LAYER1*EVEREST*GLOBAL PREVIEW ON;");
+//			print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*In STOP;");
+//			print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*Out STOP;");
+//			print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*In SHOW 71.0;");
+//			print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*Out SHOW 0.0;");
+//			print_writer.println("LAYER1*EVEREST*GLOBAL SNAPSHOT_PATH C:/Temp/Preview.png;");
+//			print_writer.println("LAYER1*EVEREST*GLOBAL SNAPSHOT 1920 1080;");
+//			TimeUnit.SECONDS.sleep(1);
+//			print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*Out SHOW 0.0;");
+//			print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*In SHOW 0.0;");
+//			print_writer.println("LAYER1*EVEREST*GLOBAL PREVIEW OFF;");
 		}
 	}
 	
