@@ -183,6 +183,11 @@ function processUserSelection(whichInput)
 		which_GFX = "";
 		processAuctionProcedures('POPULATE-FF_ICONIC_PLAYERS');
 		break;
+	case 'lastyear_graphic_btn':
+		stopTeamRotation();
+		which_GFX = "";
+		processAuctionProcedures('POPULATE-FF_LAST_PLAYERS');
+		break;
 	case 'changeOn_btn':
 		processAuctionProcedures('CHANGE-INFO');
 		break;	
@@ -636,6 +641,17 @@ function processAuctionProcedures(whatToProcess)
 				break;		
 			}
 			break;	
+			
+	case 'POPULATE-FF_LAST_PLAYERS':
+		switch ($('#selected_broadcaster').val().toUpperCase()) {
+		case 'ISPL':
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/Pre_TopBuys.sum' ;
+			break;
+		case 'UTT':
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/Iconic_Players.sum' ;
+			break;		
+		}
+		break;
 	case 'POPULATE-FF_ICONIC_PLAYERS':
 		switch ($('#selected_broadcaster').val().toUpperCase()) {
 		case 'ISPL':
@@ -732,6 +748,7 @@ function processAuctionProcedures(whatToProcess)
 			case 'ZONE-PLAYER_GRAPHICS-OPTIONS':
 			    addItemsToList('ZONE-PLAYER-OPTIONS',data);
 				match_data = data;	
+				break;
 			case 'POPULATE-SQUAD': 
 					if (which_GFX == 'POPULATE-SQUAD') {
 						processAuctionProcedures('ANIMATE-IN-SQUAD');
@@ -770,7 +787,7 @@ function processAuctionProcedures(whatToProcess)
 							
 			case 'POPULATE-REMAINING_PURSE_ALL': case 'POPULATE-SINGLE_PURSE': case 'POPULATE-TOP_SOLD':
 			case 'POPULATE-CRAWL': case 'POPULATE-SQUAD_ROLE': case 'POPULATE-FF_IDENT': case 'POPULATE-RTM_AVAILABLE': case 'POPULATE-ONLY_SQUAD':
-			case 'POPULATE-SLOTS_REMAINING':case 'POPULATE-FF_ICONIC_PLAYERS': case 'POPULATE-RTM_SQUAD': case 'POPULATE-TOP_SOLD_TEAMS':
+			case 'POPULATE-SLOTS_REMAINING':case 'POPULATE-FF_ICONIC_PLAYERS': case 'POPULATE-FF_LAST_PLAYERS': case 'POPULATE-RTM_SQUAD': case 'POPULATE-TOP_SOLD_TEAMS':
 			case 'POPULATE-TOP_FIVE_SOLD': case 'POPULATE-TOP_FIVE_SOLD_TEAMS': case 'POPULATE-ZONE_PLAYERS_STATS': case 'POPULATE-TOP_15_SOLD': case 'POPULATE-TOP_15_SOLD_TEAMS':
 			case 'POPULATE-CURR_SQUAD': case 'POPULATE-FF-CATEGORY_INT': case 'POPULATE-FF_BG_IDENT': case 'POPULATE-FOUR_TEAM': case 'POPULATE-POOL':
 			case 'POPULATE-POOL_NUMBER':	
@@ -846,6 +863,9 @@ function processAuctionProcedures(whatToProcess)
 					case 'POPULATE-FF_BG_IDENT':
 						processAuctionProcedures('ANIMATE-IN-FF_BG_IDENT');				
 						break;	
+					case 'POPULATE-FF_LAST_PLAYERS':
+						processAuctionProcedures('ANIMATE-IN-FF_LAST_PLAYERS');
+						break;
 					case 'POPULATE-FF_ICONIC_PLAYERS':
 						processAuctionProcedures('ANIMATE-IN-FF_ICONIC_PLAYERS');
 						break;
