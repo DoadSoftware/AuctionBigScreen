@@ -174,11 +174,13 @@
 			     <button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 		  			name="iconic_Player_graphic_btn" id="iconic_Player_graphic_btn" onclick="processUserSelection(this)"> Retain Player </button>
 		  			
-		  			<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-		  			name="lastyear_graphic_btn" id="lastyear_graphic_btn" onclick="processUserSelection(this)"> Last year </button>
-			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+		  		<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 		  			name="rtm_squad_graphic_btn" id="rtm_squad_graphic_btn" onclick="processUserSelection(this)"> RTM & SQUAD </button>
+		  		<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+		  			name="lastyear_graphic_btn" id="lastyear_graphic_btn" onclick="processUserSelection(this)"> Last year </button>
 			  	
+			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+		  			name="pointers_graphic_btn" id="pointers_graphic_btn" onclick="processUserSelection(this)"> Pointers </button>
 			  	<!-- 
 			  		
 			  		 -->

@@ -105,6 +105,9 @@ public class ISPL extends Scene{
 			PrintWriter print_writer, List<Scene> scenes, String valueToProcess) throws Exception {
 		
 		switch (whatToProcess.toUpperCase()) {
+		case "RULE_CHANGEON":
+			processAnimation(print_writer, "In", "COUNTINUE", session_selected_broadcaster, current_layer);
+			 break;
 		case "POPULATE-TIMER":
 			processAnimation(print_writer, "Timer_In", "START", session_selected_broadcaster, current_layer);
 			TimeUnit.MILLISECONDS.sleep(500);
@@ -118,7 +121,7 @@ public class ISPL extends Scene{
 		
 		case "POPULATE-FF-PLAYERPROFILE": case "POPULATE-SQUAD": case "POPULATE-REMAINING_PURSE_ALL": case "POPULATE-SINGLE_PURSE":
 		case "POPULATE-TOP_SOLD": case "POPULATE-CRAWL": case "POPULATE-SQUAD_ROLE": case "POPULATE-FF_IDENT": case "POPULATE-ONLY_SQUAD":
-		case "POPULATE-RTM_AVAILABLE": case "POPULATE-SLOTS_REMAINING":	case "POPULATE-FF_ICONIC_PLAYERS": case "POPULATE-FF_LAST_PLAYERS": case "POPULATE-RTM_SQUAD":
+		case "POPULATE-RTM_AVAILABLE": case "POPULATE-SLOTS_REMAINING":	case "POPULATE-FF_ICONIC_PLAYERS": case "POPULATE-FF_POINTERS": case "POPULATE-FF_LAST_PLAYERS": case "POPULATE-RTM_SQUAD":
 		case "POPULATE-TOP_SOLD_TEAMS":	case "POPULATE-TOP_FIVE_SOLD": case "POPULATE-TOP_FIVE_SOLD_TEAMS": case "POPULATE-ZONE_PLAYERS_STATS": case "POPULATE-CANCEL":
 		case "POPULATE-TOP_15_SOLD": case "POPULATE-TOP_15_SOLD_TEAMS":case "BASE_LOAD": case "POPULATE-FF_BG_IDENT":
 			switch (session_selected_broadcaster.toUpperCase()) {
@@ -260,7 +263,7 @@ public class ISPL extends Scene{
 		System.out.println("whattoprocess " + whatToProcess);
 		case "ANIMATE-OUT": case "CLEAR-ALL": case "ANIMATE-IN-PLAYERPROFILE": case "ANIMATE-IN-SQUAD": case "ANIMATE-IN-REMAINING_PURSE_ALL": case "ANIMATE-IN-SINGLE_PURSE":
 		case "ANIMATE-IN-TOP_SOLD": case "ANIMATE-IN-CRAWL": case "ANIMATE-IN-FF_IDENT": case "ANIMATE-IN-RTM": case "ANIMATE-IN-SLOTS": case "ANIMATE-IN-ONLY_SQUAD":
-		case "ANIMATE-IN-FF_ICONIC_PLAYERS": case "ANIMATE-IN-FF_LAST_PLAYERS": case "ANIMATE-IN-RTM_SQUAD": case "ANIMATE-IN-TOP_SOLD_TEAMS": case "ANIMATE-IN-TOP_FIVE_SOLD":
+		case "ANIMATE-IN-FF_ICONIC_PLAYERS": case "ANIMATE-IN-FF_POINTERS": case "ANIMATE-IN-FF_LAST_PLAYERS": case "ANIMATE-IN-RTM_SQUAD": case "ANIMATE-IN-TOP_SOLD_TEAMS": case "ANIMATE-IN-TOP_FIVE_SOLD":
 		case "ANIMATE-IN-TOP_FIVE_SOLD_TEAMS": case "ANIMATE-IN-ZONE-PLAYER_STATS": case "ANIMATE-IN-TOP_15_SOLD": case "TOP_15_AUCTION_CHANGEON": case "ANIMATE-IN-FF_BG_IDENT":
 			switch (session_selected_broadcaster.toUpperCase()) {
 			case "HANDBALL": case "ISPL":
@@ -274,7 +277,7 @@ public class ISPL extends Scene{
 					}
 					break;
 				case "ANIMATE-IN-PLAYERPROFILE": case "ANIMATE-IN-SQUAD": case "ANIMATE-IN-REMAINING_PURSE_ALL": case "ANIMATE-IN-FF_ICONIC_PLAYERS":
-				case "ANIMATE-IN-SINGLE_PURSE": case "ANIMATE-IN-TOP_SOLD": case "ANIMATE-IN-CRAWL": case "ANIMATE-IN-FF_IDENT": case "ANIMATE-IN-FF_LAST_PLAYERS":
+				case "ANIMATE-IN-SINGLE_PURSE": case "ANIMATE-IN-TOP_SOLD": case "ANIMATE-IN-CRAWL": case "ANIMATE-IN-FF_IDENT": case "ANIMATE-IN-FF_POINTERS": case "ANIMATE-IN-FF_LAST_PLAYERS":
 				case "ANIMATE-IN-RTM": case "ANIMATE-IN-SLOTS": case "ANIMATE-IN-ONLY_SQUAD": case "ANIMATE-IN-RTM_SQUAD": case "ANIMATE-IN-TOP_15_SOLD":
 				case "ANIMATE-IN-TOP_SOLD_TEAMS": case "ANIMATE-IN-TOP_FIVE_SOLD": case "ANIMATE-IN-ZONE-PLAYER_STATS": case "ANIMATE-IN-TOP_FIVE_SOLD_TEAMS": case "ANIMATE-IN-FF_BG_IDENT":
 					System.out.println("whattoprocess2 " + whatToProcess);
@@ -303,7 +306,7 @@ public class ISPL extends Scene{
 							break;
 						case "REMAINING_PURSE_ALL": case "SINGLE_PURSE": case "TOP_SOLD": case "RTM_SQUAD": case "TOP_SOLD_TEAMS":
 						case "FF_IDENT": case "RTM": case "SLOTS": case "ONLY_SQUAD": case "FF_ICONIC_PLAYERS": case "TOP_FIVE_SOLD":
-						case "TOP_FIVE_SOLD_TEAMS": case "TOP_15_SOLD": case "FF_LAST_PLAYERS":
+						case "TOP_FIVE_SOLD_TEAMS": case "TOP_15_SOLD": case "FF_LAST_PLAYERS": case "FF_POINTERS":
 							processAnimation(print_writer, "Out", "START", session_selected_broadcaster,(3-current_layer));
 							TimeUnit.SECONDS.sleep(1);
 //							print_writer.println("LAYER" + (3-current_layer) + "*EVEREST*SINGLE_SCENE CLEAR;");
@@ -423,7 +426,11 @@ public class ISPL extends Scene{
 					print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*LOOP START;");
 					which_graphics_onscreen = "FF_LAST_PLAYERS";
 					break;
-				
+				case "ANIMATE-IN-FF_POINTERS":
+					print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*In START;");
+					print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*LOOP START;");
+					which_graphics_onscreen = "FF_POINTERS";
+					break;
 				case "CLEAR-ALL":
 					print_writer.println("LAYER1*EVEREST*SINGLE_SCENE CLEAR;");
 					print_writer.println("LAYER2*EVEREST*SINGLE_SCENE CLEAR;");
@@ -459,7 +466,7 @@ public class ISPL extends Scene{
 					
 					case "REMAINING_PURSE_ALL": case "SINGLE_PURSE": case "TOP_SOLD": case "FF_IDENT": case "RTM": case "SLOTS":
 					case "ONLY_SQUAD": case "RTM_SQUAD": case "TOP_SOLD_TEAMS": case "TOP_FIVE_SOLD": case "TOP_FIVE_SOLD_TEAMS": case"ZONE-PLAYER_STATS":
-					case "TOP_15_SOLD":case "BASE_LOAD": case "FF_ICONIC_PLAYERS": case "FF_LAST_PLAYERS":
+					case "TOP_15_SOLD":case "BASE_LOAD": case "FF_ICONIC_PLAYERS": case "FF_LAST_PLAYERS": case "FF_POINTERS":
 						processAnimation(print_writer, "Out", "START", session_selected_broadcaster,(3-current_layer));
 						TimeUnit.SECONDS.sleep(4);
 						processAnimation(print_writer, "In", "SHOW 0.0", session_selected_broadcaster,(3-current_layer));
