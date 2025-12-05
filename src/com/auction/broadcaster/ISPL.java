@@ -292,6 +292,8 @@ public class ISPL extends Scene{
 						case "PLAYERPROFILE":
 							processAnimation(print_writer, "Out", "START", session_selected_broadcaster,(3-current_layer));
 							processAnimation(print_writer, "Result", "START", session_selected_broadcaster,(3-current_layer));
+							TimeUnit.MILLISECONDS.sleep(200);
+							print_writer.println("LAYER" + (3-current_layer) + "*EVEREST*SINGLE_SCENE CLEAR;");
 							break;
 						case "SQUAD":
 							processAnimation(print_writer, "Out", "START", session_selected_broadcaster,(3-current_layer));
@@ -441,13 +443,8 @@ public class ISPL extends Scene{
 						processAnimation(print_writer, "Result", "START", session_selected_broadcaster,(1));
 						processAnimation(print_writer, "Out", "START", session_selected_broadcaster,(2));
 						processAnimation(print_writer, "Result", "START", session_selected_broadcaster,(2));
-						TimeUnit.SECONDS.sleep(4);
-						processAnimation(print_writer, "In", "SHOW 0.0", session_selected_broadcaster,(1));
-						processAnimation(print_writer, "Out", "SHOW 0.0", session_selected_broadcaster,(1));
-						processAnimation(print_writer, "Result", "SHOW 0.0", session_selected_broadcaster,(1));
-						processAnimation(print_writer, "In", "SHOW 0.0", session_selected_broadcaster,(2));
-						processAnimation(print_writer, "Out", "SHOW 0.0", session_selected_broadcaster,(2));
-						processAnimation(print_writer, "Result", "SHOW 0.0", session_selected_broadcaster,(2));
+						TimeUnit.MILLISECONDS.sleep(500);
+						print_writer.println("LAYER" + current_layer + "*EVEREST*SINGLE_SCENE CLEAR;");
 						break;
 					case "SQUAD": 
 						processAnimation(print_writer, "Out", "START", session_selected_broadcaster,1);
@@ -739,17 +736,16 @@ public class ISPL extends Scene{
 					if(playerId == auction.getPlayers().get(i).getPlayerId()) {
 						if(auction.getPlayers().get(i).getSoldOrUnsold().equalsIgnoreCase(AuctionUtil.SOLD)||
 								auction.getPlayers().get(i).getSoldOrUnsold().equalsIgnoreCase(AuctionUtil.RTM)) {
-							print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelectLogo 1 ;");
 							print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSoldUnsold 1 ;");
 							print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBidPrice " + 
 									AuctionFunctions.ConvertToLakh(auction.getPlayers().get(i).getSoldForPoints()) + ";");
 							
-							print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgBase02_01 " + base_path2 + 
+							print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgBase02_02 " + base_path2 + 
 									auctionService.getTeams().get(auction.getPlayers().get(i).getTeamId() - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
-							print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgBase01_01 " + base_path1 + 
+							print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgBase01_02 " + base_path1 + 
 									auctionService.getTeams().get(auction.getPlayers().get(i).getTeamId() - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
 							
-							print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgLogo_01 " + logobw_path + 
+							print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgLogo_02 " + logobw_path + 
 									auctionService.getTeams().get(auction.getPlayers().get(i).getTeamId() - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
 							
 							if((auction.getPlayers().get(i).getSoldOrUnsold().equalsIgnoreCase(AuctionUtil.RTM))){
@@ -798,9 +794,6 @@ public class ISPL extends Scene{
 				update_gfx = false;
 			}
 			
-			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$All$PricesGRp$Sold_Undold$Sold$logoBase*CONTAINER SET ACTIVE 0;");
-			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$All$PricesGRp$Sold_Undold$Sold$logo*CONTAINER SET ACTIVE 0;");
-			
 			print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*Result SHOW 0.0;");
 			print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*Timer_In SHOW 0.0;");
 			
@@ -809,6 +802,7 @@ public class ISPL extends Scene{
 			Player player = auctionService.getAllPlayer().stream().filter(plyr -> plyr.getPlayerId() == playerId).findAny().orElse(null);
 			
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vPlayerPic 0;");
+			
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerFirstName " + player.getFirstname() + ";");
 			if(player.getSurname() != null) {
 				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerLastName " + player.getSurname() + ";");
