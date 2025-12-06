@@ -68,7 +68,14 @@ public class Scene {
 //				print_writer.println("LAYER3*EVEREST*STAGE*DIRECTOR*In STOP;");
 //				print_writer.println("LAYER3*EVEREST*STAGE*DIRECTOR*In SHOW 0.0;");
 				TimeUnit.MILLISECONDS.sleep(500);
-				break;	
+				break;
+			case "4":
+				print_writer.println("LAYER4*EVEREST*SINGLE_SCENE LOAD " + this.scene_path + ";");
+				
+//				print_writer.println("LAYER3*EVEREST*STAGE*DIRECTOR*In STOP;");
+//				print_writer.println("LAYER3*EVEREST*STAGE*DIRECTOR*In SHOW 0.0;");
+				TimeUnit.MILLISECONDS.sleep(500);
+				break;
 			}
 			
 			//print_writer.println("LAYER1*EVEREST*SINGLE_SCENE CLEAR;");

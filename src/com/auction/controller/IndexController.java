@@ -168,12 +168,14 @@ public class IndexController
 				print_writer.println("LAYER1*EVEREST*SINGLE_SCENE CLEAR;");
 				print_writer.println("LAYER2*EVEREST*SINGLE_SCENE CLEAR;");
 				print_writer.println("LAYER3*EVEREST*SINGLE_SCENE CLEAR;");
-				session_selected_scenes.add(new Scene("D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/BG.sum"
-						,"3")); // Front layer
-				session_selected_scenes.add(new Scene("","1"));
+				print_writer.println("LAYER4*EVEREST*SINGLE_SCENE CLEAR;");
+				session_selected_scenes.add(new Scene("D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/PlayerProfile_Pic.sum" ,"1"));
+				session_selected_scenes.add(new Scene("D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/BG.sum" ,"4"));
+				session_selected_scenes.add(new Scene("","2"));
 				session_selected_scenes.get(0).scene_load(print_writer, session_selected_broadcaster);
-				print_writer.println("LAYER3*EVEREST*STAGE*DIRECTOR*In START;");
-				print_writer.println("LAYER3*EVEREST*STAGE*DIRECTOR*LOOP START;");
+				session_selected_scenes.get(1).scene_load(print_writer, session_selected_broadcaster);
+				print_writer.println("LAYER4*EVEREST*STAGE*DIRECTOR*In START;");
+				print_writer.println("LAYER4*EVEREST*STAGE*DIRECTOR*LOOP START;");
 				this_doad.which_graphics_onscreen = "BG";
 				break;	
 			case "UTT":

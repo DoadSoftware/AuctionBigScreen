@@ -135,8 +135,8 @@
 		  		<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="remaining_purse_single_graphic_btn" id="remaining_purse_single_graphic_btn" onclick="processUserSelection(this)"> Remaining Purse Single </button>	
 			  		
-			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-			  		name="BG_Ident_graphic_btn" id="BG_Ident_graphic_btn" onclick="processUserSelection(this)"> BG </button>	
+			  	<!-- <button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+			  		name="BG_Ident_graphic_btn" id="BG_Ident_graphic_btn" onclick="processUserSelection(this)"> BG </button> -->	
 			  	 
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="squad_graphic_btn" id="squad_graphic_btn" onclick="processUserSelection(this)"> Squad Animation</button>	

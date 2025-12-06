@@ -32,7 +32,7 @@ public class ISPL extends Scene{
 	public String session_selected_broadcaster = "ISPL";
 	public Data data = new Data();
 	public String which_graphics_onscreen = "BG",previous_Scene = "";
-	public int current_layer = 2;
+	public int current_layer = 2, layer_num = 5;
 	private String logo_path = "C:\\Images\\Auction\\Logos\\";
 	private String logobw_path = "C:\\Images\\Auction\\Logos_BW\\";
 	private String logo_base_path = "C:\\Images\\Auction\\Logo_Base\\";
@@ -108,17 +108,7 @@ public class ISPL extends Scene{
 		case "RULE_CHANGEON":
 			processAnimation(print_writer, "In", "COUNTINUE", session_selected_broadcaster, current_layer);
 			 break;
-		case "POPULATE-TIMER":
-			processAnimation(print_writer, "Timer_In", "START", session_selected_broadcaster, current_layer);
-			TimeUnit.MILLISECONDS.sleep(500);
-			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$TimeRemaining$Timer_GRP$StatHead*FUNCTION*TIMER SET START INVOKE;");
-			break;
-		case "POPULATE-TIMER_OUT":
-			processAnimation(print_writer, "Timer_End", "START", session_selected_broadcaster, current_layer);
-			TimeUnit.MILLISECONDS.sleep(500);
-			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$TimeRemaining$Timer_GRP$StatHead*FUNCTION*TIMER SET STOP INVOKE;");
-			break;
-		
+
 		case "POPULATE-FF-PLAYERPROFILE": case "POPULATE-SQUAD": case "POPULATE-REMAINING_PURSE_ALL": case "POPULATE-SINGLE_PURSE":
 		case "POPULATE-TOP_SOLD": case "POPULATE-CRAWL": case "POPULATE-SQUAD_ROLE": case "POPULATE-FF_IDENT": case "POPULATE-ONLY_SQUAD":
 		case "POPULATE-RTM_AVAILABLE": case "POPULATE-SLOTS_REMAINING":	case "POPULATE-FF_ICONIC_PLAYERS":  case "POPULATE-FF_EIGHTPOINTERS": case "POPULATE-FF_POINTERS": case "POPULATE-FF_LAST_PLAYERS": case "POPULATE-RTM_SQUAD":
@@ -128,24 +118,19 @@ public class ISPL extends Scene{
 			case "HANDBALL": case "ISPL":
 				switch(whatToProcess.toUpperCase()) {
 				case "POPULATE-FF_BG_IDENT":
-					current_layer = 3 - current_layer;
+					current_layer = layer_num - current_layer;
 					break;
 				case "POPULATE-FF-PLAYERPROFILE":
-					print_writer.println("LAYER3*EVEREST*STAGE*DIRECTOR*In SHOW 71.0;");
-					scenes.get(1).setWhich_layer(String.valueOf(4));
-					scenes.get(1).setScene_path(valueToProcess.split(",")[0]);
-					scenes.get(1).scene_load(print_writer,session_selected_broadcaster);
-					break;
-				case "POPULATE-L3-INFOBAR":
-					scenes.get(0).setScene_path(valueToProcess.split(",")[0]);
+					scenes.get(0).setWhich_layer("1");
+					scenes.get(0).setScene_path("D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/PlayerProfile_Pic.sum");
 					scenes.get(0).scene_load(print_writer,session_selected_broadcaster);
 					break;
 				default:
-					print_writer.println("LAYER3*EVEREST*STAGE*DIRECTOR*In SHOW 71.0;");
-					current_layer = 3 - current_layer;
-					scenes.get(1).setWhich_layer(String.valueOf(current_layer));
-					scenes.get(1).setScene_path(valueToProcess.split(",")[0]);
-					scenes.get(1).scene_load(print_writer,session_selected_broadcaster);
+					print_writer.println("LAYER4*EVEREST*STAGE*DIRECTOR*In SHOW 71.0;");
+					current_layer = layer_num - current_layer;
+					scenes.get(2).setWhich_layer(String.valueOf(current_layer));
+					scenes.get(2).setScene_path(valueToProcess.split(",")[0]);
+					scenes.get(2).scene_load(print_writer,session_selected_broadcaster);
 					break;
 				}
 			
@@ -159,15 +144,14 @@ public class ISPL extends Scene{
 				}
 				switch (whatToProcess.toUpperCase()) {
 				case "BASE_LOAD":
-					print_writer.println("LAYER3*EVEREST*STAGE*DIRECTOR*In SHOW 71.0;");
-					current_layer = 3 - current_layer;
-					scenes.get(1).setWhich_layer(String.valueOf(current_layer));
+					print_writer.println("LAYER4*EVEREST*STAGE*DIRECTOR*In SHOW 71.0;");
+					scenes.get(1).setWhich_layer("4");
 					scenes.get(1).setScene_path("D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/BG.sum");
 					scenes.get(1).scene_load(print_writer,session_selected_broadcaster);
 					which_graphics_onscreen = "BASE_LOAD";
 					break;
 				case "POPULATE-CANCEL":
-					current_layer = 3 - current_layer;
+					current_layer = layer_num - current_layer;
 					previous_Scene = which_graphics_onscreen;
 					break;
 				
@@ -222,8 +206,7 @@ public class ISPL extends Scene{
 							(!valueToProcess.equalsIgnoreCase("undefined") && !side2ValueToProcess.equalsIgnoreCase(valueToProcess.split(",")[1]))) {
 						squad.clear();
 						current_index = 0;
-						squad = auction.getPlayersList().stream()
-							    .filter(ply -> ply.getCategory().equalsIgnoreCase(valueToProcess.split(",")[1]))
+						squad = auction.getPlayersList().stream().filter(ply -> ply.getCategory().equalsIgnoreCase(valueToProcess.split(",")[1]))
 							    .collect(Collectors.toList());
 						Iterator<Player> squadIterator = squad.iterator();
 
@@ -282,7 +265,19 @@ public class ISPL extends Scene{
 						count= count + 5;	
 					}
 					break;
-				case "ANIMATE-IN-PLAYERPROFILE": case "ANIMATE-IN-SQUAD": case "ANIMATE-IN-REMAINING_PURSE_ALL": case "ANIMATE-IN-FF_ICONIC_PLAYERS":
+				case "ANIMATE-IN-PLAYERPROFILE": 
+					print_writer.println("LAYER1*EVEREST*STAGE*DIRECTOR*In START;");
+					TimeUnit.SECONDS.sleep(2);
+					print_writer.println("LAYER1*EVEREST*STAGE*DIRECTOR*LOOP START;");
+					
+					if(current_bid.getClock().getMatchTimeStatus().equalsIgnoreCase("START")) {
+						processAnimation(print_writer, "Timer_In", "START", session_selected_broadcaster, 1);
+					}
+					
+					which_graphics_onscreen = "PLAYERPROFILE";
+					break;
+					
+				case "ANIMATE-IN-SQUAD": case "ANIMATE-IN-REMAINING_PURSE_ALL": case "ANIMATE-IN-FF_ICONIC_PLAYERS":
 				case "ANIMATE-IN-SINGLE_PURSE": case "ANIMATE-IN-TOP_SOLD": case "ANIMATE-IN-CRAWL": case "ANIMATE-IN-FF_IDENT": case "ANIMATE-IN-FF_EIGHTPOINTERS": case "ANIMATE-IN-FF_POINTERS": case "ANIMATE-IN-FF_LAST_PLAYERS":
 				case "ANIMATE-IN-RTM": case "ANIMATE-IN-SLOTS": case "ANIMATE-IN-ONLY_SQUAD": case "ANIMATE-IN-RTM_SQUAD": case "ANIMATE-IN-TOP_15_SOLD":
 				case "ANIMATE-IN-TOP_SOLD_TEAMS": case "ANIMATE-IN-TOP_FIVE_SOLD": case "ANIMATE-IN-ZONE-PLAYER_STATS": case "ANIMATE-IN-TOP_FIVE_SOLD_TEAMS": case "ANIMATE-IN-FF_BG_IDENT":
@@ -293,29 +288,23 @@ public class ISPL extends Scene{
 					if(which_graphics_onscreen != "" && which_graphics_onscreen != "BG") {
 						switch(which_graphics_onscreen) {
 						case "ZONE-PLAYER_STATS":
-							processAnimation(print_writer, "Out", "START", session_selected_broadcaster,(3-current_layer));
+							processAnimation(print_writer, "Out", "START", session_selected_broadcaster,(layer_num-current_layer));
 							TimeUnit.MILLISECONDS.sleep(2250);
-							processAnimation(print_writer, "In", "SHOW 0.0", session_selected_broadcaster,(3-current_layer));
-							processAnimation(print_writer, "Out", "SHOW 0.0", session_selected_broadcaster,(3-current_layer));
-							break;
-						case "PLAYERPROFILE":
-							processAnimation(print_writer, "Out", "START", session_selected_broadcaster,(4));
-							processAnimation(print_writer, "Result", "START", session_selected_broadcaster,(4));
-							TimeUnit.MILLISECONDS.sleep(200);
-							print_writer.println("LAYER" + (4) + "*EVEREST*SINGLE_SCENE CLEAR;");
+							processAnimation(print_writer, "In", "SHOW 0.0", session_selected_broadcaster,(layer_num-current_layer));
+							processAnimation(print_writer, "Out", "SHOW 0.0", session_selected_broadcaster,(layer_num-current_layer));
 							break;
 						case "SQUAD":
-							processAnimation(print_writer, "Out", "START", session_selected_broadcaster,(3-current_layer));
+							processAnimation(print_writer, "Out", "START", session_selected_broadcaster,(layer_num-current_layer));
 							TimeUnit.MILLISECONDS.sleep(2250);
-							processAnimation(print_writer, "In", "SHOW 0.0", session_selected_broadcaster,(3-current_layer));
-							processAnimation(print_writer, "Out", "SHOW 0.0", session_selected_broadcaster,(3-current_layer));
+							processAnimation(print_writer, "In", "SHOW 0.0", session_selected_broadcaster,(layer_num-current_layer));
+							processAnimation(print_writer, "Out", "SHOW 0.0", session_selected_broadcaster,(layer_num-current_layer));
 							break;
 						case "REMAINING_PURSE_ALL": case "SINGLE_PURSE": case "TOP_SOLD": case "RTM_SQUAD": case "TOP_SOLD_TEAMS":
 						case "FF_IDENT": case "RTM": case "SLOTS": case "ONLY_SQUAD": case "FF_ICONIC_PLAYERS": case "TOP_FIVE_SOLD":
 						case "TOP_FIVE_SOLD_TEAMS": case "TOP_15_SOLD": case "FF_LAST_PLAYERS": case "FF_POINTERS": case "FF_EIGHTPOINTERS":
-							processAnimation(print_writer, "Out", "START", session_selected_broadcaster,(3-current_layer));
+							processAnimation(print_writer, "Out", "START", session_selected_broadcaster,(layer_num-current_layer));
 							TimeUnit.SECONDS.sleep(1);
-//							print_writer.println("LAYER" + (3-current_layer) + "*EVEREST*SINGLE_SCENE CLEAR;");
+//							print_writer.println("LAYER" + (layer_num-current_layer) + "*EVEREST*SINGLE_SCENE CLEAR;");
 //							TimeUnit.SECONDS.sleep(1);
 							break;
 						case "CRAWL":	
@@ -340,17 +329,6 @@ public class ISPL extends Scene{
 					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Scroller-MAIN*GEOMETRY*SCROLLER SET CRAWL 1;");
 					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Scroller-MAIN*GEOMETRY*SCROLLER SET ACTIVE 1;");
 					which_graphics_onscreen = "CRAWL";
-					break;
-				case "ANIMATE-IN-PLAYERPROFILE": 
-					print_writer.println("LAYER4*EVEREST*STAGE*DIRECTOR*In START;");
-					TimeUnit.SECONDS.sleep(2);
-					print_writer.println("LAYER4*EVEREST*STAGE*DIRECTOR*LOOP START;");
-					
-					if(current_bid.getClock().getMatchTimeStatus().equalsIgnoreCase("START")) {
-						processAnimation(print_writer, "Timer_In", "START", session_selected_broadcaster, 4);
-					}
-					
-					which_graphics_onscreen = "PLAYERPROFILE";
 					break;
 				case "ANIMATE-IN-ONLY_SQUAD":
 					print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*In START;");
@@ -445,46 +423,41 @@ public class ISPL extends Scene{
 				case "CLEAR-ALL":
 					print_writer.println("LAYER1*EVEREST*SINGLE_SCENE CLEAR;");
 					print_writer.println("LAYER2*EVEREST*SINGLE_SCENE CLEAR;");
+					print_writer.println("LAYER3*EVEREST*SINGLE_SCENE CLEAR;");
+					print_writer.println("LAYER4*EVEREST*SINGLE_SCENE CLEAR;");
 					which_graphics_onscreen = "";
+					
+					scenes.get(0).scene_load(print_writer, session_selected_broadcaster);
+					scenes.get(1).scene_load(print_writer, session_selected_broadcaster);
+					print_writer.println("LAYER4*EVEREST*STAGE*DIRECTOR*In START;");
+					print_writer.println("LAYER4*EVEREST*STAGE*DIRECTOR*LOOP START;");
+					which_graphics_onscreen = "BG";
 					break;
 				
 				case "ANIMATE-OUT":
 					switch(which_graphics_onscreen) {
-					case "INFOBAR":
-						processAnimation(print_writer, "Out", "START", session_selected_broadcaster,current_layer);
-						which_graphics_onscreen = "";
-						break;
 					case "PLAYERPROFILE":
-//						processAnimation(print_writer, "Out", "START", session_selected_broadcaster,(3-current_layer));
-//						processAnimation(print_writer, "Result", "START", session_selected_broadcaster,(3-current_layer));
-						processAnimation(print_writer, "Out", "START", session_selected_broadcaster,(4));
-						processAnimation(print_writer, "Result", "START", session_selected_broadcaster,(4));
-//						processAnimation(print_writer, "Out", "START", session_selected_broadcaster,(2));
-//						processAnimation(print_writer, "Result", "START", session_selected_broadcaster,(2));
-						TimeUnit.MILLISECONDS.sleep(500);
-						print_writer.println("LAYER" + current_layer + "*EVEREST*SINGLE_SCENE CLEAR;");
+						processAnimation(print_writer, "Out", "START", session_selected_broadcaster,1);
+						processAnimation(print_writer, "Result", "START", session_selected_broadcaster,1);
 						break;
 					case "SQUAD": 
-						processAnimation(print_writer, "Out", "START", session_selected_broadcaster,1);
 						processAnimation(print_writer, "Out", "START", session_selected_broadcaster,2);
+						processAnimation(print_writer, "Out", "START", session_selected_broadcaster,3);
 						TimeUnit.SECONDS.sleep(4);
-						processAnimation(print_writer, "In", "SHOW 0.0", session_selected_broadcaster,1);
-						processAnimation(print_writer, "Out", "SHOW 0.0", session_selected_broadcaster,1);
-						
 						processAnimation(print_writer, "In", "SHOW 0.0", session_selected_broadcaster,2);
 						processAnimation(print_writer, "Out", "SHOW 0.0", session_selected_broadcaster,2);
+						
+						processAnimation(print_writer, "In", "SHOW 0.0", session_selected_broadcaster,3);
+						processAnimation(print_writer, "Out", "SHOW 0.0", session_selected_broadcaster,3);
 						break;
 					
 					case "REMAINING_PURSE_ALL": case "SINGLE_PURSE": case "TOP_SOLD": case "FF_IDENT": case "RTM": case "SLOTS":
 					case "ONLY_SQUAD": case "RTM_SQUAD": case "TOP_SOLD_TEAMS": case "TOP_FIVE_SOLD": case "TOP_FIVE_SOLD_TEAMS": case"ZONE-PLAYER_STATS":
 					case "TOP_15_SOLD":case "BASE_LOAD": case "FF_ICONIC_PLAYERS": case "FF_LAST_PLAYERS": case "FF_POINTERS": case "FF_EIGHTPOINTERS":
-						processAnimation(print_writer, "Out", "START", session_selected_broadcaster,(current_layer));
+						processAnimation(print_writer, "Out", "START", session_selected_broadcaster, current_layer);
 						TimeUnit.SECONDS.sleep(4);
-						processAnimation(print_writer, "In", "SHOW 0.0", session_selected_broadcaster,(current_layer));
-						processAnimation(print_writer, "Out", "SHOW 0.0", session_selected_broadcaster,(current_layer));
-//						print_writer.println("LAYER3*EVEREST*STAGE*DIRECTOR*In START;");
-//						print_writer.println("LAYER3*EVEREST*STAGE*DIRECTOR*Loop START;");
-						
+						processAnimation(print_writer, "In", "SHOW 0.0", session_selected_broadcaster, current_layer);
+						processAnimation(print_writer, "Out", "SHOW 0.0", session_selected_broadcaster, current_layer);
 						break;
 					case "CRAWL":
 						print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Scroller-MAIN*GEOMETRY*SCROLLER SET CRAWL 0;");
@@ -741,12 +714,12 @@ public class ISPL extends Scene{
 			AuctionService auctionService, List<Player> plr, String session_selected_broadcaster) throws InterruptedException 
 	{
 
-		print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + "INDIAN STREET PREMIER LEAGUE" + ";");
-		print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader " + "PLAYER AUCTION 2025" + ";");
+		print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + "INDIAN STREET PREMIER LEAGUE" + ";");
+		print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader " + "PLAYER AUCTION 2025" + ";");
 		
-		print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBaePointsHead " + "BASE PRICE" + ";");
-		print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBasePrice " + "3" + ";");
-		print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelectLogo 0 ;");
+		print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBaePointsHead " + "BASE PRICE" + ";");
+		print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBasePrice " + "3" + ";");
+		print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelectLogo 0 ;");
 		
 		if(auction.getPlayers() != null && auction.getPlayers().size() > 0) {
 			if(data.isPlayer_sold_or_unsold() == false) {
@@ -754,33 +727,33 @@ public class ISPL extends Scene{
 					if(playerId == auction.getPlayers().get(i).getPlayerId()) {
 						if(auction.getPlayers().get(i).getSoldOrUnsold().equalsIgnoreCase(AuctionUtil.SOLD)||
 								auction.getPlayers().get(i).getSoldOrUnsold().equalsIgnoreCase(AuctionUtil.RTM)) {
-							print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSoldUnsold 1 ;");
-							print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBidPrice " + 
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSoldUnsold 1 ;");
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBidPrice " + 
 									AuctionFunctions.ConvertToLakh(auction.getPlayers().get(i).getSoldForPoints()) + ";");
 							
-							print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgBase02_02 " + base_path2 + 
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgBase02_02 " + base_path2 + 
 									auctionService.getTeams().get(auction.getPlayers().get(i).getTeamId() - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
-							print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgBase01_02 " + base_path1 + 
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgBase01_02 " + base_path1 + 
 									auctionService.getTeams().get(auction.getPlayers().get(i).getTeamId() - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
 							
-							print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgLogo_02 " + logobw_path + 
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgLogo_02 " + logobw_path + 
 									auctionService.getTeams().get(auction.getPlayers().get(i).getTeamId() - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
 							
 							if((auction.getPlayers().get(i).getSoldOrUnsold().equalsIgnoreCase(AuctionUtil.RTM))){
-								print_writer.println("LAYER4*EVEREST*TREEVIEW*Main$All$PricesGRp$Sold_Undold$Sold$RTM*CONTAINER SET ACTIVE 1;");
+								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main$All$PricesGRp$Sold_Undold$Sold$RTM*CONTAINER SET ACTIVE 1;");
 							}else {
-								print_writer.println("LAYER4*EVEREST*TREEVIEW*Main$All$PricesGRp$Sold_Undold$Sold$RTM*CONTAINER SET ACTIVE 0;");
+								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main$All$PricesGRp$Sold_Undold$Sold$RTM*CONTAINER SET ACTIVE 0;");
 							}
 							
-							print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tUnsold "+ "SOLD;");
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tUnsold "+ "SOLD;");
 							
 							TimeUnit.MILLISECONDS.sleep(200);
-							print_writer.println("LAYER4*EVEREST*STAGE*DIRECTOR*Result START;");
+							print_writer.println("LAYER1*EVEREST*STAGE*DIRECTOR*Result START;");
 							data.setPlayer_sold_or_unsold(true);
 						}else if(auction.getPlayers().get(i).getSoldOrUnsold().equalsIgnoreCase(AuctionUtil.UNSOLD)) {
-							print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tUnsold " + "UNSOLD" + ";");
-							print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSoldUnsold 0 ;");
-							print_writer.println("LAYER4*EVEREST*STAGE*DIRECTOR*Result START;");
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tUnsold " + "UNSOLD" + ";");
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSoldUnsold 0 ;");
+							print_writer.println("LAYER1*EVEREST*STAGE*DIRECTOR*Result START;");
 							data.setPlayer_sold_or_unsold(true);
 						}
 					}
@@ -799,10 +772,10 @@ public class ISPL extends Scene{
 				}
 			}
 			
-			print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPurse0" + (i+1) + " " + 
+			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPurse0" + (i+1) + " " + 
 					AuctionFunctions.ConvertToLakh(remaining) + ";");
 			remaining=0;
-			print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgLogo0" + (i+1) + " " + logo_path + 
+			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgLogo0" + (i+1) + " " + logo_path + 
 					auctionService.getTeams().get(auction.getTeam().get(i).getTeamId()-1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
 			
 		}
@@ -812,118 +785,118 @@ public class ISPL extends Scene{
 				update_gfx = false;
 			}
 			
-			print_writer.println("LAYER4*EVEREST*STAGE*DIRECTOR*Result SHOW 0.0;");
-			print_writer.println("LAYER4*EVEREST*STAGE*DIRECTOR*Timer_In SHOW 0.0;");
+			print_writer.println("LAYER1*EVEREST*STAGE*DIRECTOR*Result SHOW 0.0;");
+			print_writer.println("LAYER1*EVEREST*STAGE*DIRECTOR*Timer_In SHOW 0.0;");
 			
 			data.setPlayer_sold_or_unsold(false);
 			
 			Player player = auctionService.getAllPlayer().stream().filter(plyr -> plyr.getPlayerId() == playerId).findAny().orElse(null);
 			
-			print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vPlayerPic 0;");
+			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vPlayerPic 0;");
 			
-			print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerFirstName " + player.getFirstname() + ";");
+			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerFirstName " + player.getFirstname() + ";");
 			if(player.getSurname() != null) {
-				print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerLastName " + player.getSurname() + ";");
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerLastName " + player.getSurname() + ";");
 			}else {
-				print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerLastName " + "" + ";");
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerLastName " + "" + ";");
 			}
 			
-			print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tRole " 
+			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tRole " 
 					+ player.getRole().replace("Batsman", "Batter").toUpperCase() + ";");
-			print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tCategory " 
+			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tCategory " 
 					+ player.getCategory().toUpperCase() + ";");
 			
-			print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgPlayerImage " + photo_path + 
+			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgPlayerImage " + photo_path + 
 					player.getPhotoName() + AuctionUtil.PNG_EXTENSION + ";");
 			
 			if(player.getIconic() !=null && player.getIconic().equalsIgnoreCase(AuctionUtil.YES)) {
-				print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelectIcon 1;");
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelectIcon 1;");
 			}else {
-				print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelectIcon 2;");
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelectIcon 2;");
 			}
 			
 			if(player.getLastYearTeam() != null) {
-				print_writer.println("LAYER4*EVEREST*TREEVIEW*Main$All$PlayerDetails$Prefererd*CONTAINER SET ACTIVE 1;");
-				print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatValue " + 
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main$All$PlayerDetails$Prefererd*CONTAINER SET ACTIVE 1;");
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatValue " + 
 						auctionService.getTeams().get(player.getLastYearTeam()-1).getTeamName1() + ";");
 			}else {
-				print_writer.println("LAYER4*EVEREST*TREEVIEW*Main$All$PlayerDetails$Prefererd*CONTAINER SET ACTIVE 0;");
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main$All$PlayerDetails$Prefererd*CONTAINER SET ACTIVE 0;");
 			}
 			
 			switch (whichDataType) {
 			case "ISPL S-1": case "ISPL S-2":
-				print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHead " + 
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHead " + 
 						(whichDataType.equalsIgnoreCase("ISPL S-1") ? "ISPL SEASON 1" : "ISPL SEASON 2") + ";");
 				
 				StatsType statsType = auctionService.getStatsTypes().stream().filter(stype -> stype.getStats_short_name().equalsIgnoreCase(whichDataType)).findAny().orElse(null);
 				Statistics stat = auctionService.getAllStats().stream().filter(st-> st.getPlayer_id() == playerId && statsType.getStats_id() == st.getStats_type_id()).findAny().orElse(null);
 				
-				print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tAgeHead " + "MATCHES" + ";");
-				print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tAge " + 
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tAgeHead " + "MATCHES" + ";");
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tAge " + 
 						((stat.getMatches().equalsIgnoreCase("0") ? "-" : stat.getMatches()))+ ";");
 				
 				switch (player.getRole().toUpperCase()) {
 				case "BATSMAN": case "BAT/KEEPER": case "WICKET-KEEPER":
-					print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyleHead " + "RUNS" + ";");
-					print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyleHead " + "STRIKE RATE" + ";");
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyleHead " + "RUNS" + ";");
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyleHead " + "STRIKE RATE" + ";");
 					
-					print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyle " + 
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyle " + 
 							((stat.getRuns().equalsIgnoreCase("0") ? "-" : stat.getRuns())) + ";");
-					print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyle " + 
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyle " + 
 							((stat.getStrikeRate().equalsIgnoreCase("0") ? "-" : stat.getStrikeRate())) + ";");
 					break;
 				case "BOWLER":
-					print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyleHead " + "WICKETS" + ";");
-					print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyleHead " + "ECONOMY" + ";");
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyleHead " + "WICKETS" + ";");
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyleHead " + "ECONOMY" + ";");
 					
-					print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyle " + 
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyle " + 
 							((stat.getWickets().equalsIgnoreCase("0") ? "-" : stat.getWickets())) + ";");
-					print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyle " + 
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyle " + 
 							((stat.getEconomy().equalsIgnoreCase("0") ? "-" : stat.getEconomy())) + ";");
 					break;
 				case "ALL-ROUNDER":
-					print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyleHead " + "RUNS" + ";");
-					print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyleHead " + "WICKETS" + ";");
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyleHead " + "RUNS" + ";");
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyleHead " + "WICKETS" + ";");
 					
-					print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyle " + 
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyle " + 
 							((stat.getRuns().equalsIgnoreCase("0") ? "-" : stat.getRuns())) + ";");
-					print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyle " + 
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyle " + 
 							((stat.getWickets().equalsIgnoreCase("0") ? "-" : stat.getWickets())) + ";");
 					break;
 				}
 				
-				print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET 1 0;");
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET 1 0;");
 				break;
 
 			default:
-				print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHead ;");
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHead ;");
 				
-				print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tAgeHead AGE;");
-				print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tAge " + (player.getAge() != null ? player.getAge() : "-") + ";");
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tAgeHead AGE;");
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tAge " + (player.getAge() != null ? player.getAge() : "-") + ";");
 				
-				print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyleHead " + "BAT STYLE" + ";");
-				print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyleHead " + "BOWL STYLE" + ";");
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyleHead " + "BAT STYLE" + ";");
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyleHead " + "BOWL STYLE" + ";");
 				
-				print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyle " + (player.getBatsmanStyle() != null 
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyle " + (player.getBatsmanStyle() != null 
 						? player.getBatsmanStyle() : "-") + ";");
-				print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyle " + (player.getBowlerStyle() != null 
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyle " + (player.getBowlerStyle() != null 
 						? player.getBowlerStyle() : "-") + ";");
 
-				print_writer.println("LAYER4*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET 1 0;");
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET 1 0;");
 				break;
 			}
 			
-			print_writer.println("LAYER1*EVEREST*GLOBAL PREVIEW ON;");
-			print_writer.println("LAYER4*EVEREST*STAGE*DIRECTOR*In STOP;");
-			print_writer.println("LAYER4*EVEREST*STAGE*DIRECTOR*Out STOP;");
-			print_writer.println("LAYER4*EVEREST*STAGE*DIRECTOR*In SHOW 71.0;");
-			print_writer.println("LAYER4*EVEREST*STAGE*DIRECTOR*Out SHOW 0.0;");
-			print_writer.println("LAYER1*EVEREST*GLOBAL SNAPSHOT_PATH C:/Temp/Preview.tga;");
-			print_writer.println("LAYER1*EVEREST*GLOBAL SNAPSHOT 1920 1080;");
-			TimeUnit.SECONDS.sleep(1);
-			print_writer.println("LAYER4*EVEREST*STAGE*DIRECTOR*Out SHOW 0.0;");
-			print_writer.println("LAYER4*EVEREST*STAGE*DIRECTOR*In SHOW 0.0;");
-			print_writer.println("LAYER1*EVEREST*GLOBAL PREVIEW OFF;");
+//			print_writer.println("LAYER1*EVEREST*GLOBAL PREVIEW ON;");
+//			print_writer.println("LAYER4*EVEREST*STAGE*DIRECTOR*In STOP;");
+//			print_writer.println("LAYER4*EVEREST*STAGE*DIRECTOR*Out STOP;");
+//			print_writer.println("LAYER4*EVEREST*STAGE*DIRECTOR*In SHOW 71.0;");
+//			print_writer.println("LAYER4*EVEREST*STAGE*DIRECTOR*Out SHOW 0.0;");
+//			print_writer.println("LAYER1*EVEREST*GLOBAL SNAPSHOT_PATH C:/Temp/Preview.tga;");
+//			print_writer.println("LAYER1*EVEREST*GLOBAL SNAPSHOT 1920 1080;");
+//			TimeUnit.SECONDS.sleep(1);
+//			print_writer.println("LAYER4*EVEREST*STAGE*DIRECTOR*Out SHOW 0.0;");
+//			print_writer.println("LAYER4*EVEREST*STAGE*DIRECTOR*In SHOW 0.0;");
+//			print_writer.println("LAYER1*EVEREST*GLOBAL PREVIEW OFF;");
 		}
 		
 	}
@@ -3616,10 +3589,14 @@ public class ISPL extends Scene{
 			case 1:
 				print_writer.println("LAYER1*EVEREST*STAGE*DIRECTOR*" + animationName + " " + animationCommand + ";");
 				break;
-				
 			case 2:
 				print_writer.println("LAYER2*EVEREST*STAGE*DIRECTOR*" + animationName + " " + animationCommand + ";");
-				//print_writer.println("LAYER2*EVEREST*STAGE*DIRECTOR*LOOP START;");	
+				break;
+			case 3:
+				print_writer.println("LAYER3*EVEREST*STAGE*DIRECTOR*" + animationName + " " + animationCommand + ";");
+				break;
+			case 4:
+				print_writer.println("LAYER4*EVEREST*STAGE*DIRECTOR*" + animationName + " " + animationCommand + ";");
 				break;
 			}
 			break;
