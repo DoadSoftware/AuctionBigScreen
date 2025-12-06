@@ -143,15 +143,16 @@
 			  		
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="Only_squad_graphic_btn" id="Only_squad_graphic_btn" onclick="processUserSelection(this)"> Squad</button>
-			  			
+			  	
+			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+			  		name="remaining_purse_graphic_btn" id="remaining_purse_graphic_btn" onclick="processUserSelection(this)"> Remaining Purse All + Spots Rem </button>		
 			  	<!-- <button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="player_category_graphic_btn" id="player_category_graphic_btn" onclick="processUserSelection(this)"> Player List Category India </button>
 			  		
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="player_category_int_graphic_btn" id="player_category_int_graphic_btn" onclick="processUserSelection(this)"> Player List Category International </button>	
 			  		 -->	
-			  <!-- 	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-			  		name="remaining_purse_graphic_btn" id="remaining_purse_graphic_btn" onclick="processUserSelection(this)"> Remaining Purse All + Spots Rem </button>
+			  <!-- 	
 			  		
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="cur_squad_graphic_btn" id="cur_squad_graphic_btn" onclick="processUserSelection(this)"> Remaining Purse All + Squad Size </button>	
@@ -180,7 +181,10 @@
 		  			name="lastyear_graphic_btn" id="lastyear_graphic_btn" onclick="processUserSelection(this)"> Last year </button>
 			  	
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-		  			name="pointers_graphic_btn" id="pointers_graphic_btn" onclick="processUserSelection(this)"> Pointers </button>
+		  			name="pointers_graphic_btn" id="pointers_graphic_btn" onclick="processUserSelection(this)"> Pointers 4 </button>
+		  			
+		  			<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+		  			name="pointerseight_graphic_btn" id="pointerseight_graphic_btn" onclick="processUserSelection(this)"> Pointers 8 </button>
 			  	<!-- 
 			  		
 			  		 -->

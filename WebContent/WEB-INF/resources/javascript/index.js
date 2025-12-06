@@ -196,6 +196,11 @@ function processUserSelection(whichInput)
 		which_GFX = "";
 		processAuctionProcedures('POPULATE-FF_POINTERS');
 		break;
+	case 'pointerseight_graphic_btn':
+	    stopTeamRotation();
+		which_GFX = "";
+		processAuctionProcedures('POPULATE-FF_EIGHTPOINTERS');
+		break;
 	case 'changeOn_btn':
 		processAuctionProcedures('CHANGE-INFO');
 		break;	
@@ -582,8 +587,8 @@ function processAuctionProcedures(whatToProcess)
 		break;
 	case 'POPULATE-REMAINING_PURSE_ALL': case 'POPULATE-CURR_SQUAD':
 		switch ($('#selected_broadcaster').val().toUpperCase()) {
-		case 'HANDBALL':
-			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_Handball_Auction_2023/Scenes/RemainingPurse_All.sum' ;
+		case 'ISPL':
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/RemainingPurse_All_New.sum' ;
 			break;
 		case 'UTT':
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/Purse_Remaining.sum' ;
@@ -664,6 +669,17 @@ function processAuctionProcedures(whatToProcess)
 		switch ($('#selected_broadcaster').val().toUpperCase()) {
 		case 'ISPL':
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/Pointers.sum' ;
+			break;
+		case 'UTT':
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/Iconic_Players.sum' ;
+			break;		
+		}
+		break;
+		
+		case 'POPULATE-FF_EIGHTPOINTERS':
+		switch ($('#selected_broadcaster').val().toUpperCase()) {
+		case 'ISPL':
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/8_Pointers.sum' ;
 			break;
 		case 'UTT':
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/Iconic_Players.sum' ;
@@ -805,7 +821,7 @@ function processAuctionProcedures(whatToProcess)
 							
 			case 'POPULATE-REMAINING_PURSE_ALL': case 'POPULATE-SINGLE_PURSE': case 'POPULATE-TOP_SOLD':
 			case 'POPULATE-CRAWL': case 'POPULATE-SQUAD_ROLE': case 'POPULATE-FF_IDENT': case 'POPULATE-RTM_AVAILABLE': case 'POPULATE-ONLY_SQUAD':
-			case 'POPULATE-SLOTS_REMAINING':case 'POPULATE-FF_ICONIC_PLAYERS': case 'POPULATE-FF_POINTERS': case 'POPULATE-FF_LAST_PLAYERS': case 'POPULATE-RTM_SQUAD': case 'POPULATE-TOP_SOLD_TEAMS':
+			case 'POPULATE-SLOTS_REMAINING':case 'POPULATE-FF_ICONIC_PLAYERS': case 'POPULATE-FF_EIGHTPOINTERS': case 'POPULATE-FF_POINTERS': case 'POPULATE-FF_LAST_PLAYERS': case 'POPULATE-RTM_SQUAD': case 'POPULATE-TOP_SOLD_TEAMS':
 			case 'POPULATE-TOP_FIVE_SOLD': case 'POPULATE-TOP_FIVE_SOLD_TEAMS': case 'POPULATE-ZONE_PLAYERS_STATS': case 'POPULATE-TOP_15_SOLD': case 'POPULATE-TOP_15_SOLD_TEAMS':
 			case 'POPULATE-CURR_SQUAD': case 'POPULATE-FF-CATEGORY_INT': case 'POPULATE-FF_BG_IDENT': case 'POPULATE-FOUR_TEAM': case 'POPULATE-POOL':
 			case 'POPULATE-POOL_NUMBER':	
@@ -886,6 +902,9 @@ function processAuctionProcedures(whatToProcess)
 						break;
 					case 'POPULATE-FF_POINTERS':
 						processAuctionProcedures('ANIMATE-IN-FF_POINTERS');
+						break;
+					case 'POPULATE-FF_EIGHTPOINTERS':
+						processAuctionProcedures('ANIMATE-IN-FF_EIGHTPOINTERS');
 						break;
 					case 'POPULATE-FF_ICONIC_PLAYERS':
 						processAuctionProcedures('ANIMATE-IN-FF_ICONIC_PLAYERS');
