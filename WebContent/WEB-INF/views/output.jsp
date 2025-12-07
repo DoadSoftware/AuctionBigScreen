@@ -172,8 +172,10 @@
 			  	
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 		  			name="slots_remzone_graphic_btn" id="slots_remzone_graphic_btn" onclick="processUserSelection(this)"> Zone Remaining </button>
-			     <button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+			    <button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 		  			name="iconic_Player_graphic_btn" id="iconic_Player_graphic_btn" onclick="processUserSelection(this)"> Retain Player </button>
+		  		<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+		  			name="retain_Player_graphic_btn" id="retain_Player_graphic_btn" onclick="processUserSelection(this)"> Four Retain Player </button>
 		  			
 		  		<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 		  			name="rtm_squad_graphic_btn" id="rtm_squad_graphic_btn" onclick="processUserSelection(this)"> RTM & SQUAD </button>
