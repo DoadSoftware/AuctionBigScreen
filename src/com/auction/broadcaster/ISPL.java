@@ -32,7 +32,7 @@ public class ISPL extends Scene{
 	public String session_selected_broadcaster = "ISPL";
 	public Data data = new Data();
 	public String which_graphics_onscreen = "BG",previous_Scene = "";
-	public int current_layer = 2, layer_num = 5;
+	public int current_layer = 2;
 	private String logo_path = "C:\\Images\\Auction\\Logos\\";
 	private String logobw_path = "C:\\Images\\Auction\\Logos_BW\\";
 	private String logo_base_path = "C:\\Images\\Auction\\Logo_Base\\";
@@ -119,7 +119,7 @@ public class ISPL extends Scene{
 			case "HANDBALL": case "ISPL":
 				switch(whatToProcess.toUpperCase()) {
 				case "POPULATE-FF_BG_IDENT":
-					current_layer = layer_num - current_layer;
+					current_layer = 5 - current_layer;
 					break;
 				case "POPULATE-FF-PLAYERPROFILE":
 					scenes.get(0).setWhich_layer("1");
@@ -128,7 +128,7 @@ public class ISPL extends Scene{
 					break;
 				default:
 					print_writer.println("LAYER4*EVEREST*STAGE*DIRECTOR*In SHOW 71.0;");
-					current_layer = layer_num - current_layer;
+					current_layer = 5 - current_layer;
 					scenes.get(2).setWhich_layer(String.valueOf(current_layer));
 					scenes.get(2).setScene_path(valueToProcess.split(",")[0]);
 					scenes.get(2).scene_load(print_writer,session_selected_broadcaster);
@@ -152,7 +152,7 @@ public class ISPL extends Scene{
 					which_graphics_onscreen = "BASE_LOAD";
 					break;
 				case "POPULATE-CANCEL":
-					current_layer = layer_num - current_layer;
+					current_layer = 5 - current_layer;
 					previous_Scene = which_graphics_onscreen;
 					break;
 				
@@ -296,21 +296,21 @@ public class ISPL extends Scene{
 					if(which_graphics_onscreen != "" && which_graphics_onscreen != "BG") {
 						switch(which_graphics_onscreen) {
 						case "ZONE-PLAYER_STATS":
-							processAnimation(print_writer, "Out", "START", session_selected_broadcaster,(layer_num-current_layer));
+							processAnimation(print_writer, "Out", "START", session_selected_broadcaster,(5-current_layer));
 							break;
 						case "SQUAD":
-							processAnimation(print_writer, "Out", "START", session_selected_broadcaster,(layer_num-current_layer));
+							processAnimation(print_writer, "Out", "START", session_selected_broadcaster,(5-current_layer));
 							break;
 						case "REMAINING_PURSE_ALL": case "SINGLE_PURSE": case "TOP_SOLD": case "RTM_SQUAD": case "TOP_SOLD_TEAMS":
 						case "FF_IDENT": case "RTM": case "SLOTS": case "ONLY_SQUAD": case "FF_ICONIC_PLAYERS": case "TOP_FIVE_SOLD":
 						case "TOP_FIVE_SOLD_TEAMS": case "TOP_15_SOLD": case "FF_LAST_PLAYERS": case "FF_POINTERS": case "FF_EIGHTPOINTERS":
 						case "FF_RETAIN_PLAYERS":
-							processAnimation(print_writer, "Out", "START", session_selected_broadcaster,(layer_num-current_layer));
+							processAnimation(print_writer, "Out", "START", session_selected_broadcaster,(5-current_layer));
 							break;
 						}
 						TimeUnit.MILLISECONDS.sleep(2250);
-						processAnimation(print_writer, "In", "SHOW 0.0", session_selected_broadcaster,(layer_num-current_layer));
-						processAnimation(print_writer, "Out", "SHOW 0.0", session_selected_broadcaster,(layer_num-current_layer));
+						processAnimation(print_writer, "In", "SHOW 0.0", session_selected_broadcaster,(5-current_layer));
+						processAnimation(print_writer, "Out", "SHOW 0.0", session_selected_broadcaster,(5-current_layer));
 					}else if(which_graphics_onscreen == "BG") {
 						//print_writer.println("LAYER3*EVEREST*STAGE*DIRECTOR*Out START;");
 						//TimeUnit.SECONDS.sleep(1);
@@ -440,7 +440,7 @@ public class ISPL extends Scene{
 					case "PLAYERPROFILE":
 						processAnimation(print_writer, "Out", "START", session_selected_broadcaster,1);
 						processAnimation(print_writer, "Result", "START", session_selected_broadcaster,1);
-						TimeUnit.MILLISECONDS.sleep(300);
+						TimeUnit.MILLISECONDS.sleep(1000);
 						processAnimation(print_writer, "In", "SHOW 0.0", session_selected_broadcaster,1);
 						processAnimation(print_writer, "Out", "SHOW 0.0", session_selected_broadcaster,1);
 						processAnimation(print_writer, "Result", "SHOW 0.0", session_selected_broadcaster,1);
