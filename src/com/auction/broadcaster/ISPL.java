@@ -109,15 +109,17 @@ public class ISPL extends Scene{
 			processAnimation(print_writer, "In", "COUNTINUE", session_selected_broadcaster, current_layer);
 			 break;
 
-		case "POPULATE-FF-PLAYERPROFILE": case "POPULATE-SQUAD": case "POPULATE-REMAINING_PURSE_ALL": case "POPULATE-SINGLE_PURSE":
-		case "POPULATE-TOP_SOLD": case "POPULATE-CRAWL": case "POPULATE-SQUAD_ROLE": case "POPULATE-FF_IDENT": case "POPULATE-ONLY_SQUAD":
-		case "POPULATE-RTM_AVAILABLE": case "POPULATE-SLOTS_REMAINING":	case "POPULATE-FF_ICONIC_PLAYERS":  case "POPULATE-FF_EIGHTPOINTERS": 
-		case "POPULATE-FF_POINTERS": case "POPULATE-FF_LAST_PLAYERS": case "POPULATE-RTM_SQUAD": case "POPULATE-TOP_SOLD_TEAMS": case "POPULATE-TOP_FIVE_SOLD": 
-		case "POPULATE-TOP_FIVE_SOLD_TEAMS": case "POPULATE-ZONE_PLAYERS_STATS": case "POPULATE-CANCEL": case "POPULATE-TOP_15_SOLD": case "POPULATE-TOP_15_SOLD_TEAMS":
-		case "BASE_LOAD": case "POPULATE-FF_BG_IDENT": case "POPULATE-FF_RETAIN_PLAYERS":
+		case "POPULATE-FF-PLAYERPROFILE": case "POPULATE-FF-PLAYERPROFILE_CHNAGE_ON":
+		case "POPULATE-SQUAD": case "POPULATE-REMAINING_PURSE_ALL": case "POPULATE-SINGLE_PURSE": case "POPULATE-TOP_SOLD": case "POPULATE-CRAWL": 
+		case "POPULATE-SQUAD_ROLE": case "POPULATE-FF_IDENT": case "POPULATE-ONLY_SQUAD": case "POPULATE-RTM_AVAILABLE": case "POPULATE-SLOTS_REMAINING":	
+		case "POPULATE-FF_ICONIC_PLAYERS":  case "POPULATE-FF_EIGHTPOINTERS": case "POPULATE-FF_POINTERS": case "POPULATE-FF_LAST_PLAYERS": case "POPULATE-RTM_SQUAD": 
+		case "POPULATE-TOP_SOLD_TEAMS": case "POPULATE-TOP_FIVE_SOLD": case "POPULATE-TOP_FIVE_SOLD_TEAMS": case "POPULATE-ZONE_PLAYERS_STATS": case "POPULATE-CANCEL": 
+		case "POPULATE-TOP_15_SOLD": case "POPULATE-TOP_15_SOLD_TEAMS": case "BASE_LOAD": case "POPULATE-FF_BG_IDENT": case "POPULATE-FF_RETAIN_PLAYERS":
 			switch (session_selected_broadcaster.toUpperCase()) {
 			case "HANDBALL": case "ISPL":
 				switch(whatToProcess.toUpperCase()) {
+				case "POPULATE-FF-PLAYERPROFILE_CHNAGE_ON":
+					break;
 				case "POPULATE-FF_BG_IDENT":
 					current_layer = 5 - current_layer;
 					break;
@@ -183,6 +185,11 @@ public class ISPL extends Scene{
 					value1 = Integer.valueOf(valueToProcess.split(",")[1]);
 					populateRemainingPurseSingle(false,print_writer, valueToProcess.split(",")[0],Integer.valueOf(valueToProcess.split(",")[1]), 
 							auction,auctionService, session_selected_broadcaster);
+					break;
+				case "POPULATE-FF-PLAYERPROFILE_CHNAGE_ON":
+					whichDataType = valueToProcess.split(",")[0];
+					changeOnPlayerProfileData(print_writer, 2, auctionService.getAllStats(), auction, auctionService, 
+							auctionService.getAllPlayer(), session_selected_broadcaster);
 					break;
 				case "POPULATE-FF-PLAYERPROFILE":
 					data.setPlayer_id(Integer.valueOf(valueToProcess.split(",")[1]));
@@ -258,7 +265,7 @@ public class ISPL extends Scene{
 		case "ANIMATE-IN-TOP_SOLD": case "ANIMATE-IN-CRAWL": case "ANIMATE-IN-FF_IDENT": case "ANIMATE-IN-RTM": case "ANIMATE-IN-SLOTS": case "ANIMATE-IN-ONLY_SQUAD":
 		case "ANIMATE-IN-FF_ICONIC_PLAYERS": case "ANIMATE-IN-FF_EIGHTPOINTERS": case "ANIMATE-IN-FF_POINTERS": case "ANIMATE-IN-FF_LAST_PLAYERS": case "ANIMATE-IN-RTM_SQUAD": 
 		case "ANIMATE-IN-TOP_SOLD_TEAMS": case "ANIMATE-IN-TOP_FIVE_SOLD": case "ANIMATE-IN-TOP_FIVE_SOLD_TEAMS": case "ANIMATE-IN-ZONE-PLAYER_STATS": 
-		case "ANIMATE-IN-TOP_15_SOLD": case "TOP_15_AUCTION_CHANGEON": case "ANIMATE-IN-FF_BG_IDENT": case "ANIMATE-IN-FF_RETAIN_PLAYERS":
+		case "ANIMATE-IN-TOP_15_SOLD": case "TOP_15_AUCTION_CHANGEON": case "ANIMATE-IN-FF_BG_IDENT": case "ANIMATE-IN-FF_RETAIN_PLAYERS": case "ANIMATE-IN-PLAYERPROFILE_CHANGE_ON":
 			switch (session_selected_broadcaster.toUpperCase()) {
 			case "HANDBALL": case "ISPL":
 				switch (whatToProcess.toUpperCase()) {
@@ -268,6 +275,19 @@ public class ISPL extends Scene{
 					}else {
 						print_writer.println("LAYER" + current_layer + "*EVEREST*STAGE*DIRECTOR*In CONTINUE;");
 						count= count + 5;	
+					}
+					break;
+				case "ANIMATE-IN-PLAYERPROFILE_CHANGE_ON":
+					if(which_graphics_onscreen == "PLAYERPROFILE") {
+						print_writer.println("LAYER1*EVEREST*STAGE*DIRECTOR*Sub_Head_Change START;");
+						print_writer.println("LAYER1*EVEREST*STAGE*DIRECTOR*Bottom_Detail_Change START;");
+						TimeUnit.MILLISECONDS.sleep(2000);
+						changeOnPlayerProfileData(print_writer, 1, auctionService.getAllStats(), auction, auctionService, 
+								auctionService.getAllPlayer(), session_selected_broadcaster);
+						print_writer.println("LAYER1*EVEREST*STAGE*DIRECTOR*Sub_Head_Change SHOW 0.0;");
+						print_writer.println("LAYER1*EVEREST*STAGE*DIRECTOR*Bottom_Detail_Change SHOW 0.0;");
+						
+						which_graphics_onscreen = "PLAYERPROFILE";
 					}
 					break;
 				case "ANIMATE-IN-PLAYERPROFILE":
@@ -808,7 +828,7 @@ public class ISPL extends Scene{
 							plyr.getCategory().toUpperCase() + ";");
 					
 					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgTeamLogo0" + row + " " + 
-	    					logobw_path + auctionService.getTeams().get(plyr.getTeamId() - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
+							logo_path + auctionService.getTeams().get(plyr.getTeamId() - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
 					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgTeamTextColor02_0" + row + " " + 
 	    					text2_path + auctionService.getTeams().get(plyr.getTeamId() - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
 					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgTeamTextColor01_0" + row + " " + 
@@ -911,6 +931,8 @@ public class ISPL extends Scene{
 			
 			print_writer.println("LAYER1*EVEREST*STAGE*DIRECTOR*Result SHOW 0.0;");
 			print_writer.println("LAYER1*EVEREST*STAGE*DIRECTOR*Timer_In SHOW 0.0;");
+			print_writer.println("LAYER1*EVEREST*STAGE*DIRECTOR*Sub_Head_Change SHOW 0.0;");
+			print_writer.println("LAYER1*EVEREST*STAGE*DIRECTOR*Bottom_Detail_Change SHOW 0.0;");
 			
 			data.setPlayer_sold_or_unsold(false);
 			
@@ -996,7 +1018,7 @@ public class ISPL extends Scene{
 				break;
 
 			default:
-				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHead ;");
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHead " + player.getPlayerNumber() + ";");
 				
 				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tAgeHead AGE;");
 				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tAge " + (player.getAge() != null ? player.getAge() : "-") + ";");
@@ -1014,6 +1036,171 @@ public class ISPL extends Scene{
 			}
 			
 		}
+		
+	}
+	
+	public void changeOnPlayerProfileData(PrintWriter print_writer, int whichSide,List<Statistics> stats, Auction auction, AuctionService auctionService, 
+			List<Player> plr, String session_selected_broadcaster) throws InterruptedException 
+	{
+		int rtmUsed = 0;
+		Player player = auctionService.getAllPlayer().stream().filter(plyr -> plyr.getPlayerId() == data.getPlayer_id()).findAny().orElse(null);
+		
+		if(whichSide == 1) {
+			if(player.getLastYearTeam() != null) {
+				for(Player auc : auction.getPlayers()) {
+					if(player.getLastYearTeam() == auc.getTeamId() && auc.getSoldOrUnsold().equalsIgnoreCase(AuctionUtil.RTM)) {
+						rtmUsed++;
+					}
+				}
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main$All$PlayerDetails$Side0" + whichSide + "$Prefererd*CONTAINER SET ACTIVE " 
+						+ (rtmUsed < 2 ? "0" :"1") + ";");
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatValue " + 
+						auctionService.getTeams().get(player.getLastYearTeam()-1).getTeamName1() + ";");
+			}else {
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main$All$PlayerDetails$Side0" + whichSide + "$Prefererd*CONTAINER SET ACTIVE 0;");
+			}
+			
+			switch (whichDataType) {
+			case "ISPL S-1": case "ISPL S-2":
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHead " + 
+						(whichDataType.equalsIgnoreCase("ISPL S-1") ? "ISPL SEASON 1" : "ISPL SEASON 2") + ";");
+				
+				StatsType statsType = auctionService.getStatsTypes().stream().filter(stype -> stype.getStats_short_name().equalsIgnoreCase(whichDataType)).findAny().orElse(null);
+				Statistics stat = auctionService.getAllStats().stream().filter(st-> st.getPlayer_id() == data.getPlayer_id() && statsType.getStats_id() == st.getStats_type_id()).findAny().orElse(null);
+				
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tAgeHead " + "MATCHES" + ";");
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tAge " + 
+						((stat.getMatches().equalsIgnoreCase("0") ? "-" : stat.getMatches()))+ ";");
+				
+				switch (player.getRole().toUpperCase()) {
+				case "BATSMAN": case "BAT/KEEPER": case "WICKET-KEEPER":
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyleHead " + "RUNS" + ";");
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyleHead " + "STRIKE RATE" + ";");
+					
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyle " + 
+							((stat.getRuns().equalsIgnoreCase("0") ? "-" : stat.getRuns())) + ";");
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyle " + 
+							((stat.getStrikeRate().equalsIgnoreCase("0") ? "-" : stat.getStrikeRate())) + ";");
+					break;
+				case "BOWLER":
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyleHead " + "WICKETS" + ";");
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyleHead " + "ECONOMY" + ";");
+					
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyle " + 
+							((stat.getWickets().equalsIgnoreCase("0") ? "-" : stat.getWickets())) + ";");
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyle " + 
+							((stat.getEconomy().equalsIgnoreCase("0") ? "-" : stat.getEconomy())) + ";");
+					break;
+				case "ALL-ROUNDER":
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyleHead " + "RUNS" + ";");
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyleHead " + "WICKETS" + ";");
+					
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyle " + 
+							((stat.getRuns().equalsIgnoreCase("0") ? "-" : stat.getRuns())) + ";");
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyle " + 
+							((stat.getWickets().equalsIgnoreCase("0") ? "-" : stat.getWickets())) + ";");
+					break;
+				}
+				
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET 1 0;");
+				break;
+
+			default:
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHead " + player.getPlayerNumber() + ";");
+				
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tAgeHead AGE;");
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tAge " + (player.getAge() != null ? player.getAge() : "-") + ";");
+				
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyleHead " + "BAT STYLE" + ";");
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyleHead " + "BOWL STYLE" + ";");
+				
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyle " + (player.getBatsmanStyle() != null 
+						? player.getBatsmanStyle() : "-") + ";");
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyle " + (player.getBowlerStyle() != null 
+						? player.getBowlerStyle() : "-") + ";");
+
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET 1 0;");
+				break;
+			}
+		}else {
+			if(player.getLastYearTeam() != null) {
+				for(Player auc : auction.getPlayers()) {
+					if(player.getLastYearTeam() == auc.getTeamId() && auc.getSoldOrUnsold().equalsIgnoreCase(AuctionUtil.RTM)) {
+						rtmUsed++;
+					}
+				}
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main$All$PlayerDetails$Side0" + whichSide + "$Prefererd*CONTAINER SET ACTIVE " 
+						+ (rtmUsed < 2 ? "0" :"1") + ";");
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatValue02 " + 
+						auctionService.getTeams().get(player.getLastYearTeam()-1).getTeamName1() + ";");
+			}else {
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main$All$PlayerDetails$Side0" + whichSide + "$Prefererd*CONTAINER SET ACTIVE 0;");
+			}
+			
+			switch (whichDataType) {
+			case "ISPL S-1": case "ISPL S-2":
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHead02 " + 
+						(whichDataType.equalsIgnoreCase("ISPL S-1") ? "ISPL SEASON 1" : "ISPL SEASON 2") + ";");
+				
+				StatsType statsType = auctionService.getStatsTypes().stream().filter(stype -> stype.getStats_short_name().equalsIgnoreCase(whichDataType)).findAny().orElse(null);
+				Statistics stat = auctionService.getAllStats().stream().filter(st-> st.getPlayer_id() == data.getPlayer_id() && statsType.getStats_id() == st.getStats_type_id()).findAny().orElse(null);
+				
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tAgeHead02 " + "MATCHES" + ";");
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tAge02 " + 
+						((stat.getMatches().equalsIgnoreCase("0") ? "-" : stat.getMatches()))+ ";");
+				
+				switch (player.getRole().toUpperCase()) {
+				case "BATSMAN": case "BAT/KEEPER": case "WICKET-KEEPER":
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyleHead02 " + "RUNS" + ";");
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyleHead02 " + "STRIKE RATE" + ";");
+					
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyle02 " + 
+							((stat.getRuns().equalsIgnoreCase("0") ? "-" : stat.getRuns())) + ";");
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyle02 " + 
+							((stat.getStrikeRate().equalsIgnoreCase("0") ? "-" : stat.getStrikeRate())) + ";");
+					break;
+				case "BOWLER":
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyleHead02 " + "WICKETS" + ";");
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyleHead02 " + "ECONOMY" + ";");
+					
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyle02 " + 
+							((stat.getWickets().equalsIgnoreCase("0") ? "-" : stat.getWickets())) + ";");
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyle02 " + 
+							((stat.getEconomy().equalsIgnoreCase("0") ? "-" : stat.getEconomy())) + ";");
+					break;
+				case "ALL-ROUNDER":
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyleHead02 " + "RUNS" + ";");
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyleHead02 " + "WICKETS" + ";");
+					
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyle02 " + 
+							((stat.getRuns().equalsIgnoreCase("0") ? "-" : stat.getRuns())) + ";");
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyle02 " + 
+							((stat.getWickets().equalsIgnoreCase("0") ? "-" : stat.getWickets())) + ";");
+					break;
+				}
+				
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET 1 0;");
+				break;
+
+			default:
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHead02 " + player.getPlayerNumber() + ";");
+				
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tAgeHead02 AGE;");
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tAge02 " + (player.getAge() != null ? player.getAge() : "-") + ";");
+				
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyleHead02 " + "BAT STYLE" + ";");
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyleHead02 " + "BOWL STYLE" + ";");
+				
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyle02 " + (player.getBatsmanStyle() != null 
+						? player.getBatsmanStyle() : "-") + ";");
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyle02 " + (player.getBowlerStyle() != null 
+						? player.getBowlerStyle() : "-") + ";");
+
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET 1 0;");
+				break;
+			}
+		}
+		
 		
 	}
 	
