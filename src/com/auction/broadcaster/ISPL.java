@@ -481,13 +481,10 @@ public class ISPL extends Scene{
 			String session_selected_broadcaster2) {
 		int row = 0;
 		
-		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgLogo " +logo_path
-				+ "ISPL" + AuctionUtil.PNG_EXTENSION + ";");
-		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgBase02 " + base_path2 +  
-				"ISPL" + AuctionUtil.PNG_EXTENSION + ";");
+		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgLogo " +logo_path + "ISPL" + AuctionUtil.PNG_EXTENSION + ";");
+		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgBase02 " + base_path2 +  "ISPL" + AuctionUtil.PNG_EXTENSION + ";");
+		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgBase01 " + base_path1 +  "ISPL" + AuctionUtil.PNG_EXTENSION + ";");
 		
-		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgBase01 " + base_path1 +  
-				"ISPL" + AuctionUtil.PNG_EXTENSION + ";");
 		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tFirstName " +"ISPL AUCTION"+ ";");	
 		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tLastName " +"2025"+ ";");
 		
@@ -498,18 +495,16 @@ public class ISPL extends Scene{
 		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelectTopRight "+"0;");
 		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$Squad_PurseRem*CONTAINER SET ACTIVE 0;");
 		for(int i=1;i<=16;i++) {
-			
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelectDataType0" +i+" 0;");
-			
+			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$PlayersGrp$" + i + "*CONTAINER SET ACTIVE 0;");	
 		}
-		System.out.println("current_index" + current_index);
-		System.out.println("squads" + squad.size());
+		
 		for(int k = current_index; k<= squad.size()-1 ;k++) {
 			Player plyr = squad.get(k);
 			row = row + 1;
 			
-			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelectDataType0" +row+" 2;");
-			
+			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelectDataType0" + row + " 2;");
+			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$PlayersGrp$" + row + "*CONTAINER SET ACTIVE 1;");	
 			
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerFrom0" +row+" " + "" + ";");
 
@@ -732,7 +727,7 @@ public class ISPL extends Scene{
 		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader ISPL PLAYER AUCTION 2025;");	
 		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$HeaderGrp$Iconic*CONTAINER SET ACTIVE 0;");
 		
-		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgLogo " + logobw_path + "ISPL" + AuctionUtil.PNG_EXTENSION + ";");
+		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgLogo " + logo_path + "ISPL" + AuctionUtil.PNG_EXTENSION + ";");
 		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgBase02 " + base_path2 + "ISPL" + AuctionUtil.PNG_EXTENSION + ";");
 		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgBase01 " + base_path1 + "ISPL" + AuctionUtil.PNG_EXTENSION + ";");
 		
