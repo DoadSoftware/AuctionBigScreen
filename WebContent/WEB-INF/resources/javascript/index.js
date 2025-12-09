@@ -843,11 +843,16 @@ function processAuctionProcedures(whatToProcess)
 					processAuctionProcedures('ANIMATE-IN-PLAYERPROFILE_CHANGE_ON');	
 				}		
 				break;
+			case 'POPULATE-ZONE_PLAYERS_STATS':
+				if(confirm('Animate In?') == true){
+					processAuctionProcedures('ANIMATE-IN-ZONE-PLAYER_STATS');
+				}
+				break;
 							
 			case 'POPULATE-REMAINING_PURSE_ALL': case 'POPULATE-SINGLE_PURSE': case 'POPULATE-TOP_SOLD':
 			case 'POPULATE-CRAWL': case 'POPULATE-SQUAD_ROLE': case 'POPULATE-FF_IDENT': case 'POPULATE-RTM_AVAILABLE': case 'POPULATE-ONLY_SQUAD':
 			case 'POPULATE-SLOTS_REMAINING':case 'POPULATE-FF_ICONIC_PLAYERS': case 'POPULATE-FF_EIGHTPOINTERS': case 'POPULATE-FF_POINTERS': case 'POPULATE-FF_LAST_PLAYERS': case 'POPULATE-RTM_SQUAD': case 'POPULATE-TOP_SOLD_TEAMS':
-			case 'POPULATE-TOP_FIVE_SOLD': case 'POPULATE-TOP_FIVE_SOLD_TEAMS': case 'POPULATE-ZONE_PLAYERS_STATS': case 'POPULATE-TOP_15_SOLD': case 'POPULATE-TOP_15_SOLD_TEAMS':
+			case 'POPULATE-TOP_FIVE_SOLD': case 'POPULATE-TOP_FIVE_SOLD_TEAMS': case 'POPULATE-TOP_15_SOLD': case 'POPULATE-TOP_15_SOLD_TEAMS':
 			case 'POPULATE-CURR_SQUAD': case 'POPULATE-FF-CATEGORY_INT': case 'POPULATE-FF_BG_IDENT': case 'POPULATE-FOUR_TEAM': case 'POPULATE-POOL':
 			case 'POPULATE-POOL_NUMBER': case 'POPULATE-FF_RETAIN_PLAYERS':
 				if(confirm('Animate In?') == true){
@@ -889,9 +894,6 @@ function processAuctionProcedures(whatToProcess)
 					case 'POPULATE-TOP_FIVE_SOLD_TEAMS':
 						processAuctionProcedures('ANIMATE-IN-TOP_FIVE_SOLD_TEAMS');				
 						break;
-					case 'POPULATE-ZONE_PLAYERS_STATS':
-						processAuctionProcedures('ANIMATE-IN-ZONE-PLAYER_STATS');
-						break;	
 					case 'POPULATE-TOP_SOLD':
 						processAuctionProcedures('ANIMATE-IN-TOP_SOLD');				
 						break;
@@ -1015,7 +1017,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 				$('#selectPlayerName').append(
 					$(document.createElement('option')).prop({
 					value: plyr.playerId,
-					text: plyr.full_name + ' - ' + plyr.category
+					text: plyr.playerNumber + ' - ' + plyr.full_name + ' - ' + plyr.category
 				}))
 			}
 		});
@@ -1026,7 +1028,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 				$('#selectPlayerName').append(
 					$(document.createElement('option')).prop({
 					value: plyr.playerId,
-					text: plyr.full_name + ' - ' + plyr.category
+					text: plyr.playerNumber + ' - ' + plyr.full_name + ' - ' + plyr.category
 				}))
 			}
 		});
