@@ -107,6 +107,7 @@ public class ISPL extends Scene{
 		switch (whatToProcess.toUpperCase()) {
 		case "RULE_CHANGEON":
 			processAnimation(print_writer, "In", "COUNTINUE", session_selected_broadcaster, current_layer);
+			which_graphics_onscreen = "FFFOUR_POINTERS";
 			 break;
 
 		case "POPULATE-FF-PLAYERPROFILE": case "POPULATE-FF-PLAYERPROFILE_CHNAGE_ON":
@@ -264,7 +265,7 @@ public class ISPL extends Scene{
 		case "ANIMATE-OUT": case "CLEAR-ALL": case "ANIMATE-IN-PLAYERPROFILE": case "ANIMATE-IN-SQUAD": case "ANIMATE-IN-REMAINING_PURSE_ALL": case "ANIMATE-IN-SINGLE_PURSE":
 		case "ANIMATE-IN-TOP_SOLD": case "ANIMATE-IN-CRAWL": case "ANIMATE-IN-FF_IDENT": case "ANIMATE-IN-RTM": case "ANIMATE-IN-SLOTS": case "ANIMATE-IN-ONLY_SQUAD":
 		case "ANIMATE-IN-FF_ICONIC_PLAYERS": case "ANIMATE-IN-FF_EIGHTPOINTERS": case "ANIMATE-IN-FF_POINTERS": case "ANIMATE-IN-FF_LAST_PLAYERS": case "ANIMATE-IN-RTM_SQUAD": 
-		case "ANIMATE-IN-TOP_SOLD_TEAMS": case "ANIMATE-IN-TOP_FIVE_SOLD": case "ANIMATE-IN-TOP_FIVE_SOLD_TEAMS": case "ANIMATE-IN-ZONE-PLAYER_STATS": 
+		case "ANIMATE-IN-TOP_SOLD_TEAMS": case "ANIMATE-IN-TOP_FIVE_SOLD": case "ANIMATE-IN-TOP_FIVE_SOLD_TEAMS": case "ANIMATE-IN-ZONE-PLAYER_STATS": 	
 		case "ANIMATE-IN-TOP_15_SOLD": case "TOP_15_AUCTION_CHANGEON": case "ANIMATE-IN-FF_BG_IDENT": case "ANIMATE-IN-FF_RETAIN_PLAYERS": case "ANIMATE-IN-PLAYERPROFILE_CHANGE_ON":
 			switch (session_selected_broadcaster.toUpperCase()) {
 			case "HANDBALL": case "ISPL":
@@ -306,7 +307,7 @@ public class ISPL extends Scene{
 					
 				case "ANIMATE-IN-SQUAD": case "ANIMATE-IN-REMAINING_PURSE_ALL": case "ANIMATE-IN-FF_ICONIC_PLAYERS": case "ANIMATE-IN-FF_RETAIN_PLAYERS":
 				case "ANIMATE-IN-SINGLE_PURSE": case "ANIMATE-IN-TOP_SOLD": case "ANIMATE-IN-CRAWL": case "ANIMATE-IN-FF_IDENT": case "ANIMATE-IN-FF_EIGHTPOINTERS": 
-				case "ANIMATE-IN-FF_POINTERS": case "ANIMATE-IN-FF_LAST_PLAYERS": case "ANIMATE-IN-RTM": case "ANIMATE-IN-SLOTS": case "ANIMATE-IN-ONLY_SQUAD": 
+				case "ANIMATE-IN-FF_POINTERS": case "ANIMATE-IN-FF_LAST_PLAYERS": case "ANIMATE-IN-RTM": case "ANIMATE-IN-SLOTS": case "ANIMATE-IN-ONLY_SQUAD": 	
 				case "ANIMATE-IN-RTM_SQUAD": case "ANIMATE-IN-TOP_15_SOLD": case "ANIMATE-IN-TOP_SOLD_TEAMS": case "ANIMATE-IN-TOP_FIVE_SOLD": 
 				case "ANIMATE-IN-ZONE-PLAYER_STATS": case "ANIMATE-IN-TOP_FIVE_SOLD_TEAMS": case "ANIMATE-IN-FF_BG_IDENT":
 					System.out.println("whattoprocess2 " + whatToProcess);
@@ -478,7 +479,7 @@ public class ISPL extends Scene{
 					
 					case "REMAINING_PURSE_ALL": case "SINGLE_PURSE": case "TOP_SOLD": case "FF_IDENT": case "RTM": case "SLOTS": case "ONLY_SQUAD": 
 					case "RTM_SQUAD": case "TOP_SOLD_TEAMS": case "TOP_FIVE_SOLD": case "TOP_FIVE_SOLD_TEAMS": case"ZONE-PLAYER_STATS": case "TOP_15_SOLD":
-					case "BASE_LOAD": case "FF_ICONIC_PLAYERS": case "FF_LAST_PLAYERS": case "FF_POINTERS": case "FF_EIGHTPOINTERS": case "FF_RETAIN_PLAYERS":
+					case "BASE_LOAD": case "FF_ICONIC_PLAYERS": case "FF_LAST_PLAYERS": case "FF_POINTERS": case "FFFOUR_POINTERS": case "FF_EIGHTPOINTERS": case "FF_RETAIN_PLAYERS":
 						processAnimation(print_writer, "Out", "START", session_selected_broadcaster, current_layer);
 						TimeUnit.MILLISECONDS.sleep(2000);
 						processAnimation(print_writer, "In", "SHOW 0.0", session_selected_broadcaster, current_layer);
