@@ -46,13 +46,14 @@ public class Scene {
 	public void scene_load(PrintWriter print_writer, String broadcaster) throws InterruptedException
 	{
 		switch (broadcaster.toUpperCase()) {
-		case "HANDBALL": case "ISPL": case "UTT":
+		case "HANDBALL": case "ISPL": case "UTT": case "PSL":
 			switch(this.which_layer.toUpperCase()) {
 			case "1":
 				print_writer.println("LAYER1*EVEREST*SINGLE_SCENE LOAD " + this.scene_path + ";");
 				
 				print_writer.println("LAYER1*EVEREST*STAGE*DIRECTOR*In STOP;");
 				print_writer.println("LAYER1*EVEREST*STAGE*DIRECTOR*In SHOW 0.0;");
+				print_writer.println("LAYER1*EVEREST*STAGE*DIRECTOR*Out SHOW 0.0;");
 				TimeUnit.MILLISECONDS.sleep(500);
 				break;
 			case "2":
@@ -60,6 +61,7 @@ public class Scene {
 				
 				print_writer.println("LAYER2*EVEREST*STAGE*DIRECTOR*In STOP;");
 				print_writer.println("LAYER2*EVEREST*STAGE*DIRECTOR*In SHOW 0.0;");
+				print_writer.println("LAYER2*EVEREST*STAGE*DIRECTOR*Out SHOW 0.0;");
 				TimeUnit.MILLISECONDS.sleep(500);
 				break;
 			case "3":
@@ -67,6 +69,7 @@ public class Scene {
 				
 				print_writer.println("LAYER3*EVEREST*STAGE*DIRECTOR*In STOP;");
 				print_writer.println("LAYER3*EVEREST*STAGE*DIRECTOR*In SHOW 0.0;");
+				print_writer.println("LAYER3*EVEREST*STAGE*DIRECTOR*Out SHOW 0.0;");
 				TimeUnit.MILLISECONDS.sleep(500);
 				break;
 			case "4":
@@ -74,6 +77,7 @@ public class Scene {
 				
 				print_writer.println("LAYER4*EVEREST*STAGE*DIRECTOR*In STOP;");
 				print_writer.println("LAYER4*EVEREST*STAGE*DIRECTOR*In SHOW 0.0;");
+				print_writer.println("LAYER4*EVEREST*STAGE*DIRECTOR*Out SHOW 0.0;");
 				TimeUnit.MILLISECONDS.sleep(500);
 				break;
 			}

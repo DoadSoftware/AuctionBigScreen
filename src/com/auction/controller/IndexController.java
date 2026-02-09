@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.auction.broadcaster.Doad;
 import com.auction.broadcaster.ISPL;
+import com.auction.broadcaster.PSL;
 import com.auction.broadcaster.UTT;
 import com.auction.containers.Configurations;
 import com.auction.containers.Data;
@@ -57,6 +58,7 @@ public class IndexController
 	public static Socket session_socket;
 	public static Doad this_doad;
 	public static ISPL this_ispl;
+	public static PSL this_psl;
 	public static UTT this_utt;
 	public static PrintWriter print_writer;
 	public static String expiry_date = "2026-02-14";
@@ -146,6 +148,7 @@ public class IndexController
 			infobar = new Data();
 			this_doad = new Doad();
 			this_ispl = new ISPL();
+			this_psl = new PSL();
 			this_utt = new UTT();
 			session_selected_broadcaster = select_broadcaster;
 			selected_layer = which_layer;
@@ -177,7 +180,22 @@ public class IndexController
 				print_writer.println("LAYER4*EVEREST*STAGE*DIRECTOR*In START;");
 				print_writer.println("LAYER4*EVEREST*STAGE*DIRECTOR*LOOP START;");
 				this_doad.which_graphics_onscreen = "BG";
-				break;	
+				break;
+			case "PSL":
+				print_writer.println("LAYER1*EVEREST*SINGLE_SCENE CLEAR;");
+				print_writer.println("LAYER2*EVEREST*SINGLE_SCENE CLEAR;");
+				print_writer.println("LAYER3*EVEREST*SINGLE_SCENE CLEAR;");
+				print_writer.println("LAYER4*EVEREST*SINGLE_SCENE CLEAR;");
+				session_selected_scenes.add(new Scene("D:/DOAD_In_House_Everest/Everest_Cricket/Everest_PSL_Auction_2026/Scenes/PlayerProfile_Pic.sum" ,"1"));
+				session_selected_scenes.add(new Scene("D:/DOAD_In_House_Everest/Everest_Cricket/Everest_PSL_Auction_2026/Scenes/BG.sum" ,"4"));
+				session_selected_scenes.add(new Scene("","2"));
+				session_selected_scenes.get(0).scene_load(print_writer, session_selected_broadcaster);
+				session_selected_scenes.get(1).scene_load(print_writer, session_selected_broadcaster);
+				print_writer.println("LAYER4*EVEREST*STAGE*DIRECTOR*In START;");
+				print_writer.println("LAYER4*EVEREST*STAGE*DIRECTOR*Out SHOW 0.0;");
+				print_writer.println("LAYER4*EVEREST*STAGE*DIRECTOR*LOOP START;");
+				this_doad.which_graphics_onscreen = "BG";
+				break;
 			case "UTT":
 				session_selected_scenes.add(new Scene("D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/BG.sum"
 						,"3")); // Front layer
@@ -267,6 +285,9 @@ public class IndexController
 			case "ISPL":
 				this_ispl.updateData(session_selected_scenes.get(0), session_auction, auctionService,print_writer);
 				break;
+			case "PSL":
+				this_psl.updateData(session_selected_scenes.get(0), session_auction, auctionService,print_writer);
+				break;
 			case "UTT":
 				this_utt.updateData(session_selected_scenes.get(0), session_auction,auctionService,print_writer);
 				break;	
@@ -282,6 +303,14 @@ public class IndexController
 			case "HANDBALL":
 				this_doad.ProcessGraphicOption(whatToProcess, session_auction, auctionService, print_writer, session_selected_scenes, valueToProcess);
 				break;
+			case "PSL":
+				Object gfxResult2 = this_psl.ProcessGraphicOption(whatToProcess, session_auction, session_current_bid, auctionService, print_writer, 
+						session_selected_scenes, valueToProcess);	
+				 gfx = "";
+				if (gfxResult2 != null) {
+				    gfx = gfxResult2.toString();
+				}
+				break;	
 			case "ISPL":
 				Object gfxResult = this_ispl.ProcessGraphicOption(whatToProcess, session_auction, session_current_bid, auctionService, print_writer, 
 						session_selected_scenes, valueToProcess);	

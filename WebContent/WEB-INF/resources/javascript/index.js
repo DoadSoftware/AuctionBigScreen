@@ -347,7 +347,7 @@ function processUserSelection(whichInput)
 		break;
 	case 'select_broadcaster':
 		switch ($('#select_broadcaster :selected').val().toUpperCase()) {
-		case 'HANDBALL': case 'ISPL': case 'UTT':
+		case 'HANDBALL': case 'ISPL': case 'UTT': case 'PSL':
 			$('#vizPortNumber').attr('value','1980');
 			$('label[for=which_layer], select#which_layer').hide();
 			break;
@@ -386,9 +386,12 @@ function processAuctionProcedures(whatToProcess)
 		break;
 	case 'POPULATE-FF-PLAYERPROFILE_CHNAGE_ON':
 		switch ($('#selected_broadcaster').val().toUpperCase()) {
-		case 'ISPL': 
+		case 'ISPL':  
 			valueToProcess = $('#selectDataType option:selected').val();  
 			break;
+		case 'PSL':  
+			valueToProcess = $('#selectDataType option:selected').val();  
+			break;	
 		}
 		break;
 	case 'POPULATE-FF-PLAYERPROFILE':
@@ -398,6 +401,10 @@ function processAuctionProcedures(whatToProcess)
 			break;
 		case 'ISPL': 
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/PlayerProfile_Pic.sum' + ',' 
+				+ $('#selectPlayerName option:selected').val() + ',' + $('#selectDataType option:selected').val();  
+			break;
+		case 'PSL': 
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_PSL_Auction_2026/Scenes/Player_Profile.sum' + ',' 
 				+ $('#selectPlayerName option:selected').val() + ',' + $('#selectDataType option:selected').val();  
 			break;
 		case 'UTT': 
@@ -445,7 +452,16 @@ function processAuctionProcedures(whatToProcess)
 				team_index =$('#selectTeamName option:selected').val();
 			}
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/Squad_18.sum' + ',' + team_index;
-			break;	
+			break;
+		case 'PSL':
+			let team_index2;
+			if(which_GFX=== "POPULATE-SQUAD"){
+				team_index2 = id;
+			}else{
+				team_index2 =$('#selectTeamName option:selected').val();
+			}
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_PSL_Auction_2026/Scenes/Squad_18.sum' + ',' + team_index;
+			break;		
 		case 'UTT':
 			let team_index1;
 			if(which_GFX=== "POPULATE-SQUAD"){
@@ -465,6 +481,9 @@ function processAuctionProcedures(whatToProcess)
 		case 'ISPL':
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/Squad_18.sum' + ',' + $('#selectTeamName option:selected').val();
 			break;
+		case 'PSL':
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_PSL_Auction_2026/Scenes/Squad_18.sum' + ',' + $('#selectTeamName option:selected').val();
+			break;	
 		case 'UTT':
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/Squad.sum' + ',' + $('#selectTeamName option:selected').val();
 			break;			
@@ -491,6 +510,9 @@ function processAuctionProcedures(whatToProcess)
 		case 'ISPL':
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/TOP_5_Buys.sum' + ',' + $('#selectTeamName option:selected').val();
 			break;
+		case 'PSL':
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_PSL_Auction_2026/Scenes/TOP_5_Buys.sum' + ',' + $('#selectTeamName option:selected').val();
+			break;	
 		case 'UTT':
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/Top_Buys.sum' + ',' + $('#selectTeamName option:selected').val();
 			break;		
@@ -526,7 +548,10 @@ function processAuctionProcedures(whatToProcess)
 			break;
 		case 'ISPL':
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/Top_Buys.sum' + ',' + $('#selectTeamName option:selected').val();
-			break;	
+			break;
+		case 'PSL':
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_PSL_Auction_2026/Scenes/TopBuys.sum' + ',' + $('#selectTeamName option:selected').val();
+			break;		
 		case 'UTT':
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/Top_Buys.sum' + ',' + $('#selectTeamName option:selected').val();
 			break;	
@@ -540,7 +565,11 @@ function processAuctionProcedures(whatToProcess)
 		case 'ISPL':
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/TOP_15_Buys.sum' + ',' + 
 				$('#selectTeamName option:selected').val();
-			break;	
+			break;
+		case 'PSL':
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_PSL_Auction_2026/Scenes/TOP_15_Buys.sum' + ',' + 
+				$('#selectTeamName option:selected').val();
+			break;		
 		case 'UTT':
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/TOP_15_Buys.sum' + ',' + 
 				$('#selectTeamName option:selected').val();
@@ -553,6 +582,10 @@ function processAuctionProcedures(whatToProcess)
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/Ticker.sum' + ',' + 
 			$('#selectCrawl1 option:selected').val() + ',' + $('#selectCrawl2 option:selected').val();
 			break;
+		case 'PSL':
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_PSL_Auction_2026/Scenes/Ticker.sum' + ',' + 
+			$('#selectCrawl1 option:selected').val() + ',' + $('#selectCrawl2 option:selected').val();
+			break;	
 		case 'UTT':
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/Ticker.sum' + ',' + 
 			$('#selectCrawl1 option:selected').val() + ',' + $('#selectCrawl2 option:selected').val();
@@ -567,6 +600,9 @@ function processAuctionProcedures(whatToProcess)
 		case 'ISPL':
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/TOP_5_Buys.sum' ;
 			break;
+		case 'PSL':
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_PSL_Auction_2026/Scenes/TOP_5_Buys.sum' ;
+			break;	
 		case 'UTT':
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/Top_Buys.sum' ;
 			break;			
@@ -580,6 +616,9 @@ function processAuctionProcedures(whatToProcess)
 		case 'ISPL':
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/Top_Buys.sum' ;
 			break;
+		case 'PSL':
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_PSL_Auction_2026/Scenes/TopBuys.sum' ;
+			break;	
 		case 'UTT':
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/Top_Buys.sum' ;
 			break;		
@@ -593,6 +632,9 @@ function processAuctionProcedures(whatToProcess)
 		case 'ISPL':
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/TOP_15_Buys.sum' ;
 			break;
+		case 'PSL':
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_PSL_Auction_2026/Scenes/TOP_15_Buys.sum' ;
+			break;	
 		case 'UTT':
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/TOP_15_Buys.sum' ;
 			break;		
@@ -603,6 +645,9 @@ function processAuctionProcedures(whatToProcess)
 		case 'ISPL':
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/RemainingPurse_All_New.sum' ;
 			break;
+		case 'PSL':
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_PSL_Auction_2026/Scenes/RemainingPurse_ALL.sum' ;
+			break;	
 		case 'UTT':
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/Purse_Remaining.sum' ;
 			break;	
@@ -616,6 +661,9 @@ function processAuctionProcedures(whatToProcess)
 		case 'ISPL':
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/RemainingPurse_All_W_RTM.sum' ;
 			break;
+		case 'PSL':
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_PSL_Auction_2026/Scenes/RemainingPurse_All_W_RTM.sum' ;
+			break;	
 		case 'UTT':
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/Purse_RemainingALL_02.sum' ;
 			break;		
@@ -652,6 +700,9 @@ function processAuctionProcedures(whatToProcess)
 		case 'ISPL':
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/Auction_Ident.sum' ;
 			break;
+		case 'PSL': 
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_PSL_Auction_2026/Scenes/Auction_Ident.sum' ;
+			break;
 		case 'UTT':
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/BG.sum' ;
 			break;		
@@ -662,6 +713,9 @@ function processAuctionProcedures(whatToProcess)
 			case 'ISPL':
 				valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/BG.sum' ;
 				break;
+			case 'PSL':
+				valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_PSL_Auction_2026/Scenes/BG.sum' ;
+				break;	
 			case 'UTT':
 				valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/BG_Start.sum' ;
 				break;		
@@ -673,6 +727,9 @@ function processAuctionProcedures(whatToProcess)
 		case 'ISPL':
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/Pre_TopBuys.sum' ;
 			break;
+		case 'PSL':
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_PSL_Auction_2026/Scenes/Pre_TopBuys.sum' ;
+			break;	
 		case 'UTT':
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/Iconic_Players.sum' ;
 			break;		
@@ -683,6 +740,9 @@ function processAuctionProcedures(whatToProcess)
 		case 'ISPL':
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/Pointers.sum' ;
 			break;
+		case 'PSL':
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_PSL_Auction_2026/Scenes/Pointers.sum' ;
+			break;	
 		case 'UTT':
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/Iconic_Players.sum' ;
 			break;		
@@ -694,6 +754,9 @@ function processAuctionProcedures(whatToProcess)
 		case 'ISPL':
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/8_Pointers.sum' ;
 			break;
+		case 'PSL':
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_PSL_Auction_2026/Scenes/8_Pointers.sum' ;
+			break;	
 		case 'UTT':
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_UTT_Auction_2025/Scenes/Iconic_Players.sum' ;
 			break;		
@@ -713,7 +776,10 @@ function processAuctionProcedures(whatToProcess)
 		switch ($('#selected_broadcaster').val().toUpperCase()) {
 		case 'ISPL':
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/TOP_4_Buys.sum' ;
-			break;	
+			break;
+		case 'ISPL':
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/TOP_4_Buys.sum' ;
+			break;		
 		}
 		break;
 	case 'GET-CONFIG-DATA':
@@ -1059,7 +1125,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 		break;
 	case 'CRAWLER-OPTIONS':
 		switch ($('#selected_broadcaster').val().toUpperCase()) {
-		case 'ISPL': case 'UTT':
+		case 'ISPL': case 'UTT': case 'PSL':
 			$('#select_graphic_options_div').empty();
 	
 			header_text = document.createElement('h6');
@@ -1150,7 +1216,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 	case 'TOP_15_SOLD-OPTIONS': case 'PLAYER_CATEGORY-OPTIONS': case 'PLAYER_CATEGORY_INT-OPTIONS': case 'FOUR_TEAM-OPTIONS': 
 	case 'PLAYERPROFILE_CHANGE_ON-OPTIONS':
 		switch ($('#selected_broadcaster').val().toUpperCase()) {
-		case 'HANDBALL': case 'ISPL': case 'UTT':
+		case 'HANDBALL': case 'ISPL': case 'UTT': case 'PSL':
 
 			$('#select_graphic_options_div').empty();
 	
@@ -1241,7 +1307,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 					break;
 				case 'SINGLE_PURSE-OPTIONS': case 'TOP_SOLD-OPTIONS': case 'TOP_FIVE_SOLD-OPTIONS': case 'TOP_15_SOLD-OPTIONS':
 				switch ($('#selected_broadcaster').val().toUpperCase()) {
-					case 'HANDBALL': case 'ISPL': case 'UTT':
+					case 'HANDBALL': case 'ISPL': case 'UTT': case 'PSL':
 						select = document.createElement('select');
 						select.id = 'selectTeamName';
 						select.name = select.id;
@@ -1260,7 +1326,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 					select.name = select.id;
 					
 					switch ($('#selected_broadcaster').val().toUpperCase()) {
-						case 'ISPL': case 'ISPL_VIZ': case 'VIZ_ISPL_2024':
+						case 'ISPL': case 'ISPL_VIZ': case 'VIZ_ISPL_2024': case 'PSL':
 							option = document.createElement('option');
 							option.value = 'EAST ZONE';
 							option.text = 'EAST ZONE';
@@ -1307,7 +1373,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 					break;	
 				case 'SQUAD-OPTIONS': 	case 'SQUAD-ROLE-COUNT-OPTIONS': case 'ONLY_SQUAD-OPTIONS':
 					switch ($('#selected_broadcaster').val().toUpperCase()) {
-						case 'HANDBALL': case 'ISPL': case 'UTT':
+						case 'HANDBALL': case 'ISPL': case 'UTT': case 'PSL':
 							select = document.createElement('select');
 							select.id = 'selectTeamName';
 							select.name = select.id;
@@ -1413,7 +1479,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 				break;
 			case 'PLAYERPROFILE_CHANGE_ON-OPTIONS':
 				switch ($('#selected_broadcaster').val().toUpperCase()){
-					case 'HANDBALL': case 'ISPL': case 'UTT':
+					case 'HANDBALL': case 'ISPL': case 'UTT': case 'PSL':
 						select = document.createElement('select');
 						select.style = 'width:130px';
 						select.id = 'selectDataType';
@@ -1441,7 +1507,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 				break;
 			case 'PLAYERPROFILE-OPTIONS':
 				switch ($('#selected_broadcaster').val().toUpperCase()) {
-					case 'HANDBALL': case 'ISPL': case 'UTT':
+					case 'HANDBALL': case 'ISPL': case 'UTT': case 'PSL':
 						select = document.createElement('select');
 						select.id = 'selectPlayerName';
 						select.name = select.id;
@@ -1462,16 +1528,19 @@ function addItemsToList(whatToProcess, dataToProcess)
 						option.text = 'Age & Style';
 						select.appendChild(option);
 						
-						option = document.createElement('option');
-						option.value = 'ISPL S-1';
-						option.text = 'ISPL S-1' ;
-						select.appendChild(option);
-						
-						option = document.createElement('option');
-						option.value = 'ISPL S-2';
-						option.text = 'ISPL S-2' ;
-						select.appendChild(option);
-						
+						switch ($('#selected_broadcaster').val().toUpperCase()) {
+							case 'HANDBALL': case 'ISPL': case 'UTT': 
+							option = document.createElement('option');
+							option.value = 'ISPL S-1';
+							option.text = 'ISPL S-1' ;
+							select.appendChild(option);
+							
+							option = document.createElement('option');
+							option.value = 'ISPL S-2';
+							option.text = 'ISPL S-2' ;
+							select.appendChild(option);
+								break;
+							}
 						row.insertCell(cellCount).appendChild(select);
 						cellCount = cellCount + 1;
 						
