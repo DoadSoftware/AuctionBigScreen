@@ -940,7 +940,7 @@ public class ISPL extends Scene{
 			if(which_graphics_onscreen != "" && which_graphics_onscreen != "BG") {
 				update_gfx = false;
 			}
-			int rtmUsed = 0;
+			int totalrtm = 0;
 			
 			print_writer.println("LAYER1*EVEREST*STAGE*DIRECTOR*Result SHOW 0.0;");
 			print_writer.println("LAYER1*EVEREST*STAGE*DIRECTOR*Timer_In SHOW 0.0;");
@@ -975,14 +975,14 @@ public class ISPL extends Scene{
 			if(player.getLastYearTeam() != null) {
 				for(Player auc : auction.getPlayers()) {
 					if(player.getLastYearTeam() == auc.getTeamId() && auc.getSoldOrUnsold().equalsIgnoreCase(AuctionUtil.RTM)) {
-						rtmUsed++;
+						totalrtm++;
 					}
 				}
-				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main$All$PlayerDetails$Prefererd*CONTAINER SET ACTIVE " + (rtmUsed < 2 ? "0" :"1") + ";");
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main$All$PlayerDetails$Side01$Prefererd*CONTAINER SET ACTIVE " + (totalrtm < 2 ? "1" :"0") + ";");
 				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatValue " + 
 						auctionService.getTeams().get(player.getLastYearTeam()-1).getTeamName1() + ";");
 			}else {
-				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main$All$PlayerDetails$Prefererd*CONTAINER SET ACTIVE 0;");
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main$All$PlayerDetails$Side01$Prefererd*CONTAINER SET ACTIVE 0;");
 			}
 			
 			switch (whichDataType) {
@@ -1055,18 +1055,18 @@ public class ISPL extends Scene{
 	public void changeOnPlayerProfileData(PrintWriter print_writer, int whichSide,List<Statistics> stats, Auction auction, AuctionService auctionService, 
 			List<Player> plr, String session_selected_broadcaster) throws InterruptedException 
 	{
-		int rtmUsed = 0;
+		int totalrtm = 0;
 		Player player = auctionService.getAllPlayer().stream().filter(plyr -> plyr.getPlayerId() == data.getPlayer_id()).findAny().orElse(null);
 		
 		if(whichSide == 1) {
 			if(player.getLastYearTeam() != null) {
 				for(Player auc : auction.getPlayers()) {
 					if(player.getLastYearTeam() == auc.getTeamId() && auc.getSoldOrUnsold().equalsIgnoreCase(AuctionUtil.RTM)) {
-						rtmUsed++;
+						totalrtm++;
 					}
 				}
 				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main$All$PlayerDetails$Side0" + whichSide + "$Prefererd*CONTAINER SET ACTIVE " 
-						+ (rtmUsed < 2 ? "0" :"1") + ";");
+						+ (totalrtm < 2 ? "1" : "0") + ";");
 				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatValue " + 
 						auctionService.getTeams().get(player.getLastYearTeam()-1).getTeamName1() + ";");
 			}else {
@@ -1139,11 +1139,11 @@ public class ISPL extends Scene{
 			if(player.getLastYearTeam() != null) {
 				for(Player auc : auction.getPlayers()) {
 					if(player.getLastYearTeam() == auc.getTeamId() && auc.getSoldOrUnsold().equalsIgnoreCase(AuctionUtil.RTM)) {
-						rtmUsed++;
+						totalrtm++;
 					}
 				}
 				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main$All$PlayerDetails$Side0" + whichSide + "$Prefererd*CONTAINER SET ACTIVE " 
-						+ (rtmUsed < 2 ? "0" :"1") + ";");
+						+ (totalrtm < 2 ? "1" :"0") + ";");
 				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatValue02 " + 
 						auctionService.getTeams().get(player.getLastYearTeam()-1).getTeamName1() + ";");
 			}else {
@@ -3611,7 +3611,7 @@ public class ISPL extends Scene{
 		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tText01 " + "INDIAN STREET PREMIER LEAGUE" + ";");
 		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tText02 " + "" + ";");
 		
-		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tText03 " + "TAJ LAND END, BANDRA, MUMBAI" + ";");
+		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tText03 " + "TAJ LANDS END, BANDRA, MUMBAI" + ";");
 		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tText04;");
 		
 		

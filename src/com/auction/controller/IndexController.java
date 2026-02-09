@@ -59,7 +59,7 @@ public class IndexController
 	public static ISPL this_ispl;
 	public static UTT this_utt;
 	public static PrintWriter print_writer;
-	public static String expiry_date = "2025-12-31";
+	public static String expiry_date = "2026-02-14";
 	public static String error_message = "";
 	public static String current_date = "", gfx="";
 	public static String Current_File_Name = "";
