@@ -141,11 +141,11 @@
 			  	<!-- <button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="BG_Ident_graphic_btn" id="BG_Ident_graphic_btn" onclick="processUserSelection(this)"> BG </button> -->	
 			  	 
-			  <!-- 	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="squad_graphic_btn" id="squad_graphic_btn" onclick="processUserSelection(this)"> Squad Animation</button>	
 			  		
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-			  		name="Only_squad_graphic_btn" id="Only_squad_graphic_btn" onclick="processUserSelection(this)"> Squad</button> -->
+			  		name="Only_squad_graphic_btn" id="Only_squad_graphic_btn" onclick="processUserSelection(this)"> Squad</button>
 			  	
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="remaining_purse_graphic_btn" id="remaining_purse_graphic_btn" onclick="processUserSelection(this)"> Remaining Purse All + Squad Size </button>		
@@ -164,19 +164,23 @@
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="top_sold_graphic_btn" id="top_sold_graphic_btn" onclick="processUserSelection(this)"> Top 8 Sold Auction</button>
 			  		
-			  	<!-- <button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-			  		name="top_sold_teams_graphic_btn" id="top_sold_teams_graphic_btn" onclick="processUserSelection(this)"> Top 6 Sold Teams</button> -->	
-			  	
-			  	<!-- <button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="top_five_sold_graphic_btn" id="top_five_sold_graphic_btn" onclick="processUserSelection(this)"> Top 5 Sold Auction</button>
 			  		
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-			  		name="top_five_sold_teams_graphic_btn" id="top_five_sold_teams_graphic_btn" onclick="processUserSelection(this)"> Top 5 Sold Teams</button>		
+			  		name="top_five_sold_teams_graphic_btn" id="top_five_sold_teams_graphic_btn" onclick="processUserSelection(this)"> Top 5 Sold Teams</button>	
+			  		
+			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+		  			name="iconics_Player_graphic_btn" id="iconics_Player_graphic_btn" onclick="processUserSelection(this)"> Retain Player </button>	
+			  		
+			  	<!-- <button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+			  		name="top_sold_teams_graphic_btn" id="top_sold_teams_graphic_btn" onclick="processUserSelection(this)"> Top 6 Sold Teams</button> -->	
+			  	
+			  	<!-- 		
 			  	
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 		  			name="slots_remzone_graphic_btn" id="slots_remzone_graphic_btn" onclick="processUserSelection(this)"> Zone Remaining </button>
-			    <button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-		  			name="iconic_Player_graphic_btn" id="iconic_Player_graphic_btn" onclick="processUserSelection(this)"> Retain Player </button>
+			    
 		  		<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 		  			name="retain_Player_graphic_btn" id="retain_Player_graphic_btn" onclick="processUserSelection(this)"> Four Retain Player </button>
 		  			
