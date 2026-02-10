@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -15,6 +16,7 @@ import com.auction.containers.Data;
 import com.auction.containers.Scene;
 import com.auction.model.Player;
 import com.auction.model.PlayerCount;
+import com.auction.model.Squad;
 import com.auction.model.Statistics;
 import com.auction.model.StatsType;
 import com.auction.model.Team;
@@ -1465,7 +1467,7 @@ public class PSL extends Scene{
 		
 		Team team = auctionService.getTeams().stream().filter(tm->tm.getTeamId() == Integer.valueOf(team_id)).findAny().orElse(null);
 		
-		if(auction.getPlayers() != null) {
+		if(auction.getPlayers() != null && auctionService.getSquads() != null) {
 			for(Player plyr : auction.getPlayers()) {
 				if(team.getTeamId() == plyr.getTeamId()) {
 					if(plyr.getSoldOrUnsold().equalsIgnoreCase("SOLD") || plyr.getSoldOrUnsold().equalsIgnoreCase("RTM")) {
@@ -1473,6 +1475,8 @@ public class PSL extends Scene{
 					}
 				}	
 			}
+			Set<Integer> squadPlayerIds = auctionService.getSquads().stream().map(Squad::getPlayer_id).collect(Collectors.toSet());
+		    top_sold.removeIf(player -> squadPlayerIds.contains(player.getPlayerId()));
 		}
 		
 		Collections.sort(top_sold,new AuctionFunctions.PlayerStatsComparator());
@@ -1821,6 +1825,9 @@ public class PSL extends Scene{
 					top_sold.add(plyr);
 				}	
 			}
+			 for (Squad squad : auctionService.getSquads()) {
+			        top_sold.removeIf(player -> player.getPlayerId() == squad.getPlayer_id());
+			}
 		}
 		
 		Collections.sort(top_sold,new AuctionFunctions.PlayerStatsComparator());
@@ -2126,6 +2133,9 @@ public class PSL extends Scene{
 					top_sold.add(plyr);
 				}	
 			}
+			for (Squad squad : auctionService.getSquads()) {
+		        top_sold.removeIf(player -> player.getPlayerId() == squad.getPlayer_id());
+		    }
 		}
 		
 		Collections.sort(top_sold,new AuctionFunctions.PlayerStatsComparator());
