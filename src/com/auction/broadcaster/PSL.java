@@ -899,7 +899,7 @@ public class PSL extends Scene{
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSoldUnsold 1 ;");
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBidPrice " + 
 									AuctionFunctions.formatRawAmount(auction.getPlayers().get(i).getSoldForPoints()).split(",")[0] + ";");
-							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSoldUnit   " + 
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSoldUnit " + 
 									AuctionFunctions.formatRawAmount(auction.getPlayers().get(i).getSoldForPoints()).split(",")[1] + ";");
 							
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgBase02_02 " + base_path2 + 
