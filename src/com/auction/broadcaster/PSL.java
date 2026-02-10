@@ -88,11 +88,12 @@ public class PSL extends Scene{
 				populateRtmSquad(true,print_writer, "", auction,auctionService, session_selected_broadcaster);
 			}else if(which_graphics_onscreen.equalsIgnoreCase("TOP_SOLD_TEAMS")) {
 				populateTopSoldTeams(true,print_writer, "",value1, auction,auctionService, session_selected_broadcaster);
-			}else if(which_graphics_onscreen.equalsIgnoreCase("TOP_FIVE_SOLD")) {
-				populateTopFiveSold(true,print_writer, "", auction,auctionService, session_selected_broadcaster);
-			}else if(which_graphics_onscreen.equalsIgnoreCase("TOP_FIVE_SOLD_TEAMS")) {
-				populateTopFiveSoldTeams(true,print_writer, "",value1, auction,auctionService, session_selected_broadcaster);
 			}
+//			else if(which_graphics_onscreen.equalsIgnoreCase("TOP_FIVE_SOLD")) {
+//				populateTopFiveSold(true,print_writer, "", auction,auctionService, session_selected_broadcaster);
+//			}else if(which_graphics_onscreen.equalsIgnoreCase("TOP_FIVE_SOLD_TEAMS")) {
+//				populateTopFiveSoldTeams(true,print_writer, "",value1, auction,auctionService, session_selected_broadcaster);
+//			}
 //			else if(which_graphics_onscreen.equalsIgnoreCase("SQUAD")) {
 //				populateSquad(true,print_writer, "",value1, auction,auctionService,session_selected_broadcaster);
 //			}
@@ -805,6 +806,13 @@ public class PSL extends Scene{
 					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerLastname0"+ row + " ;");
 				}
 				
+				
+				if(plyr.getNationality().equalsIgnoreCase("PAKISTAN")) {
+					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vOverseas0" + row + " 0;");
+				}else {
+					print_writer.println("LAYER" + current_layer + "EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vOverseas0" + row + " 1;");
+				}
+				
 				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgTeamLogo0" + row + " " + 
 						logo_path + auctionService.getTeams().get(plyr.getTeamId() - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
 				
@@ -1003,6 +1011,12 @@ public class PSL extends Scene{
 				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelectIcon 1;");
 			}else {
 				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelectIcon 2;");
+			}
+			
+			if(player.getNationality().equalsIgnoreCase("PAKISTAN")) {
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vOverseas 0;");
+			}else {
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vOverseas 1;");
 			}
 			
 			if(player.getLastYearTeam() != null) {
@@ -1531,6 +1545,12 @@ public class PSL extends Scene{
 	        			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vPlayerInfo0" + row + " 0;");
 	        		}
 	        		
+	        		if(auctionService.getAllPlayer().get(top_sold.get(m).getPlayerId() -1).getNationality().equalsIgnoreCase("PAKISTAN")) {
+						print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vOverseas0" + row + " 0;");
+					}else {
+						print_writer.println("LAYER" + current_layer + "EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vOverseas0" + row + " 1;");
+					}
+	        		
 	        		if(auctionService.getAllPlayer().get(top_sold.get(m).getPlayerId() -1).getRole() != null &&
 							!auctionService.getAllPlayer().get(top_sold.get(m).getPlayerId() -1).getRole().isEmpty()) {
 						
@@ -1851,6 +1871,11 @@ public class PSL extends Scene{
 	        		}else {
 	        			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vIconic0" + row + " 0;");
 	        		}
+	        		if(auctionService.getAllPlayer().get(top_sold.get(m).getPlayerId() -1).getNationality().equalsIgnoreCase("PAKISTAN")) {
+						print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vOverseas0" + row + " 0;");
+					}else {
+						print_writer.println("LAYER" + current_layer + "EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vOverseas0" + row + " 1;");
+					}
 	        		
 	        		if(auctionService.getAllPlayer().get(top_sold.get(m).getPlayerId() -1).getRole() != null &&
 							!auctionService.getAllPlayer().get(top_sold.get(m).getPlayerId() -1).getRole().isEmpty()) {
@@ -2176,6 +2201,11 @@ public class PSL extends Scene{
 		        			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vPlayerInfo0" + row + " 0;");
 		        		}
 		        		
+		        		if(auctionService.getAllPlayer().get(top_sold.get(m).getPlayerId() -1).getNationality().equalsIgnoreCase("PAKISTAN")) {
+							print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vOverseas0" + row + " 0;");
+						}else {
+							print_writer.println("LAYER" + current_layer + "EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vOverseas0" + row + " 1;");
+						}
 		        		if(auctionService.getAllPlayer().get(top_sold.get(m).getPlayerId() -1).getRole() != null &&
 								!auctionService.getAllPlayer().get(top_sold.get(m).getPlayerId() -1).getRole().isEmpty()) {
 							
@@ -3093,6 +3123,13 @@ public class PSL extends Scene{
 						}else {
 							print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vPlayerInfo0" + row + " 0" + ";");
 						}
+						
+						if(plyr.getNationality().equalsIgnoreCase("PAKISTAN")) {
+							print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vOverseas0" + row + " 0;");
+						}else {
+							print_writer.println("LAYER" + current_layer + "EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vOverseas0" + row + " 1;");
+						}
+						
 						if(plyr.getSurname() != null) {
 							print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerFirstname0"+ row + " " + 
 									plyr.getFirstname() + ";");
@@ -3361,6 +3398,13 @@ public class PSL extends Scene{
 							
 						}else {
 							print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vPlayerInfo0" + row + " 0" + ";");
+						}
+						
+						
+						if(plyr.getNationality().equalsIgnoreCase("PAKISTAN")) {
+							print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vOverseas0" + row + " 0;");
+						}else {
+							print_writer.println("LAYER" + current_layer + "EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vOverseas0" + row + " 1;");
 						}
 						
 //						if(plyr.getSoldOrUnsold().equalsIgnoreCase("RETAIN")) {
