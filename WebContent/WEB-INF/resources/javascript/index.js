@@ -1560,7 +1560,23 @@ function addItemsToList(whatToProcess, dataToProcess)
 							option.value = 'ISPL S-2';
 							option.text = 'ISPL S-2' ;
 							select.appendChild(option);
-								break;
+							break;
+							case 'PSL': 
+							option = document.createElement('option');
+							option.value = 'PSL CAREER';
+							option.text = 'PSL CAREER';
+							select.appendChild(option);
+							
+							option = document.createElement('option');
+							option.value = 'T20I CAREER';
+							option.text = 'T20I CAREER';
+							select.appendChild(option);
+							
+							option = document.createElement('option');
+							option.value = 'T20 CAREER';
+							option.text = 'T20 CAREER';
+							select.appendChild(option);
+							break;
 							}
 						row.insertCell(cellCount).appendChild(select);
 						cellCount = cellCount + 1;

@@ -215,6 +215,9 @@ public class PSL extends Scene{
 					populateRetainPlayers(print_writer,valueToProcess.split(",")[0],Integer.valueOf(valueToProcess.split(",")[1]) ,  auction,  auctionService, 
 							 session_selected_broadcaster);
 					break;
+//				case "POPULATE-FF_EIGHTPOINTERS":
+//					populateRULES(print_writer,session_selected_broadcaster);
+//					break;
 				case "POPULATE-ZONE_PLAYERS_STATS":	
 					if(!which_graphics_onscreen.equalsIgnoreCase("ZONE-PLAYER_STATS") || 
 							(!valueToProcess.equalsIgnoreCase("undefined") && !side2ValueToProcess.equalsIgnoreCase(valueToProcess.split(",")[1]))) {
@@ -631,7 +634,7 @@ public class PSL extends Scene{
 		Collections.sort(top_sold,new AuctionFunctions.PlayerStatsComparator());
 		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tFirstName " +"RETAINED PLAYERS"+ ";");
 		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tLastName " +" "+ ";");
-		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader ISPL SEASON 3 PLAYER AUCTION;");	
+		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader HBL PSL PLAYER AUCTION;");	
 		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$HeaderGrp$Iconic*CONTAINER SET ACTIVE 0;");
 		for(Player player : top_sold) {
 			if(player.getSoldOrUnsold().equalsIgnoreCase("RETAIN")) {
@@ -742,22 +745,26 @@ public class PSL extends Scene{
 			String session_selected_broadcaster) throws InterruptedException {
 		
 		int row = 0;
-		
+		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$All$HeaderGrp$Iconic*CONTAINER SET ACTIVE 0;");
 		for(int i = 1; i<=6;i++) {
 			
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelectType0" + i + " 2;");
 
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelectDataType0" + i + " 0;");
+			
+			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vPlayerInfo0" + i + " 0;");
+			
 		}
 		
 		
 		for(Team tm : auctionService.getTeams()) {
 		
 			if(tm.getTeamId() == id) {
-				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgLogo_01 " + tm.getTeamBadge()+ ";");
+				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgLogo_01 " + 
+						logo_path + tm.getTeamBadge() + AuctionUtil.PNG_EXTENSION + ";");
 				
-				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader " + tm.getTeamName1()+ ";");
-				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tFirstName RETAINED PLAYERS;");
+				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader " + tm.getTeamName1() + " - " + "RETAINED PLAYERS" + ";");
+				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tFirstName HBL PSL PLAYER AUCTION;");
 				
 				
 				
@@ -772,6 +779,10 @@ public class PSL extends Scene{
 				Player plyr = auction.getPlayersList().stream().filter(pyr -> pyr.getPlayerId() == player.getPlayerId()).findAny().orElse(null);
 				
 				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgTeamColor01 " + base_path1 + 
+						auctionService.getTeams().get(plyr.getTeamId() - 1).getTeamBadge() + AuctionUtil.PNG_EXTENSION + ";");
+				
+				
+				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgTeamTextColor01 " + text1_path + 
 						auctionService.getTeams().get(plyr.getTeamId() - 1).getTeamBadge() + AuctionUtil.PNG_EXTENSION + ";");
 				
 				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgPlayerImage0" + row + " " + 
@@ -864,7 +875,7 @@ public class PSL extends Scene{
 	{
 
 		print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + "" + ";");
-		print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader " + "PLAYER AUCTION" + ";");
+		print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader " + "HBL PSL PLAYER AUCTION" + ";");
 		
 		print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBaePointsHead " + "BASE PRICE" + ";");
 		
@@ -880,8 +891,8 @@ public class PSL extends Scene{
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSoldUnsold 1 ;");
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBidPrice " + 
 									AuctionFunctions.formatRawAmount(auction.getPlayers().get(i).getSoldForPoints()).split(",")[0] + ";");
-//							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBidPrice " + 
-//									AuctionFunctions.formatRawAmount(auction.getPlayers().get(i).getSoldForPoints()).split(",")[1] + ";");
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSoldUnit   " + 
+									AuctionFunctions.formatRawAmount(auction.getPlayers().get(i).getSoldForPoints()).split(",")[1] + ";");
 							
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgBase02_02 " + base_path2 + 
 									auctionService.getTeams().get(auction.getPlayers().get(i).getTeamId() - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
@@ -961,13 +972,18 @@ public class PSL extends Scene{
 			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vPlayerPic 0;");
 			
 			if(player.getBasePrice().equalsIgnoreCase("42000")) {
-				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBasePrice " + "4.2" + ";");
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBasePrice " + "4.200" + ";");
+				
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBaseUnit " + "  CR" + ";");
 			}else if(player.getBasePrice().equalsIgnoreCase("22000")) {
-				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBasePrice " + "2.2" + ";");
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBasePrice " + "2.200" + ";");
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBaseUnit " + "  CR" + ";");
 			}else if(player.getBasePrice().equalsIgnoreCase("11000")) {
-				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBasePrice " + "1.1" + ";");
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBasePrice " + "1.100" + ";");
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBaseUnit " + "  CR" + ";");
 			}else if(player.getBasePrice().equalsIgnoreCase("6000")) {
 				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBasePrice " + "60" + ";");
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBaseUnit " + "  L" + ";");
 			}
 			
 			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerFirstName " + player.getFirstname() + ";");
@@ -1003,43 +1019,43 @@ public class PSL extends Scene{
 			}
 			
 			switch (whichDataType) {
-			case "ISPL S-1": case "ISPL S-2":
+			case "PSL CAREER": case "T20I CAREER": case "T20 CAREER":
 				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHead " + 
-						(whichDataType.equalsIgnoreCase("ISPL S-1") ? "ISPL SEASON 1" : "ISPL SEASON 2") + ";");
+						(whichDataType.equalsIgnoreCase("PSL CAREER") ? "PSL CAREER" : whichDataType.equalsIgnoreCase("T20I CAREER") ? "IT20 CAREER" : "T20 CAREER") + ";");
 				
 				StatsType statsType = auctionService.getStatsTypes().stream().filter(stype -> stype.getStats_short_name().equalsIgnoreCase(whichDataType)).findAny().orElse(null);
 				Statistics stat = auctionService.getAllStats().stream().filter(st-> st.getPlayer_id() == playerId && statsType.getStats_id() == st.getStats_type_id()).findAny().orElse(null);
 				
-				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tAgeHead " + "MATCHES" + ";");
-				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tAge " + 
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tAgeHead02 " + "MATCHES" + ";");
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tAge02 " + 
 						((stat.getMatches().equalsIgnoreCase("0") ? "-" : stat.getMatches()))+ ";");
 				
 				switch (player.getRole().toUpperCase()) {
 				case "BATSMAN": case "BAT/KEEPER": case "WICKET-KEEPER":
-					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyleHead " + "RUNS" + ";");
-					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyleHead " + "STRIKE RATE" + ";");
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyleHead02 " + "RUNS" + ";");
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyleHead02 " + "STRIKE RATE" + ";");
 					
-					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyle " + 
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyle02 " + 
 							((stat.getRuns().equalsIgnoreCase("0") ? "-" : stat.getRuns())) + ";");
-					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyle " + 
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyle02 " + 
 							((stat.getStrikeRate().equalsIgnoreCase("0") ? "-" : stat.getStrikeRate())) + ";");
 					break;
 				case "BOWLER":
-					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyleHead " + "WICKETS" + ";");
-					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyleHead " + "ECONOMY" + ";");
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyleHead02 " + "WICKETS" + ";");
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyleHead02 " + "ECONOMY" + ";");
 					
-					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyle " + 
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyle02 " + 
 							((stat.getWickets().equalsIgnoreCase("0") ? "-" : stat.getWickets())) + ";");
-					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyle " + 
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyle02 " + 
 							((stat.getEconomy().equalsIgnoreCase("0") ? "-" : stat.getEconomy())) + ";");
 					break;
 				case "ALL-ROUNDER":
-					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyleHead " + "RUNS" + ";");
-					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyleHead " + "WICKETS" + ";");
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyleHead02 " + "RUNS" + ";");
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyleHead02 " + "WICKETS" + ";");
 					
-					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyle " + 
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBatStyle02 " + 
 							((stat.getRuns().equalsIgnoreCase("0") ? "-" : stat.getRuns())) + ";");
-					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyle " + 
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBowlStyle02 " + 
 							((stat.getWickets().equalsIgnoreCase("0") ? "-" : stat.getWickets())) + ";");
 					break;
 				}
@@ -1453,6 +1469,7 @@ public class PSL extends Scene{
 				update_gfx = false;
 			}
 			
+			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$All$HeaderGrp$Iconic*CONTAINER SET ACTIVE 0;");
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tFirstName " + "TOP BUYS" + ";");
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tLastName " + "" + ";");
 			
@@ -1464,8 +1481,7 @@ public class PSL extends Scene{
 					logo_path + team.getTeamBadge() + AuctionUtil.PNG_EXTENSION + ";");
 			
 			//base for logo
-    		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgBase02 " + base_path2 +  
-    				team.getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
+    		
     		
     		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgBase01 " + base_path1 +  
     				team.getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
@@ -1599,14 +1615,16 @@ public class PSL extends Scene{
 //	        		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgTeamColor0" + row + " " + base_path2 +  
 //	        				auction.getTeam().get(top_sold.get(m).getTeamId()-1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
 //	        		
-	        		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgTeamTextColor02" + row + " " + text2_path +  
+	        		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgTeamTextColor02" + row + " " + text1_path +  
 	        				auction.getTeam().get(top_sold.get(m).getTeamId()-1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
 	        		
-	        		 print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$PlayersGrp$"+ row+"$Data_GRP$Top$Name*TEXTURE2 SET TEXTURE_PATH " + text2_path +  
+	     
+	        		
+	        		 print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$PlayersGrp$"+ row+"$Data_GRP$Top$Name*TEXTURE2 SET TEXTURE_PATH " + text1_path +  
 		        				auction.getTeam().get(top_sold.get(m).getTeamId()-1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
-	        		 print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$PlayersGrp$"+ row+"$Data_GRP$Top$Lastname*TEXTURE2 SET TEXTURE_PATH " + text2_path +  
+	        		 print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$PlayersGrp$"+ row+"$Data_GRP$Top$Lastname*TEXTURE2 SET TEXTURE_PATH " + text1_path +  
 		        				auction.getTeam().get(top_sold.get(m).getTeamId()-1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
-	        		 print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$PlayersGrp$"+ row+"$Data_GRP$Top$Zone*TEXTURE2 SET TEXTURE_PATH " + text2_path +  
+	        		 print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$PlayersGrp$"+ row+"$Data_GRP$Top$Zone*TEXTURE2 SET TEXTURE_PATH " + text1_path +  
 		        				auction.getTeam().get(top_sold.get(m).getTeamId()-1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
 	        		
 	        		//igteamcolourbase
@@ -1796,7 +1814,7 @@ public class PSL extends Scene{
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader " + "TOP BUYS" + ";");
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tLastName " + "" + ";");
 			
-			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tFirstName " + "PLAYER AUCTION" + ";");
+			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tFirstName " + "HBL PSL PLAYER AUCTION" + ";");
 			
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatHead01 " + "PLAYER" + ";");
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatHead02 " + "TEAM" + ";");
@@ -1941,8 +1959,8 @@ public class PSL extends Scene{
 				update_gfx = false;
 			}
 			
-			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tFirstName " + "ISPL SEASON 3" + ";");
-			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tLastName " + "PLAYER AUCTION" + ";");
+			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tFirstName " + "" + ";");
+			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tLastName " + "HBL PSL PLAYER AUCTION" + ";");
 			
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader " + "TOP BUYS" + ";");
 			
@@ -2093,7 +2111,9 @@ public class PSL extends Scene{
 				update_gfx = false;
 			}
 			
-			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tFirstName " + "PLAYER AUCTION" + ";");
+			
+			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$All$HeaderGrp$Iconic*CONTAINER SET ACTIVE 0;");
+			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tFirstName " + "HBL PSL PLAYER AUCTION" + ";");
 			
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader " + "TOP BUYS" + ";");
 			
@@ -2230,12 +2250,7 @@ public class PSL extends Scene{
 		        		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgTeamTextColor0" + row + " " + text1_path +  
 		        				auction.getTeam().get(top_sold.get(m).getTeamId()-1).getTeamBadge() + AuctionUtil.PNG_EXTENSION + ";");
 		        		
-		        		 print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$PlayersGrp$"+ row+"$Data_GRP$Top$Name*TEXTURE2 SET TEXTURE_PATH " + text2_path +  
-			        				auction.getTeam().get(top_sold.get(m).getTeamId()-1).getTeamBadge() + AuctionUtil.PNG_EXTENSION + ";");
-		        		 print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$PlayersGrp$"+ row+"$Data_GRP$Top$Lastname*TEXTURE2 SET TEXTURE_PATH " + text2_path +  
-			        				auction.getTeam().get(top_sold.get(m).getTeamId()-1).getTeamBadge() + AuctionUtil.PNG_EXTENSION + ";");
-		        		 print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$PlayersGrp$"+ row+"$Data_GRP$Top$Zone*TEXTURE2 SET TEXTURE_PATH " + text2_path +  
-			        				auction.getTeam().get(top_sold.get(m).getTeamId()-1).getTeamBadge() + AuctionUtil.PNG_EXTENSION + ";");
+		        	
 //		        		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgTeamTextColor01_0" + row + " " + text1_path +  
 //		        				auction.getTeam().get(top_sold.get(m).getTeamId()-1).getTeamBadge() + AuctionUtil.PNG_EXTENSION + ";");
 		        		
@@ -2778,7 +2793,7 @@ public class PSL extends Scene{
 			}
 			
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader " + "PLAYER AUCTION" + ";");
-			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tFirstName " + "PAKISTAN SUPER LEAGUE" + ";");
+			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tFirstName " + "HBL PAKISTAN SUPER LEAGUE" + ";");
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tLastName " + "" + ";");
 			
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatHead01 " + "TEAMS" + ";");
@@ -2960,25 +2975,23 @@ public class PSL extends Scene{
 					"SQUAD" + ";");
 			
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgLogoBase " + logo_base_path + 
-					auctionService.getTeams().get(team_id - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
-			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgLogo " + logo_path + 
-					auctionService.getTeams().get(team_id - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
+					auctionService.getTeams().get(team_id - 1).getTeamBadge() + AuctionUtil.PNG_EXTENSION + ";");
+			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgLogo_01 " + logo_path + 
+					auctionService.getTeams().get(team_id - 1).getTeamBadge() + AuctionUtil.PNG_EXTENSION + ";");
 			//base1&2
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgBase01 " + base_path1 + 
-					auctionService.getTeams().get(team_id - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
+					auctionService.getTeams().get(team_id - 1).getTeamBadge() + AuctionUtil.PNG_EXTENSION + ";");
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgBase02 " + base_path2 + 
-					auctionService.getTeams().get(team_id - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
+					auctionService.getTeams().get(team_id - 1).getTeamBadge() + AuctionUtil.PNG_EXTENSION + ";");
 			
 			//base
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgTeamColor01 " + base_path1 + 
-					auctionService.getTeams().get(team_id - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
-			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgTeamColor02 " + base_path2 + 
-					auctionService.getTeams().get(team_id - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
+					auctionService.getTeams().get(team_id - 1).getTeamBadge() + AuctionUtil.PNG_EXTENSION + ";");
 			
 			//text colour
 	
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgTeamTextColor01 " + text1_path + 
-					auctionService.getTeams().get(team_id - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
+					auctionService.getTeams().get(team_id - 1).getTeamBadge() + AuctionUtil.PNG_EXTENSION + ";");
 			
 			 
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$All$PlayersGrp$9_to_12$11$2$Data_GRP*CONTAINER SET ACTIVE 1;");
@@ -2987,6 +3000,9 @@ public class PSL extends Scene{
 		
 		remaining = Integer.valueOf(auctionService.getTeams().get(team_id - 1).getTeamTotalPurse());
 		
+		for(int k=1;k<=18;k++) {
+			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelectDataType0" + row + " 0;");
+		}
 		
 		for(int k=0;k<=data_str.size()-1;k++) {
 			row = row + 1;
@@ -3007,8 +3023,8 @@ public class PSL extends Scene{
 							+ "$Pic*CONTAINER SET ACTIVE 0;");
 				}
 				
-				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelectDataType0" + row + " 1;");
-				
+				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelectDataType0" + row + " 0;");
+				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelect_Players " + row + ";");
 				
 				
 				switch (data_str.get(k)) {
@@ -3042,29 +3058,14 @@ public class PSL extends Scene{
 					break;	
 				}
 			}else {
+				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelect_Players " + row + ";");
 				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelectDataType0" + row + " 2;");
-				if(row < 7) {
-					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$PlayersGrp$1_to_6$"+ row+"$2$Data_GRP$Name*TEXTURE2 SET TEXTURE_PATH " + text2_path +  
-							 auctionService.getTeams().get(team_id - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
-					 print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$PlayersGrp$1_to_6$"+ row+"$2$Data_GRP$Lastname*TEXTURE2 SET TEXTURE_PATH " + text2_path +  
-							 auctionService.getTeams().get(team_id - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
-					 print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$PlayersGrp$1_to_6$"+ row+"$2$Data_GRP$Zone*TEXTURE2 SET TEXTURE_PATH " + text1_path +  
-							 auctionService.getTeams().get(team_id - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
-				}else if(row >=7 && row < 13) {
-					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$PlayersGrp$7_to_12$"+ row+"$2$Data_GRP$Name*TEXTURE2 SET TEXTURE_PATH " + text2_path +  
-							 auctionService.getTeams().get(team_id - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
-					 print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$PlayersGrp$7_to_12$"+ row+"$2$Data_GRP$Lastname*TEXTURE2 SET TEXTURE_PATH " + text2_path +  
-							 auctionService.getTeams().get(team_id - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
-					 print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$PlayersGrp$7_to_12$"+ row+"$2$Data_GRP$Zone*TEXTURE2 SET TEXTURE_PATH " + text1_path +  
-							 auctionService.getTeams().get(team_id - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
-				}else if(row >=13 && row < 19) {
-					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$PlayersGrp$13_to_18$"+ row+"$2$Data_GRP$Name*TEXTURE2 SET TEXTURE_PATH " + text2_path +  
-							 auctionService.getTeams().get(team_id - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
-					 print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$PlayersGrp$13_to_18$"+ row+"$2$Data_GRP$Lastname*TEXTURE2 SET TEXTURE_PATH " + text2_path +  
-							 auctionService.getTeams().get(team_id - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
-					 print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$PlayersGrp$13_to_18$"+ row+"$2$Data_GRP$Zone*TEXTURE2 SET TEXTURE_PATH " + text1_path +  
-							 auctionService.getTeams().get(team_id - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
-				}				 
+				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$PlayersGrp$1_to_6$"+ row+"$2$Data_GRP$Name*TEXTURE2 SET TEXTURE_PATH " + text1_path +  
+						 auctionService.getTeams().get(team_id - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
+				 print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$PlayersGrp$1_to_6$"+ row+"$2$Data_GRP$Lastname*TEXTURE2 SET TEXTURE_PATH " + text1_path +  
+						 auctionService.getTeams().get(team_id - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
+				 print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$PlayersGrp$1_to_6$"+ row+"$2$Data_GRP$Zone*TEXTURE2 SET TEXTURE_PATH " + text1_path +  
+						 auctionService.getTeams().get(team_id - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");				 
 				for(Player plyr : match.getPlayersList()) {
 					if(plyr.getPlayerId() == Integer.valueOf(data_str.get(k))) {
 						
@@ -3252,33 +3253,33 @@ public class PSL extends Scene{
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader " + 
 					"SQUAD" + ";");
 			
-			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgLogo " + logo_path + 
-					auctionService.getTeams().get(team_id - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
+			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgLogo_01 " + logo_path + 
+					auctionService.getTeams().get(team_id - 1).getTeamBadge() + AuctionUtil.PNG_EXTENSION + ";");
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgLogoBase " + logo_base_path + 
-					auctionService.getTeams().get(team_id - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
+					auctionService.getTeams().get(team_id - 1).getTeamBadge() + AuctionUtil.PNG_EXTENSION + ";");
 			
 			//base1&2
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgTeamColor01 " + base_path1 + 
-					auctionService.getTeams().get(team_id - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
+					auctionService.getTeams().get(team_id - 1).getTeamBadge() + AuctionUtil.PNG_EXTENSION + ";");
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgBase02 " + base_path2 + 
-					auctionService.getTeams().get(team_id - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
+					auctionService.getTeams().get(team_id - 1).getTeamBadge() + AuctionUtil.PNG_EXTENSION + ";");
 			
 			//base
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgTeamColor01 " + base_path1 + 
-					auctionService.getTeams().get(team_id - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
-			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgTeamColor02 " + base_path2 + 
-					auctionService.getTeams().get(team_id - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
+					auctionService.getTeams().get(team_id - 1).getTeamBadge() + AuctionUtil.PNG_EXTENSION + ";");
 			
 			//text colour
-			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgTeamTextColor02 " + text2_path + 
-					auctionService.getTeams().get(team_id - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgTeamTextColor01 " + text1_path + 
-					auctionService.getTeams().get(team_id - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
+					auctionService.getTeams().get(team_id - 1).getTeamBadge() + AuctionUtil.PNG_EXTENSION + ";");
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$All$PlayersGrp$9_to_12$11$2$Data_GRP*CONTAINER SET ACTIVE 1;");
 			
 		}
 		
 		remaining = Integer.valueOf(auctionService.getTeams().get(team_id - 1).getTeamTotalPurse());
+		
+		for(int k=1;k<=18;k++) {
+			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelectDataType0" + row + " 0;");
+		}
 		
 		for(int k=0;k<=data_str.size()-1;k++) {
 			row = row + 1;
@@ -3299,7 +3300,8 @@ public class PSL extends Scene{
 							+ "$Pic*CONTAINER SET ACTIVE 0;");
 				}
 				
-				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelectDataType0" + row + " 1;");
+				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelectDataType0" + row + " 0;");
+				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelect_Players " + row + ";");
 				
 				switch (data_str.get(k)) {
 				case "NZ":
@@ -3332,30 +3334,15 @@ public class PSL extends Scene{
 					break;	
 				}
 			}else {
+				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelect_Players " + row + ";");
 				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelectDataType0" + row + " 2;");
 				
-				if(row < 7) {
-					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$PlayersGrp$1_to_6$"+ row+"$2$Data_GRP$Name*TEXTURE2 SET TEXTURE_PATH " + text2_path +  
-							 auctionService.getTeams().get(team_id - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
-					 print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$PlayersGrp$1_to_6$"+ row+"$2$Data_GRP$Lastname*TEXTURE2 SET TEXTURE_PATH " + text2_path +  
-							 auctionService.getTeams().get(team_id - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
-					 print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$PlayersGrp$1_to_6$"+ row+"$2$Data_GRP$Zone*TEXTURE2 SET TEXTURE_PATH " + text1_path +  
-							 auctionService.getTeams().get(team_id - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
-				}else if(row >=7 && row < 13) {
-					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$PlayersGrp$7_to_12$"+ row+"$2$Data_GRP$Name*TEXTURE2 SET TEXTURE_PATH " + text2_path +  
-							 auctionService.getTeams().get(team_id - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
-					 print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$PlayersGrp$7_to_12$"+ row+"$2$Data_GRP$Lastname*TEXTURE2 SET TEXTURE_PATH " + text2_path +  
-							 auctionService.getTeams().get(team_id - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
-					 print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$PlayersGrp$7_to_12$"+ row+"$2$Data_GRP$Zone*TEXTURE2 SET TEXTURE_PATH " + text1_path +  
-							 auctionService.getTeams().get(team_id - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
-				}else if(row >=13 && row < 19) {
-					print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$PlayersGrp$13_to_18$"+ row+"$2$Data_GRP$Name*TEXTURE2 SET TEXTURE_PATH " + text2_path +  
-							 auctionService.getTeams().get(team_id - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
-					 print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$PlayersGrp$13_to_18$"+ row+"$2$Data_GRP$Lastname*TEXTURE2 SET TEXTURE_PATH " + text2_path +  
-							 auctionService.getTeams().get(team_id - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
-					 print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$PlayersGrp$13_to_18$"+ row+"$2$Data_GRP$Zone*TEXTURE2 SET TEXTURE_PATH " + text1_path +  
-							 auctionService.getTeams().get(team_id - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
-				}	
+				print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$PlayersGrp$1_to_6$"+ row+"$2$Data_GRP$Name*TEXTURE2 SET TEXTURE_PATH " + text1_path +  
+						 auctionService.getTeams().get(team_id - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
+				 print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$PlayersGrp$1_to_6$"+ row+"$2$Data_GRP$Lastname*TEXTURE2 SET TEXTURE_PATH " + text1_path +  
+						 auctionService.getTeams().get(team_id - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");
+				 print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main$PlayersGrp$1_to_6$"+ row+"$2$Data_GRP$Zone*TEXTURE2 SET TEXTURE_PATH " + text1_path +  
+						 auctionService.getTeams().get(team_id - 1).getTeamName4() + AuctionUtil.PNG_EXTENSION + ";");	
 				
 				for(Player plyr : match.getPlayersList()) {
 					if(plyr.getPlayerId() == Integer.valueOf(data_str.get(k))) {
@@ -3614,13 +3601,13 @@ public class PSL extends Scene{
 	}
 	public void populateIdent(PrintWriter print_writer, String viz_scene, String session_selected_broadcaster)
 	{
-		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgPlayerImage " + logo_path + "ISPL" 
+		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgPlayerImage " + logo_path + "EVENT" 
 				+ AuctionUtil.PNG_EXTENSION + ";");
 		
-		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerFirstName " + "" + ";");
+		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerFirstName " + "HBL PSL" + ";");
 		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerLastName " + "PLAYER AUCTION" + ";");
 		
-		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tText01 " + "Expo Center, Lahore" + ";");
+		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tText01 " + "EXPO CENTER, LAHORE" + ";");
 		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tText02 " + "" + ";");
 		
 		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tText03 " + "" + ";");
@@ -3628,6 +3615,36 @@ public class PSL extends Scene{
 		
 		
 	}
+	
+//	public void populateRULES(PrintWriter print_writer,String session_selected_broadcaster)
+//	{
+//		
+//		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgText01_01 " + 
+//				logo_path + "EVENT" + AuctionUtil.PNG_EXTENSION + ";");
+//		
+//		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tFirstName " +"RULES"+ ";");
+//		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tLastName " +" "+ ";");
+//		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader HBL PSL PLAYER AUCTION;");
+//		
+//		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSelect 7;");
+//		
+//		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPointer01 " +"TEAMS CAN RETAIN UP TO FOUR PLAYERS FROM LAST SEASON"+ ";");
+//		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPointer02 " +"THE NEW FRANCHISES WILL BE ALLOWED TO SELECT AND RETAIN A MAXIMUM OF FOUR PLAYERS "
+//				+ "FROM THE LIST OF RELEASED PLAYERS"+ ";");
+//		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPointer03 " +"EACH FRANCHISE MAY RETAIN A MAXIMUM OF FOUR PLAYERS "
+//				+ "LIMITED TO ONE PLAYER PER CATEGORY I.E. FROM AMONGST PLATINUM, DIAMOND, GOLD, SILVER"
+//				+ "AND EMERGING"+ ";");
+//		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPointer04 " +"THE TOTAL AMOUNT SPENT ON RETAINED PLAYERS WILL BE DEDUCTED FROM THE FRANCHISE’S "
+//				+ "SALARY CAP OF PKR 450,000,000 FOR THE PSL 2026 SEASON"+ ";");
+//		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPointer05 " +"A TEAM MUST PICK AT LEAST TWO LOCAL PLAYERS WHO ARE UNDER THE AGE OF 23 AND HAVE NOT "
+//				+ "BEEN CAPPED AT THE SENIOR INTERNATIONAL LEVEL FOR PAKISTAN"+ ";");
+//		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPointer06 " +"AT THE END OF THE AUCTION, EACH TEAM MUST HAVE AT LEAST 16 PLAYERS ON ITS ROSTER, AND A "
+//				+ "MAXIMUM OF 20 PLAYERS"+ ";");
+//		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPointer07 " +"AT ANY TIME, A PLAYING XI MUST INCLUDE A MINIMUM OF THREE FOREIGN PLAYERS AND MAY "
+//				+ "INCLUDE A MAXIMUM OF FOUR FOREIGN PLAYERS"+ ";");
+//		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPointer08 " +"RULES"+ ";");
+//		
+//	}
 	
 	public void AnimateInGraphics(PrintWriter print_writer, String whichGraphic) throws InterruptedException
 	{
