@@ -146,6 +146,9 @@
 			  		
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="Only_squad_graphic_btn" id="Only_squad_graphic_btn" onclick="processUserSelection(this)"> Squad</button>
+			  		
+			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+			  		name="squad20_graphic_btn" id="squad20_graphic_btn" onclick="processUserSelection(this)"> Squad 20</button>
 			  	
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="remaining_purse_graphic_btn" id="remaining_purse_graphic_btn" onclick="processUserSelection(this)"> Remaining Purse All + Squad Size </button>		
@@ -172,6 +175,12 @@
 			  		
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 		  			name="iconics_Player_graphic_btn" id="iconics_Player_graphic_btn" onclick="processUserSelection(this)"> Retain Player </button>	
+			  	
+			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+		  			name="pointerseight_graphic_btn" id="pointerseight_graphic_btn" onclick="processUserSelection(this)"> Rule Page1  </button>
+			  	
+			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+		  			name="pointerseighttwo_graphic_btn" id="pointerseighttwo_graphic_btn" onclick="processUserSelection(this)"> Rule Page2  </button>
 			  		
 			  	<!-- <button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="top_sold_teams_graphic_btn" id="top_sold_teams_graphic_btn" onclick="processUserSelection(this)"> Top 6 Sold Teams</button> -->	
@@ -192,8 +201,7 @@
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 		  			name="pointers_graphic_btn" id="pointers_graphic_btn" onclick="processUserSelection(this)"> Pointers 4 </button>
 		  			
-		  			<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-		  			name="pointerseight_graphic_btn" id="pointerseight_graphic_btn" onclick="processUserSelection(this)"> Pointers 8 </button> -->
+		  			 -->
 			  	<!-- 
 			  		
 			  		 -->
