@@ -143,7 +143,7 @@ public class ISPL extends Scene{
 							AuctionUtil.AUCTION_JSON), Auction.class);
 					auction = AuctionFunctions.populateMatchVariables(auctionService, auction);
 					auction.setTeamZoneList(AuctionFunctions.PlayerCountPerTeamZoneWise(auction.getTeam(), 
-							auction.getPlayers(), auction.getPlayersList()));
+							auction.getPlayers(), auction.getPlayersList(), session_selected_broadcaster));
 
 				}
 				switch (whatToProcess.toUpperCase()) {
@@ -2885,7 +2885,7 @@ public class ISPL extends Scene{
 //		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tBidPrice " + 
 //				AuctionFunctions.ConvertToLakh((Integer.valueOf(match.getTeam().get(team_id-1).getTeamTotalPurse()) - row)) + ";");
 		row = 0;
-		match.setTeamZoneList(AuctionFunctions.PlayerCountPerTeamZoneWise(match.getTeam(), match.getPlayers(), match.getPlayersList()));
+		match.setTeamZoneList(AuctionFunctions.PlayerCountPerTeamZoneWise(match.getTeam(), match.getPlayers(), match.getPlayersList(), session_selected_broadcaster));
 		PlayerCount teamZone = match.getTeamZoneList().get(team_id-1);
 		for(int j=1;j<=6;j++) {
 			

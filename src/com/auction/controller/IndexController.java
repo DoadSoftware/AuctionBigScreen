@@ -16,6 +16,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import javax.xml.bind.JAXBContext;
@@ -33,6 +34,7 @@ import com.auction.broadcaster.Doad;
 import com.auction.broadcaster.ISPL;
 import com.auction.broadcaster.PSL;
 import com.auction.broadcaster.UTT;
+import com.auction.broadcaster.WPL;
 import com.auction.containers.Configurations;
 import com.auction.containers.Data;
 import com.auction.containers.Scene;
@@ -58,10 +60,11 @@ public class IndexController
 	public static Socket session_socket;
 	public static Doad this_doad;
 	public static ISPL this_ispl;
+	public static WPL this_wpl;
 	public static PSL this_psl;
 	public static UTT this_utt;
 	public static PrintWriter print_writer;
-	public static String expiry_date = "2026-02-14";
+	public static String expiry_date = "2026-12-31";
 	public static String error_message = "";
 	public static String current_date = "", gfx="";
 	public static String Current_File_Name = "";
@@ -148,6 +151,7 @@ public class IndexController
 			infobar = new Data();
 			this_doad = new Doad();
 			this_ispl = new ISPL();
+			this_wpl = new WPL();
 			this_psl = new PSL();
 			this_utt = new UTT();
 			session_selected_broadcaster = select_broadcaster;
@@ -180,6 +184,18 @@ public class IndexController
 				print_writer.println("LAYER4*EVEREST*STAGE*DIRECTOR*In START;");
 				print_writer.println("LAYER4*EVEREST*STAGE*DIRECTOR*LOOP START;");
 				this_doad.which_graphics_onscreen = "BG";
+				break;
+			case "WPL":
+				session_selected_scenes.add(new Scene("/Default/FullFrames" ,"BIG_SCREEN"));
+				session_selected_scenes.get(0).scene_load(print_writer, session_selected_broadcaster);
+				print_writer.println("-1 RENDERER*BACK_LAYER*STAGE*DIRECTOR*anim_Fullframe SHOW 0.0 \0");
+				TimeUnit.MILLISECONDS.sleep(400);
+				print_writer.println("-1 RENDERER*BACK_LAYER*TREE*$gfx_FullFrames$Header$Side1$Select_HeaderType*FUNCTION*Omo*vis_con SET 0\0");
+				print_writer.println("-1 RENDERER*BACK_LAYER*TREE*$gfx_FullFrames$Main$Side1$Select_GraphicsType*FUNCTION*Omo*vis_con SET 4\0");
+				print_writer.println("-1 RENDERER*BACK_LAYER*STAGE*DIRECTOR*anim_Fullframe$In_Out$Essentials START \0");
+				print_writer.println("-1 RENDERER*BACK_LAYER*STAGE*DIRECTOR*anim_Fullframe$In_Out$Main$BS_Logo START \0");
+				print_writer.println("-1 RENDERER*BACK_LAYER*STAGE*DIRECTOR*Loop START \0");
+				this_wpl.which_graphics_onscreen = "BG";
 				break;
 			case "PSL":
 				print_writer.println("LAYER1*EVEREST*SINGLE_SCENE CLEAR;");
@@ -278,19 +294,24 @@ public class IndexController
 			session_auction = new ObjectMapper().readValue(new File(AuctionUtil.AUCTION_DIRECTORY + AuctionUtil.AUCTION_JSON), Auction.class);
 			session_auction = AuctionFunctions.populateMatchVariables(auctionService, session_auction);
 			
-			switch (session_selected_broadcaster) {
-			case "HANDBALL":
-				this_doad.updateData(session_selected_scenes.get(0), session_auction,auctionService,print_writer);
-				break;
-			case "ISPL":
-				this_ispl.updateData(session_selected_scenes.get(0), session_auction, auctionService,print_writer);
-				break;
-			case "PSL":
-				this_psl.updateData(session_selected_scenes.get(0), session_auction, auctionService,print_writer);
-				break;
-			case "UTT":
-				this_utt.updateData(session_selected_scenes.get(0), session_auction,auctionService,print_writer);
-				break;	
+			if(session_selected_broadcaster != null) {
+				switch (session_selected_broadcaster) {
+				case "HANDBALL":
+					this_doad.updateData(session_selected_scenes.get(0), session_auction,auctionService,print_writer);
+					break;
+				case "ISPL":
+					this_ispl.updateData(session_selected_scenes.get(0), session_auction, auctionService,print_writer);
+					break;
+				case "WPL":
+					this_wpl.updateData(session_auction, session_current_bid, auctionService,print_writer);
+					break;
+				case "PSL":
+					this_psl.updateData(session_selected_scenes.get(0), session_auction, auctionService,print_writer);
+					break;
+				case "UTT":
+					this_utt.updateData(session_selected_scenes.get(0), session_auction,auctionService,print_writer);
+					break;	
+				}
 			}
 			
 			return JSONObject.fromObject(session_auction).toString();
@@ -317,6 +338,14 @@ public class IndexController
 				 gfx = "";
 				if (gfxResult != null) {
 				    gfx = gfxResult.toString();
+				}
+				break;
+			case "WPL":
+				Object gfxResult3 = this_wpl.ProcessGraphicOption(whatToProcess, session_auction, session_current_bid, auctionService, print_writer, 
+						session_selected_scenes, valueToProcess);	
+				 gfx = "";
+				if (gfxResult3 != null) {
+				    gfx = gfxResult3.toString();
 				}
 				break;
 			case "UTT":

@@ -5,7 +5,51 @@ public class Data {
 	private boolean data_on_screen;
 	private boolean player_sold_or_unsold;
 	private boolean player_Profile;
-	private int player_id;
+	private int player_id, withPlayerPhoto = 0;
+	private int whichside = 1;
+	private int previousBid;
+	private boolean bid_Start_or_not = false;
+	private String bid_result;
+
+	public int getWithPlayerPhoto() {
+		return withPlayerPhoto;
+	}
+
+	public void setWithPlayerPhoto(int withPlayerPhoto) {
+		this.withPlayerPhoto = withPlayerPhoto;
+	}
+
+	public int getWhichside() {
+		return whichside;
+	}
+
+	public void setWhichside(int whichside) {
+		this.whichside = whichside;
+	}
+
+	public int getPreviousBid() {
+		return previousBid;
+	}
+
+	public void setPreviousBid(int previousBid) {
+		this.previousBid = previousBid;
+	}
+
+	public boolean isBid_Start_or_not() {
+		return bid_Start_or_not;
+	}
+
+	public void setBid_Start_or_not(boolean bid_Start_or_not) {
+		this.bid_Start_or_not = bid_Start_or_not;
+	}
+
+	public String getBid_result() {
+		return bid_result;
+	}
+
+	public void setBid_result(String bid_result) {
+		this.bid_result = bid_result;
+	}
 
 	public boolean isData_on_screen() {
 		return data_on_screen;

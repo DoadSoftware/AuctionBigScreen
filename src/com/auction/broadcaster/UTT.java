@@ -164,7 +164,7 @@ public class UTT extends Scene{
 							AuctionUtil.AUCTION_JSON), Auction.class);
 					auction = AuctionFunctions.populateMatchVariables(auctionService, auction);
 					auction.setTeamZoneList(AuctionFunctions.PlayerCountPerTeamZoneWise(auction.getTeam(), 
-							auction.getPlayers(), auction.getPlayersList()));
+							auction.getPlayers(), auction.getPlayersList(), session_selected_broadcaster));
 
 				}
 				switch (whatToProcess.toUpperCase()) {
@@ -1129,7 +1129,7 @@ public class UTT extends Scene{
 			
 			Auction session_auction = match;
 			session_auction.setTeamZoneList(AuctionFunctions.PlayerCountPerTeamZoneWise(session_auction.getTeam(), 
-					session_auction.getPlayers(), session_auction.getPlayersList()));
+					session_auction.getPlayers(), session_auction.getPlayersList(), session_selected_broadcaster));
 			
 			print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + 
 					"SQUADS" + ";");
@@ -2815,7 +2815,7 @@ public class UTT extends Scene{
 		
 		Auction session_auction = match;
 		session_auction.setTeamZoneList(AuctionFunctions.PlayerCountPerTeamZoneWise(session_auction.getTeam(), 
-				session_auction.getPlayers(), session_auction.getPlayersList()));
+				session_auction.getPlayers(), session_auction.getPlayersList(), session_selected_broadcaster));
 		
 		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + 
 				"SQUAD" + ";");
@@ -2900,7 +2900,7 @@ public class UTT extends Scene{
 		
 		Auction session_auction = match;
 		session_auction.setTeamZoneList(AuctionFunctions.PlayerCountPerTeamZoneWise(session_auction.getTeam(), 
-				session_auction.getPlayers(), session_auction.getPlayersList()));
+				session_auction.getPlayers(), session_auction.getPlayersList(), session_selected_broadcaster));
 		
 		print_writer.println("LAYER" + current_layer + "*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + 
 				"SQUAD" + ";");
