@@ -303,7 +303,7 @@ public class IndexController
 					this_ispl.updateData(session_selected_scenes.get(0), session_auction, auctionService,print_writer);
 					break;
 				case "WPL":
-					this_wpl.updateData(session_auction, session_current_bid, auctionService,print_writer);
+					//this_wpl.updateData(session_auction, session_current_bid, auctionService,print_writer);
 					break;
 				case "PSL":
 					this_psl.updateData(session_selected_scenes.get(0), session_auction, auctionService,print_writer);

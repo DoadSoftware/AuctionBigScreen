@@ -117,20 +117,20 @@
 			    
 			    <div class="left">
 			  	<button style="background-color:#f44336;color:#FEFEFE;" class="btn btn-sm" type="button"
-			  		name="animateout_graphic_btn" id="animateout_graphic_btn" onclick="processUserSelection(this)"> AnimateOut (-) </button>
+			  		name="animateout_graphic_btn" id="animateout_graphic_btn" onclick="processUserSelection(this)"> AnimateOut </button>
 			  	<button style="background-color:#f44336;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="clearall_graphic_btn" id="clearall_graphic_btn" onclick="processUserSelection(this)"> Clear All (Space)</button>
 			  	</div>
 			    <label class="col-sm-4 col-form-label text-left"> </label>
 				<div class="left">
 			    <button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-			  		name="playerprofile_graphic_btn" id="playerprofile_graphic_btn" onclick="processUserSelection(this)"> PlayerProfile (F1) </button>
+			  		name="playerprofile_graphic_btn" id="playerprofile_graphic_btn" onclick="processUserSelection(this)"> PlayerProfile </button>
 			  		
 			  	<!-- <button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="playerprofile_change_on_graphic_btn" id="playerprofile_change_on_graphic_btn" onclick="processUserSelection(this)"> PlayerProfile Change ON </button>
 			  	 -->
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-			  		name="Ident_graphic_btn" id="Ident_graphic_btn" onclick="processUserSelection(this)"> Ident(F4) </button>
+			  		name="Ident_graphic_btn" id="Ident_graphic_btn" onclick="processUserSelection(this)"> Ident </button>
 			  		
 			  		
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
@@ -139,8 +139,8 @@
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="Only_squad_graphic_btn" id="Only_squad_graphic_btn" onclick="processUserSelection(this)"> Squad</button>
 			  		
-			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-			  		name="playerprofiledouble_graphic_btn" id="playerprofiledouble_graphic_btn" onclick="processUserSelection(this)"> PlayerProfile Double</button>
+			  	<!-- <button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+			  		name="playerprofiledouble_graphic_btn" id="playerprofiledouble_graphic_btn" onclick="processUserSelection(this)"> PlayerProfile Double</button> -->
 			  		
 			  	  <!--  <button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="playerprofilesingle_graphic_btn" id="playerprofilesingle_graphic_btn" onclick="processUserSelection(this)"> PlayerProfile Single</button> -->

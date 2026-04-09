@@ -529,7 +529,7 @@ function processAuctionProcedures(whatToProcess)
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_ISPL_Auction_2024/Scenes/Squad_18.sum' + ',' + $('#selectTeamName option:selected').val();
 			break;
 		case 'WPL':
-			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_WPL_Auction_2024/Scenes/Squad_18.sum' + ',' + $('#selectTeamName option:selected').val();
+			valueToProcess = $('#selectTeamName option:selected').val();
 			break;
 		case 'PSL':
 			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Cricket/Everest_PSL_Auction_2026/Scenes/Squad_18.sum' + ',' + $('#selectTeamName option:selected').val();
