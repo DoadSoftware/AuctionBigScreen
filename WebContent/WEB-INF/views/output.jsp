@@ -142,6 +142,9 @@
 			  	<!-- <button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="playerprofiledouble_graphic_btn" id="playerprofiledouble_graphic_btn" onclick="processUserSelection(this)"> PlayerProfile Double</button> -->
 			  		
+			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+			  		name="currrentbid_graphic_btn" id="currrentbid_graphic_btn" onclick="processUserSelection(this)"> Current Bid </button>
+			  		
 			  	  <!--  <button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="playerprofilesingle_graphic_btn" id="playerprofilesingle_graphic_btn" onclick="processUserSelection(this)"> PlayerProfile Single</button> -->
 			  		

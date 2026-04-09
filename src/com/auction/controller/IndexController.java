@@ -313,7 +313,6 @@ public class IndexController
 					break;	
 				}
 			}
-			
 			return JSONObject.fromObject(session_auction).toString();
 		
 		default:
