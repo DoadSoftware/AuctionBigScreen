@@ -139,8 +139,8 @@
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="Only_squad_graphic_btn" id="Only_squad_graphic_btn" onclick="processUserSelection(this)"> Squad</button>
 			  		
-			  	<!-- <button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-			  		name="playerprofiledouble_graphic_btn" id="playerprofiledouble_graphic_btn" onclick="processUserSelection(this)"> PlayerProfile Double</button> -->
+			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+			  		name="playerprofiledouble_graphic_btn" id="playerprofiledouble_graphic_btn" onclick="processUserSelection(this)"> PlayerProfile Double</button>
 			  		
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="currrentbid_graphic_btn" id="currrentbid_graphic_btn" onclick="processUserSelection(this)"> Current Bid </button>
