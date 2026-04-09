@@ -209,7 +209,7 @@ function processUserSelection(whichInput)
 		processAuctionProcedures('CHANGE-INFO');
 		break;	
 		
-	case 'playerprofile_graphic_btn': case 'squad_graphic_btn': case 'remaining_purse_single_graphic_btn': case 'crawler_graphic_btn': 
+	case 'playerprofile_graphic_btn': case 'squad_graphic_btn': case 'remaining_purse_single_graphic_btn': case 'crawler_graphic_btn': case 'playerprofiledouble_graphic_btn':
 	case 'squad_with_role_count_graphic_btn': case 'Only_squad_graphic_btn': case 'top_sold_teams_graphic_btn': case 'top_five_sold_teams_graphic_btn':  case 'iconics_Player_graphic_btn':
 	case 'slots_remzone_graphic_btn': case 'top_15_sold_teams_graphic_btn': case 'player_category_graphic_btn': case 'player_category_int_graphic_btn': 
 	case 'four_teams_graphic_btn': case 'playerprofile_change_on_graphic_btn': case 'squad20_graphic_btn':
@@ -227,6 +227,11 @@ function processUserSelection(whichInput)
 			stopTeamRotation();
 			which_GFX = "";
 			processAuctionProcedures('PLAYERPROFILE_GRAPHICS-OPTIONS');
+			break;
+		case 'playerprofiledouble_graphic_btn':
+			stopTeamRotation();
+			which_GFX = "";
+			processAuctionProcedures('PLAYER_PROFILE_DOUBLE_GRAPHICS-OPTIONS');
 			break;
 		case 'playerprofile_change_on_graphic_btn':
 			addItemsToList('PLAYERPROFILE_CHANGE_ON-OPTIONS',null);
@@ -292,7 +297,7 @@ function processUserSelection(whichInput)
 	case 'populate_namesuper_btn': case 'populate_namesuper_player_btn': case 'populate_playerprofile_btn':	case 'populate_squad_btn': case 'populate_single_purse_btn': 
 	case 'populate_crawl_btn': case 'populate_squad_role_btn': case 'populate_only_squad_btn': case 'populate_top_sold_teams_btn': case 'populate_top_five_sold_teams_btn': 
 	case 'populate_zonePlayer_stats_btn':  case 'populate_top_15_sold_teams_btn': case 'populate_category_btn': case 'changeOn_Cat_btn': case 'populate_category_int_btn': 
-	case 'populate_four_team_btn': case 'populate_playerprofile_change_on_btn': case 'populate_playerretaim': case 'populate_squad20_btn':
+	case 'populate_four_team_btn': case 'populate_playerprofile_change_on_btn': case 'populate_playerretaim': case 'populate_squad20_btn': case'populate_player_double_profile_btn':
 		processWaitingButtonSpinner('START_WAIT_TIMER');
 		switch ($(whichInput).attr('name')) {
 		case 'populate_four_team_btn':
@@ -309,6 +314,9 @@ function processUserSelection(whichInput)
 			break;
 		case 'populate_playerprofile_btn':
 			processAuctionProcedures('POPULATE-FF-PLAYERPROFILE');
+			break;
+		 case'populate_player_double_profile_btn':
+		 	processAuctionProcedures('POPULATE-FF-PLAYERPROFILE_DOUBLE');
 			break;
 		case 'populate_playerprofile_change_on_btn':
 			processAuctionProcedures('POPULATE-FF-PLAYERPROFILE_CHNAGE_ON');
@@ -955,6 +963,12 @@ function processAuctionProcedures(whatToProcess)
 				addItemsToList('POPULATE-PROFILE',data);
 				match_data = data;
 				break;
+			case 'PLAYER_PROFILE_DOUBLE_GRAPHICS-OPTIONS':
+				addItemsToList('PLAYERPROFILE_DOUBLE-OPTIONS',data);
+				addItemsToList('POPULATE-DOUBLEPROFILE',data);
+				match_data = data;
+				break;
+			
 			case 'ONLY_SQUAD_GRAPHICS-OPTIONS':
 				addItemsToList('ONLY_SQUAD-OPTIONS',data);
 				addItemsToList('POPULATE-TEAM-ONLY_SQUAD',data);
@@ -1212,6 +1226,30 @@ function addItemsToList(whatToProcess, dataToProcess)
 			    currentTeamIndex = $('#selectTeamName').prop('selectedIndex');
 			});
 		break;
+	case 'POPULATE-DOUBLEPROFILE' :
+
+		$('#selectPlayerName').empty();
+		
+		session_auction.players.forEach(function(plyr,index,arr1){
+			$('#selectPlayerName').append(
+					$(document.createElement('option')).prop({
+					value: plyr.playerId,
+					text: plyr.playerNumber + ' - ' + plyr.full_name + ' - ' + plyr.category
+				}))
+		});
+		
+		
+		/*dataToProcess.forEach(function(plyr,index,arr1){
+			if(plyr.playerId != session_auction.players[session_auction.players.length - 1].playerId){
+				$('#selectPlayerName').append(
+					$(document.createElement('option')).prop({
+					value: plyr.playerId,
+					text: plyr.playerNumber + ' - ' + plyr.full_name + ' - ' + plyr.category
+				}))
+			}
+		});*/
+		
+		break;
 	case 'POPULATE-PROFILE' :
 
 		$('#selectPlayerName').empty();
@@ -1352,7 +1390,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 	case'NAMESUPER-OPTIONS': case 'NAMESUPER_PLAYER-OPTIONS':  case'PLAYERPROFILE-OPTIONS': case 'SQUAD-OPTIONS': case 'SINGLE_PURSE-OPTIONS':
 	case 'SQUAD-ROLE-COUNT-OPTIONS': case 'ONLY_SQUAD-OPTIONS': case 'TOP_SOLD-OPTIONS': case 'TOP_FIVE_SOLD-OPTIONS': case 'RETAINPLAYER-OPTIONS': case 'ZONE-PLAYER-OPTIONS':
 	case 'TOP_15_SOLD-OPTIONS': case 'PLAYER_CATEGORY-OPTIONS': case 'PLAYER_CATEGORY_INT-OPTIONS': case 'FOUR_TEAM-OPTIONS': 
-	case 'PLAYERPROFILE_CHANGE_ON-OPTIONS': case 'SQUAD20-OPTIONS':
+	case 'PLAYERPROFILE_CHANGE_ON-OPTIONS': case 'SQUAD20-OPTIONS': case'PLAYERPROFILE_DOUBLE-OPTIONS':
 		switch ($('#selected_broadcaster').val().toUpperCase()) {
 		case 'HANDBALL': case 'ISPL': case 'UTT': case 'PSL':  case 'WPL':
 
@@ -1643,6 +1681,78 @@ function addItemsToList(whatToProcess, dataToProcess)
 						break;
 				}
 				break;
+			case 'PLAYERPROFILE_DOUBLE-OPTIONS':
+				switch ($('#selected_broadcaster').val().toUpperCase()) {
+					case 'HANDBALL': case 'ISPL': case 'UTT': case 'PSL': case 'WPL':
+						select = document.createElement('select');
+						select.id = 'selectPlayerName';
+						select.name = select.id;
+						
+						select.setAttribute('onchange',"processUserSelection(this)");
+						row.insertCell(cellCount).appendChild(select);
+						//document.getElementById('extra_log_event_row_1').insertCell(0).appendChild(header_text).appendChild(select);	
+						$(select).select2();
+						cellCount = cellCount + 1;
+						
+						
+						
+						switch ($('#selected_broadcaster').val().toUpperCase()) {
+							case 'HANDBALL': case 'ISPL': case 'UTT':  
+							select = document.createElement('select');
+						select.style = 'width:130px';
+						select.id = 'selectDataType';
+						select.name = select.id;
+						
+						option = document.createElement('option');
+						option.value = 'age_style';
+						option.text = 'Age & Style';
+						select.appendChild(option);
+							option = document.createElement('option');
+							option.value = 'ISPL S-1';
+							option.text = 'ISPL S-1' ;
+							select.appendChild(option);
+							
+							option = document.createElement('option');
+							option.value = 'ISPL S-2';
+							option.text = 'ISPL S-2' ;
+							select.appendChild(option);
+							break;
+							case 'PSL': 
+							option = document.createElement('option');
+							option.value = 'PSL CAREER';
+							option.text = 'PSL CAREER';
+							select.appendChild(option);
+							
+							option = document.createElement('option');
+							option.value = 'T20I CAREER';
+							option.text = 'T20I CAREER';
+							select.appendChild(option);
+							
+							option = document.createElement('option');
+							option.value = 'T20 CAREER';
+							option.text = 'T20 CAREER';
+							select.appendChild(option);
+							break;
+							}
+						row.insertCell(cellCount).appendChild(select);
+						cellCount = cellCount + 1;
+						
+						/*option = document.createElement('input');
+						option.type = 'button';
+						option.name = 'changeOn_btn';
+						option.value = 'Change On';
+						option.id = option.name;
+					    option.setAttribute('onclick',"processUserSelection(this)");
+					    
+					    div = document.createElement('div');
+					    div.append(option);
+						
+						row.insertCell(cellCount).appendChild(div);
+					    cellCount = cellCount + 1;*/
+						break;
+				} 
+				break;
+				
 			case 'PLAYERPROFILE-OPTIONS':
 				switch ($('#selected_broadcaster').val().toUpperCase()) {
 					case 'HANDBALL': case 'ISPL': case 'UTT': case 'PSL': case 'WPL':
@@ -1744,6 +1854,9 @@ function addItemsToList(whatToProcess, dataToProcess)
 			case'PLAYERPROFILE-OPTIONS':
 			    option.name = 'populate_playerprofile_btn';
 			    option.value = 'Populate Playerprofile';
+				break;
+			case'PLAYERPROFILE_DOUBLE-OPTIONS':
+				option.name = 'populate_player_double_profile_btn';
 				break;
 			case 'PLAYERPROFILE_CHANGE_ON-OPTIONS':
 				option.name = 'populate_playerprofile_change_on_btn';

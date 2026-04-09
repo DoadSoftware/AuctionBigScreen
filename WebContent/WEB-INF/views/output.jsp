@@ -136,12 +136,17 @@
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="remaining_purse_graphic_btn" id="remaining_purse_graphic_btn" onclick="processUserSelection(this)"> Remaining Purse  </button>	
 			  		
+			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+			  		name="Only_squad_graphic_btn" id="Only_squad_graphic_btn" onclick="processUserSelection(this)"> Squad</button>
+			  		
+			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+			  		name="playerprofiledouble_graphic_btn" id="playerprofiledouble_graphic_btn" onclick="processUserSelection(this)"> PlayerProfile Double</button>
 			  		
 			  	  <!--  <button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="playerprofilesingle_graphic_btn" id="playerprofilesingle_graphic_btn" onclick="processUserSelection(this)"> PlayerProfile Single</button> -->
 			  		
-			  		  <!--  <button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-			  		name="playerprofiledouble_graphic_btn" id="playerprofiledouble_graphic_btn" onclick="processUserSelection(this)"> PlayerProfile Double</button>	 -->
+			  		 
+			  		
 			  	<!-- <button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 		  			name="rtm_available_graphic_btn" id="rtm_available_graphic_btn" onclick="processUserSelection(this)"> RTM Available </button>	
 		  		
@@ -151,17 +156,14 @@
 			  	<!-- <button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="BG_Ident_graphic_btn" id="BG_Ident_graphic_btn" onclick="processUserSelection(this)"> BG </button> -->	
 			  	 
-			<!--   	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-			  		name="squad_graphic_btn" id="squad_graphic_btn" onclick="processUserSelection(this)"> Squad Animation</button>	
-			  		
-			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-			  		name="Only_squad_graphic_btn" id="Only_squad_graphic_btn" onclick="processUserSelection(this)"> Squad</button>
-			  		
-			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+			<!-- <button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="squad20_graphic_btn" id="squad20_graphic_btn" onclick="processUserSelection(this)"> Squad 20</button> -->
 			  	
 			  			
 			  	<!-- <button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+			  		name="squad_graphic_btn" id="squad_graphic_btn" onclick="processUserSelection(this)"> Squad Animation</button> 
+			  	
+			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="player_category_graphic_btn" id="player_category_graphic_btn" onclick="processUserSelection(this)"> Player List Category India </button>
 			  		
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"

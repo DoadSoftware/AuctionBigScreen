@@ -74,7 +74,7 @@ public class WPL extends Scene{
 		
 		case "POPULATE-FF-PLAYERPROFILE":  case "POPULATE-FF_IDENT": case "POPULATE-REMAINING_PURSE_ALL":
 		
-		case "POPULATE-SQUAD": case "POPULATE-FF_FIVE_TOP_BUYS_AUCTION":case "POPULATE-PROFILE_STATS_CHANGE":
+		case "POPULATE-ONLY_SQUAD": case "POPULATE-FF_FIVE_TOP_BUYS_AUCTION":case "POPULATE-PROFILE_STATS_CHANGE":
 		case "POPULATE-L3-FLIPPER":case "POPULATE-PROFILE_STATS":case "POPULATE-CURR_BID":case "POPULATE-PLAYERPROFILE_FF":
 		case "POPULATE-L3-NAMESUPER":case "POPULATE-RTM_AVAILABLE":case "POPULATE-FF_FIVE_TOP_BUY_TEAM":
 		case "POPULATE-FLIPPER_SQUAD": case "POPULATE-LOF_REMAINING_PURSE": case "POPULATE-LOF_REMAINING_SLOT": case "POPULATE-LOF_SQUAD_SIZE":
@@ -120,7 +120,7 @@ public class WPL extends Scene{
 					populateProfileChange(print_writer,whichSideNotProfile);
 					processPreviewFullFrames(print_writer, whatToProcess, whichSideNotProfile);
 					break;
-				case "POPULATE-SQUAD":
+				case "POPULATE-ONLY_SQUAD":
 					if(!which_graphics_onscreen.isEmpty()) {
 						whichSideNotProfile = 2;
 					}else {
@@ -2075,6 +2075,19 @@ public void populateCrawlerSquad(PrintWriter print_writer,int team_id,int which_
 	
 	public void populateSquad(PrintWriter print_writer,int team_id, int which_side, Auction match, AuctionService auctionService, String session_selected_broadcaster) throws Exception 
 	{
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		int row = 0;
 		data_str.clear();
 		data_str = AuctionFunctions.getSquadDataUTTZone(match,team_id);
@@ -2266,14 +2279,14 @@ public void populateCrawlerSquad(PrintWriter print_writer,int team_id,int which_
 				previewCommand = "anim_Profile 2.800 anim_Profile$In_Out 2.800 anim_Profile$In_Out$Essentials 2.800 anim_Profile$In_Out$Essentials$In 2.800 "
 						+ "anim_Profile$In_Out$Profile 2.800 anim_Profile$In_Out$Profile$In 2.800";
 				break;
-			case "POPULATE-FF_FIVE_TOP_BUYS_AUCTION": case "POPULATE-SQUAD": case "POPULATE-FF_FIVE_TOP_BUY_TEAM":
+			case "POPULATE-FF_FIVE_TOP_BUYS_AUCTION": case "POPULATE-ONLY_SQUAD": case "POPULATE-FF_FIVE_TOP_BUY_TEAM":
 				previewCommand = "anim_Fullframes 2.800 anim_Fullframes$In_Out$Essentials$In 1.400 anim_Fullframes$In_Out$Header$In 1.000 ";
 				
 				switch (whatToProcess.toUpperCase()) {
 				case "POPULATE-FF_FIVE_TOP_BUYS_AUCTION": case "POPULATE-FF_FIVE_TOP_BUY_TEAM":
 					previewCommand = previewCommand + "anim_Fullframes$In_Out$Top5_Buys$In 1.500";
 					break;
-				case "POPULATE-SQUAD":
+				case "POPULATE-ONLY_SQUAD":
 					previewCommand = previewCommand + "anim_Fullframes$In_Out$Squad$In 1.500";
 					break;
 				}
@@ -2310,7 +2323,7 @@ public void populateCrawlerSquad(PrintWriter print_writer,int team_id,int which_
 							+ "Change_Fullframes$Top5_Buys$Change_In 1.500";	
 				}
 				break;
-			case "POPULATE-SQUAD":
+			case "POPULATE-ONLY_SQUAD":
 				previewCommand = previewCommand + "Change_Fullframes$Squad 1.500 Change_Fullframes$Squad$Change_Out 0.640 "
 						+ "Change_Fullframes$Squad$Change_In 1.500";
 				break;

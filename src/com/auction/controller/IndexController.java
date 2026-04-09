@@ -371,8 +371,11 @@ public class IndexController
 		switch (whatToProcess) {
 //		case "NAMESUPER_GRAPHICS-OPTIONS":
 //		    return (List<T>) session_nameSupers;
-		case "PLAYERPROFILE_GRAPHICS-OPTIONS": 
-		    return (List<T>) session_player;  
+		case "PLAYER_PROFILE_DOUBLE_GRAPHICS-OPTIONS":
+			return (List<T>) session_auction.getPlayers(); 
+		
+		case "PLAYERPROFILE_GRAPHICS-OPTIONS":   
+		    return (List<T>) session_player;   
 		case "SQUAD_GRAPHICS-OPTIONS": case "SINGLE_PURSE_GRAPHICS-OPTIONS": case "TOP-SOLD_TEAM_GRAPHICS-OPTIONS": case "TOP_FIVE_SOLD_TEAMS_GRAPHICS-OPTIONS":
 		case "RETAINPLAYER_GRAPHICS-OPTIONS":
 		case "SQUAD-ROLE-COUNT_GRAPHICS-OPTIONS": case "SQUAD20_GRAPHICS-OPTIONS": case "ONLY_SQUAD_GRAPHICS-OPTIONS": case "TOP_SOLD_TEAMS_GRAPHICS-OPTIONS": case "TOP_15_SOLD_TEAMS_GRAPHICS-OPTIONS":
