@@ -524,10 +524,19 @@ public class WPL extends Scene{
 							print_writer.println("-1 RENDERER*BACK_LAYER*STAGE*DIRECTOR*Change$PurseRemaining SHOW 0.0\0");
 							break;
 						case "PLAYERDOUBLEMAINPROFILE":
+							print_writer.println("-1 RENDERER*BACK_LAYER*TREE*$gfx_FullFrames$Main$Side1$ProfileDouble$BasePrice$Price_Data$Side1$Select_Value*FUNCTION*Omo*vis_con SET 0 \0");
+							print_writer.println("-1 RENDERER*BACK_LAYER*TREE*$gfx_FullFrames$Main$Side1$ProfileDouble$BasePrice$Price_Data$Side2$Select_Value*FUNCTION*Omo*vis_con SET 0 \0");
+						
 							print_writer.println("-1 RENDERER*BACK_LAYER*STAGE*DIRECTOR*anim_Fullframe$In_Out$Main$ProfileDouble SHOW 0.0 \0");
 							print_writer.println("-1 RENDERER*BACK_LAYER*STAGE*DIRECTOR*Change$ProfileDouble SHOW 0.0\0");
 							print_writer.println("-1 RENDERER*BACK_LAYER*STAGE*DIRECTOR*Change SHOW 0.0\0");
 							print_writer.println("-1 RENDERER*BACK_LAYER*STAGE*DIRECTOR*anim_Fullframe$Bid_Start_End$Side1  SHOW 0.0 \0");
+							
+							data.setBid_Start_or_not(false);
+				            data.setPlayer_sold_or_unsold(false);
+				            data.setData_on_screen(false);
+				            isProfileStatsOnScreen = false;
+							data.setBid_result("");
 							break;
 						}
 						which_graphics_onscreen = "BG";
@@ -613,6 +622,11 @@ public class WPL extends Scene{
 		print_writer.println("-1 RENDERER*BACK_LAYER*STAGE*DIRECTOR*Change SHOW 0.0 \0");
 		print_writer.println("-1 RENDERER*BACK_LAYER*STAGE*DIRECTOR*EndFlare SHOW 0.0 \0");
 		print_writer.println("-1 RENDERER*BACK_LAYER*STAGE*DIRECTOR*Audio SHOW 0.0 \0");
+		
+		print_writer.println("-1 RENDERER*BACK_LAYER*TREE*$gfx_FullFrames$Main$Side1$ProfileDouble$BasePrice$Price_Data$Side1$Select_Value"
+				+ "*FUNCTION*Omo*vis_con SET 0 \0");
+		print_writer.println("-1 RENDERER*BACK_LAYER*TREE*$gfx_FullFrames$Main$Side1$ProfileDouble$BasePrice$Price_Data$Side2$Select_Value"
+				+ "*FUNCTION*Omo*vis_con SET 0 \0");
 		
 	}
 	
@@ -841,6 +855,7 @@ public class WPL extends Scene{
 							if(data.getBid_result().equalsIgnoreCase(AuctionUtil.SOLD) || data.getBid_result().equalsIgnoreCase(AuctionUtil.RTM)) {
 								print_writer.println("-1 RENDERER*BACK_LAYER*STAGE*DIRECTOR*Change$AuctionStaus$Side1 START \0");
 							}else if(data.getBid_result().equalsIgnoreCase(AuctionUtil.UNSOLD)) {
+								print_writer.println("-1 RENDERER*BACK_LAYER*STAGE*DIRECTOR*anim_Fullframe$Bid_Start_End$Side1 START \0");
 								print_writer.println("-1 RENDERER*BACK_LAYER*STAGE*DIRECTOR*Change$AuctionStaus$Side1 START \0");
 							}
 						}
@@ -865,10 +880,12 @@ public class WPL extends Scene{
 		
 		if(is_this_updating == false) {
 			
-			print_writer.println("-1 RENDERER*BACK_LAYER*TREE*$gfx_FullFrames$Header$Side" + whichSide + "$Select_HeaderType*FUNCTION*Omo*vis_con SET 0\0");
+			print_writer.println("-1 RENDERER*BACK_LAYER*TREE*$gfx_FullFrames$Header$Side" + which_side + "$Select_HeaderType*FUNCTION*Omo*vis_con SET 0\0");
 			print_writer.println("-1 RENDERER*BACK_LAYER*TREE*$gfx_FullFrames$Main$Side" + which_side + "$Select_GraphicsType*FUNCTION*Omo*vis_con SET 2\0");
 			
-			print_writer.println("-1 RENDERER*BACK_LAYER*TREE*$gfx_FullFrames$Main$Side1$ProfileDouble$BasePrice$Price_Data$Side" + which_side + "$Select_Value"
+			print_writer.println("-1 RENDERER*BACK_LAYER*TREE*$gfx_FullFrames$Main$Side" + which_side + "$ProfileDouble$BasePrice$Price_Data$Side1$Select_Value"
+					+ "*FUNCTION*Omo*vis_con SET 0 \0");
+			print_writer.println("-1 RENDERER*BACK_LAYER*TREE*$gfx_FullFrames$Main$Side" + which_side + "$ProfileDouble$BasePrice$Price_Data$Side2$Select_Value"
 					+ "*FUNCTION*Omo*vis_con SET 0 \0");
 			
 			print_writer.println("-1 RENDERER*BACK_LAYER*TREE*$gfx_FullFrames$Main$Side" + which_side + "$ProfileDouble$ImageGrp$1$img_Player*TEXTURE*IMAGE SET " 
@@ -966,7 +983,7 @@ public class WPL extends Scene{
 		print_writer.println("-1 RENDERER*BACK_LAYER*TREE*$gfx_FullFrames$Main$Side" + which_side + "$Profile$Stats$3$Stats$txt_StatValue*GEOM*TEXT SET " + (Integer.valueOf(Statistics.getMatchLost() ) > 0 ? Statistics.getMatchLost(): "-") +"\0");
 		
 		print_writer.println("-1 RENDERER*BACK_LAYER*TREE*$gfx_FullFrames$Main$Side" + which_side + "$Profile$Stats$4$Stats$StatHead_Grp$txt_StatHead*GEOM*TEXT SET CONSECUTIVE WINS\0");
-		//print_writer.println("-1 RENDERER*BACK_LAYER*TREE*$gfx_FullFrames$Main$Side" + which_side + "$Profile$Stats$4$Stats$txt_StatValue*GEOM*TEXT SET " + (Integer.valueOf(Statistics.getConsecutiveVictories() ) > 0 ? Statistics.getConsecutiveVictories(): "-") +"\0");
+		print_writer.println("-1 RENDERER*BACK_LAYER*TREE*$gfx_FullFrames$Main$Side" + which_side + "$Profile$Stats$4$Stats$txt_StatValue*GEOM*TEXT SET " + (Integer.valueOf(Statistics.getConsecutiveVictories() ) > 0 ? Statistics.getConsecutiveVictories(): "-") +"\0");
 		
 		print_writer.println("-1 RENDERER*BACK_LAYER*TREE*$gfx_FullFrames$Main$Side" + which_side + "$Profile$Stats$5$Stats$StatHead_Grp$txt_StatHead*GEOM*TEXT SET EFFECTIVENESS\0");
 		print_writer.println("-1 RENDERER*BACK_LAYER*TREE*$gfx_FullFrames$Main$Side" + which_side + "$Profile$Stats$5$Stats$txt_StatValue*GEOM*TEXT SET " + (Statistics.getEffectiveness()  > 0 ? Statistics.getEffectiveness(): "-")  +"\0");

@@ -71,8 +71,11 @@ function processUserSelectionData(whatToProcess,dataToProcess){
 			break;	
 		case 'b':
 			processAuctionProcedures('BASE_LOAD');
-			break;	
-		case 'F1':
+			break;
+		case '1':
+			processAuctionProcedures('ANIMATE-IN-CURR_BID');
+			break;
+		case 'F10':
 			$("#captions_div").hide();
 			$("#cancel_match_setup_btn").hide();
 			$("#expiry_message").hide();
@@ -80,10 +83,31 @@ function processUserSelectionData(whatToProcess,dataToProcess){
 			which_GFX = "";
 			processAuctionProcedures('PLAYERPROFILE_GRAPHICS-OPTIONS');
 			break;
+		case 'F1':
+			$("#captions_div").hide();
+			$("#cancel_match_setup_btn").hide();
+			$("#expiry_message").hide();
+			stopTeamRotation();
+			which_GFX = "";
+			processAuctionProcedures('PLAYER_PROFILE_DOUBLE_GRAPHICS-OPTIONS');
+			break;
 		case 'F4':
 			stopTeamRotation();
 			which_GFX = "";
 			processAuctionProcedures('POPULATE-FF_IDENT');
+			break;
+		case 'F2':
+			stopTeamRotation();
+			which_GFX = "";
+			processAuctionProcedures('POPULATE-REMAINING_PURSE_ALL');
+			break;
+		case 'F3':
+			$("#captions_div").hide();
+			$("#cancel_match_setup_btn").hide();
+			$("#expiry_message").hide();
+			stopTeamRotation();
+			which_GFX = "";
+			processAuctionProcedures('ONLY_SQUAD_GRAPHICS-OPTIONS');
 			break;
 		}
 		break;
@@ -1063,8 +1087,13 @@ function processAuctionProcedures(whatToProcess)
 				}		
 				break;
 			case 'POPULATE-FF-PLAYERPROFILE_DOUBLE':	
-			if(confirm('Animate In?') == true){
-					processAuctionProcedures('ANIMATE-IN-PLAYERDOUBLEMAINPROFILE');	
+				if(confirm('Animate In?') == true) {
+					$('#select_graphic_options_div').empty();
+					document.getElementById('select_graphic_options_div').style.display = 'none';
+					$("#captions_div").show();
+					$("#cancel_match_setup_btn").show();
+					$("#expiry_message").show();
+					processAuctionProcedures('ANIMATE-IN-PLAYERDOUBLEMAINPROFILE');
 				}		
 				break;
 			case 'POPULATE-FF-PLAYERPROFILE_CHNAGE_ON':
@@ -1256,14 +1285,18 @@ function addItemsToList(whatToProcess, dataToProcess)
 
 		$('#selectPlayerName').empty();
 		
-		session_auction.players.forEach(function(plyr,index,arr1){
-			$('#selectPlayerName').append(
-					$(document.createElement('option')).prop({
-					value: plyr.playersId,
-					text: plyr.playerNumber + ' - ' + plyr.full_name + ' - ' + plyr.category
-				}))
-		});
+		let players = session_auction.players;
+
+		// 🔥 Get latest selected player (from logger)
+		let latestPlayer = players[players.length - 1];
 		
+		// ✅ Add latest player FIRST
+		$('#selectPlayerName').append(
+		    $(document.createElement('option')).prop({
+		        value: latestPlayer.playersId,
+		        text: latestPlayer.playerNumber + ' - ' + latestPlayer.full_name + ' - ' + latestPlayer.category
+		    })
+		);
 		
 		/*dataToProcess.forEach(function(plyr,index,arr1){
 			if(plyr.playerId != session_auction.players[session_auction.players.length - 1].playerId){
@@ -1707,21 +1740,44 @@ function addItemsToList(whatToProcess, dataToProcess)
 						break;
 				}
 				break;
-			case 'PLAYERPROFILE_DOUBLE-OPTIONS':
-				switch ($('#selected_broadcaster').val().toUpperCase()) {
-					case 'HANDBALL': case 'ISPL': case 'UTT': case 'PSL': case 'WPL':
-						select = document.createElement('select');
-						select.id = 'selectPlayerName';
-						select.name = select.playersId;
-						
-						select.setAttribute('onchange',"processUserSelection(this)");
-						row.insertCell(cellCount).appendChild(select);
-						//document.getElementById('extra_log_event_row_1').insertCell(0).appendChild(header_text).appendChild(select);	
-						$(select).select2();
-						cellCount = cellCount + 1;
-						
-						
-						
+				case 'PLAYERPROFILE_DOUBLE-OPTIONS':
+    switch ($('#selected_broadcaster').val().toUpperCase()) {
+        case 'HANDBALL': 
+        case 'ISPL': 
+        case 'UTT': 
+        case 'PSL': 
+        case 'WPL':
+
+            let select = document.createElement('select');
+            select.id = 'selectPlayerName';
+            select.name = select.playersId;
+
+            select.setAttribute('onchange', "processUserSelection(this)");
+            row.insertCell(cellCount).appendChild(select);
+
+            // Initialize Select2
+            $(select).select2();
+
+            // 🔥 Keep only selected option
+            $(select).on('change', function () {
+                let selectedValue = $(this).val();
+
+                if (selectedValue) {
+                    let selectedOption = $(this).find('option[value="' + selectedValue + '"]').clone();
+
+                    // Remove all options
+                    $(this).empty();
+
+                    // Add only selected option back
+                    $(this).append(selectedOption);
+
+                    // Set value again
+                    $(this).val(selectedValue).trigger('change.select2');
+                }
+            });
+
+            cellCount = cellCount + 1;
+           					 
 						switch ($('#selected_broadcaster').val().toUpperCase()) {
 							case 'HANDBALL': case 'ISPL': case 'UTT':  
 							select = document.createElement('select');

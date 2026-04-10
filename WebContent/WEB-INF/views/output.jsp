@@ -116,36 +116,36 @@
 			    <label class="col-sm-4 col-form-label text-left">Broadcaster: ${session_selected_broadcaster} </label>
 			    
 			    <div class="left">
-			  	<button style="background-color:#f44336;color:#FEFEFE;" class="btn btn-sm" type="button"
+			  	<!--  <button style="background-color:#f44336;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="animateout_graphic_btn" id="animateout_graphic_btn" onclick="processUserSelection(this)"> AnimateOut </button>
 			  	<button style="background-color:#f44336;color:#FEFEFE;" class="btn btn-sm" type="button"
-			  		name="clearall_graphic_btn" id="clearall_graphic_btn" onclick="processUserSelection(this)"> Clear All (Space)</button>
+			  		name="clearall_graphic_btn" id="clearall_graphic_btn" onclick="processUserSelection(this)"> Clear All (Space)</button> -->
 			  	</div>
 			    <label class="col-sm-4 col-form-label text-left"> </label>
 				<div class="left">
-			    <button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+			   <!-- <button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="playerprofile_graphic_btn" id="playerprofile_graphic_btn" onclick="processUserSelection(this)"> PlayerProfile </button>
 			  		
-			  	<!-- <button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+			  	 <button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="playerprofile_change_on_graphic_btn" id="playerprofile_change_on_graphic_btn" onclick="processUserSelection(this)"> PlayerProfile Change ON </button>
-			  	 -->
+			  	 
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-			  		name="Ident_graphic_btn" id="Ident_graphic_btn" onclick="processUserSelection(this)"> Ident </button>
+			  		name="Ident_graphic_btn" id="Ident_graphic_btn" onclick="processUserSelection(this)"> Ident </button> 
 			  		
 			  		
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="remaining_purse_graphic_btn" id="remaining_purse_graphic_btn" onclick="processUserSelection(this)"> Remaining Purse  </button>	
 			  		
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-			  		name="Only_squad_graphic_btn" id="Only_squad_graphic_btn" onclick="processUserSelection(this)"> Squad</button>
+			  		name="Only_squad_graphic_btn" id="Only_squad_graphic_btn" onclick="processUserSelection(this)"> Squad</button>-->
 			  		
-			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+			  	<!--<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="playerprofiledouble_graphic_btn" id="playerprofiledouble_graphic_btn" onclick="processUserSelection(this)"> PlayerProfile Double</button>
 			  		
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="currrentbid_graphic_btn" id="currrentbid_graphic_btn" onclick="processUserSelection(this)"> Current Bid </button>
 			  		
-			  	  <!--  <button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+			  	    <button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="playerprofilesingle_graphic_btn" id="playerprofilesingle_graphic_btn" onclick="processUserSelection(this)"> PlayerProfile Single</button> -->
 			  		
 			  		 
@@ -250,6 +250,26 @@
 			  	</div>			  	
 			  </div>
 	       </div>
+	        <div class="mt-4">
+    			<h5>Graphics Status</h5>
+    			<table class="table table-bordered table-striped">
+			   	<thead class="table-dark">
+			        <tr>
+			            <th>Caption</th>
+			            <th>Working</th>
+			            <th>Animate Out</th>
+			        </tr>
+			    </thead>
+			    <tbody id="graphics_table_body">
+			        <tr><td>F1</td><td>PLAYER DOUBLE PROFILE</td><td>-</td></tr>
+			        <tr><td>F2</td><td>PURSE REMAINING</td><td>-</td></tr>
+			        <tr><td>F3</td><td>SQUAD</td><td>-</td></tr>
+			         <tr><td>F4</td><td>MATCH IDENT</td><td>-</td></tr>
+			        <tr><td>F10</td><td>PLAYER PROFILE</td><td>-</td></tr>
+			        <tr><td>1</td><td>CURRENT BID</td><td>-</td></tr>
+			    </tbody>
+			</table>
+			</div>
 	    </div>
        </div>
     </div>
