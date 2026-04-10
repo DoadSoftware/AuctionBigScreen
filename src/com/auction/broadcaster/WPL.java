@@ -966,7 +966,7 @@ public class WPL extends Scene{
 		print_writer.println("-1 RENDERER*BACK_LAYER*TREE*$gfx_FullFrames$Main$Side" + which_side + "$Profile$Stats$3$Stats$txt_StatValue*GEOM*TEXT SET " + (Integer.valueOf(Statistics.getMatchLost() ) > 0 ? Statistics.getMatchLost(): "-") +"\0");
 		
 		print_writer.println("-1 RENDERER*BACK_LAYER*TREE*$gfx_FullFrames$Main$Side" + which_side + "$Profile$Stats$4$Stats$StatHead_Grp$txt_StatHead*GEOM*TEXT SET CONSECUTIVE WINS\0");
-		print_writer.println("-1 RENDERER*BACK_LAYER*TREE*$gfx_FullFrames$Main$Side" + which_side + "$Profile$Stats$4$Stats$txt_StatValue*GEOM*TEXT SET " + (Integer.valueOf(Statistics.getConsecutiveVictories() ) > 0 ? Statistics.getConsecutiveVictories(): "-") +"\0");
+		//print_writer.println("-1 RENDERER*BACK_LAYER*TREE*$gfx_FullFrames$Main$Side" + which_side + "$Profile$Stats$4$Stats$txt_StatValue*GEOM*TEXT SET " + (Integer.valueOf(Statistics.getConsecutiveVictories() ) > 0 ? Statistics.getConsecutiveVictories(): "-") +"\0");
 		
 		print_writer.println("-1 RENDERER*BACK_LAYER*TREE*$gfx_FullFrames$Main$Side" + which_side + "$Profile$Stats$5$Stats$StatHead_Grp$txt_StatHead*GEOM*TEXT SET EFFECTIVENESS\0");
 		print_writer.println("-1 RENDERER*BACK_LAYER*TREE*$gfx_FullFrames$Main$Side" + which_side + "$Profile$Stats$5$Stats$txt_StatValue*GEOM*TEXT SET " + (Statistics.getEffectiveness()  > 0 ? Statistics.getEffectiveness(): "-")  +"\0");
@@ -1287,46 +1287,29 @@ public class WPL extends Scene{
 			}
 		}else {
 			
-			switch (which_graphics_onscreen.toUpperCase()) {
-			case "FF_FIVE_TOP_BUYS_AUCTION": case "SQUAD": case "POPULATE-FF_FIVE_TOP_BUY_TEAM":case "FF_RTM_AND_PURSE_REMAINING":
+			switch (whatToProcess.toUpperCase()) {
+			case "POPULATE-FF_IDENT":
+				previewCommand = "anim_Fullframe$In_Out$Main$BS_Logo$In 0.0 Change 2.400 Change$MatchId 2.400 Change$MatchId$Change_In 2.400 Change$MatchId$Change_In$In 2.400";
+				break;
+			case "POPULATE-REMAINING_PURSE_ALL":
+				previewCommand = "anim_Fullframe$In_Out$Main$BS_Logo$In 0.0 Change 2.400 Change$Header 2.160 Change$Header$Change_In 2.160 Change$PurseRemaining 2.200 Change$PurseRemaining$Change_In 2.200 Change$PurseRemaining$Change_In$In 2.200";
+				break;
+			case "POPULATE-FF-PLAYERPROFILE":
+				previewCommand = "anim_Fullframe$In_Out$Main$BS_Logo$In 0.0 Change 2.400 Change$Header 0.0 Change$Profile 2.280 Change$Profile$Change_In 2.280 Change$Profile$Change_In$In 2.280";
+				break;
 				
-				previewCommand = "Change_Fullframes 1.700 Change_Fullframes$Header 1.000 ";
-				
-				switch (which_graphics_onscreen.toUpperCase()) {
-				case "FF_FIVE_TOP_BUYS_AUCTION": case "FF_FIVE_TOP_BUY_TEAM":
-					previewCommand = "Change_Fullframes$Top5_Buys 1.500 Change_Fullframes$Top5_Buys$Change_Out 0.600 Change_Fullframes$Top5_Buys$Change_In 1.500 ";
-					break;
-				case "SQUAD":
-					previewCommand = "Change_Fullframes$Squad 1.500 Change_Fullframes$Squad$Change_Out 0.640 Change_Fullframes$Squad$Change_In 1.500 ";
-					break;
-				case "FF_RTM_AND_PURSE_REMAINING":
-					previewCommand = "Change_Fullframes$Team_Details 1.700 Change_Fullframes$Team_Details$Change_Out 0.720 Change_Fullframes$Team_Details$Change_In 1.700 ";
-					break;
-				}
-				
+			case "POPULATE-ONLY_SQUAD":
+				previewCommand = "anim_Fullframe$In_Out$Main$BS_Logo$In 0.0 Change 2.400 Change$Header 0.0 Change$Squad 1.960 Change$Squad$Change_In 1.960 Change$Squad$Change_In$In 1.960";
+				break;
+			case "POPULATE-FF-PLAYERPROFILE_DOUBLE":
+				previewCommand = "anim_Fullframe$In_Out$Main$BS_Logo$In 0.0 Change 2.400 Change$Header 0.0 Change$ProfileDouble 2.060 Change$ProfileDouble$Change_In 2.060 Change$ProfileDouble$Change_In$In 2.060";
 				break;
 			}
 			
 			System.out.println(whatToProcess + " - " + which_graphics_onscreen);
 			
-			switch (whatToProcess.toUpperCase()) {
-			case "POPULATE-FF_FIVE_TOP_BUYS_AUCTION": case "POPULATE-FF_FIVE_TOP_BUY_TEAM":
-				if(!which_graphics_onscreen.equalsIgnoreCase("FF_FIVE_TOP_BUYS_AUCTION") && !which_graphics_onscreen.equalsIgnoreCase("FF_FIVE_TOP_BUY_TEAM")) {
-					previewCommand = previewCommand + "Change_Fullframes$Top5_Buys 1.500 Change_Fullframes$Top5_Buys$Change_Out 0.600 "
-							+ "Change_Fullframes$Top5_Buys$Change_In 1.500";	
-				}
-				break;
-			case "POPULATE-ONLY_SQUAD":
-				previewCommand = previewCommand + "Change_Fullframes$Squad 1.500 Change_Fullframes$Squad$Change_Out 0.640 "
-						+ "Change_Fullframes$Squad$Change_In 1.500";
-				break;
-			case"POPULATE-FF_RTM_AND_PURSE_REMAINING":
-				previewCommand = previewCommand + "Change_Fullframes$Team_Details 1.500 Change_Fullframes$Team_Details$Change_Out 0.600 "
-						+ "Change_Fullframes$Team_Details$Change_In 1.500";
-				break;
-			}
 		}
-		print_writer.println("-1 RENDERER PREVIEW SCENE*/Default/gfx_Fullframes " + "C:/Temp/Preview.png " + previewCommand + "\0");
+		print_writer.println("-1 RENDERER PREVIEW SCENE*/Default/FullFrames " + "C:/Temp/Preview.tga " + previewCommand + "\0");
 	}
 	public void processPreviewLowerThirds(PrintWriter print_writer, String whatToProcess, int whichSide) {
 		String previewCommand = "";
